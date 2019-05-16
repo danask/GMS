@@ -1,4 +1,4 @@
-# GMS Project
+# Gardening Management System (GMS)
 ### Raspberry PIE
 collects data source from sensors
 ### GMS Web Server 
