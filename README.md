@@ -3,5 +3,5 @@
 collects data source from sensors
 ### GMS Web Server 
 SaaS based web server for customers
-### Recommdendation 
+### Recommdendation module
 analyzes the data sources
