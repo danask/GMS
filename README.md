@@ -1,4 +1,7 @@
-# GMS
-## Raspberry PIE: collect data source from sensors
-## GMS Web Server: SaaS based web server for customers
-## Recommdendation: analyze the data
+# GMS Project
+### Raspberry PIE
+collect data source from sensors
+### GMS Web Server 
+SaaS based web server for customers
+### Recommdendation 
+analyze the data
