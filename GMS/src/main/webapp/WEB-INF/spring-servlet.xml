@@ -1,0 +1,95 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:batch="http://www.springframework.org/schema/batch"
+    xmlns:p="http://www.springframework.org/schema/p"
+      
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+       http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- Specifying base package of the Components like Controller, Service, 
+		DAO -->
+	<context:component-scan base-package="com.gms" />
+
+	<!-- Getting Database properties -->
+	<context:property-placeholder location="classpath:application.properties" />
+
+	<mvc:annotation-driven />
+
+	<!-- Specifying the Resource location to load JS, CSS, Images etc -->
+	<mvc:resources mapping="/resources/**" location="/WEB-INF/resources/" />
+
+	<!-- View Resolver -->
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/views/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+
+	<!-- DataSource -->
+	<bean class="org.springframework.jdbc.datasource.DriverManagerDataSource"
+		id="dataSource">
+		<property name="driverClassName" value="${database.driver}"></property>
+		<property name="url" value="${database.url}"></property>
+		<property name="username" value="${database.user}"></property>
+		<property name="password" value="${database.password}"></property>
+	</bean>
+
+	<!-- Hibernate SessionFactory -->
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">${hibernate.dialect}</prop>
+				<prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop>
+				<prop key="hibernate.format_sql">${hibernate.format_sql}</prop>
+				<prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
+			</props>
+		</property>
+		<property name="packagesToScan" value="com.gms.model"></property>
+	</bean>
+
+	<!-- Transaction -->
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<tx:annotation-driven transaction-manager="transactionManager" />
+	
+	<!-- Quartz -->
+	 <bean id="sensorTask" class="com.gms.model.SensorTask"/>
+ 
+    <bean name="schedulerJob" class="org.springframework.scheduling.quartz.JobDetailFactoryBean"
+          p:jobClass="com.gms.model.SchedulerTask"
+          p:durability="true">
+        <property name="jobDataAsMap">
+            <map>
+                <entry key="sensorTask" value-ref="sensorTask"/>
+            </map>
+        </property>
+    </bean>
+ 
+  <!--<bean id="simpleTrigger"-->
+          <!--class="org.springframework.scheduling.quartz.SimpleTriggerFactoryBean"-->
+            <!--p:jobDetail-ref="dummyJob"-->
+            <!--p:repeatInterval="3000"-->
+            <!--p:startDelay="1000"/>-->
+             
+    <bean id="cronTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean"
+          p:jobDetail-ref="schedulerJob"
+          p:startDelay="3600000"
+          p:cronExpression="0/59 * * * * ?"/>
+ 
+    <bean id="schedulerFactoryBean" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="triggers">
+            <list>
+                <ref bean="cronTrigger"/>
+            </list>
+        </property>
+    </bean>
+	
+</beans>
