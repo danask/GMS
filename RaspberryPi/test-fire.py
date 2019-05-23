@@ -21,7 +21,6 @@ GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(20, GPIO.IN)
 
-#GPIO.cleanup()
         
 
 
@@ -64,30 +63,34 @@ class TEST():
         instance = dht11.DHT11(pin=21)
         pir = MotionSensor(20)        
         camera = PiCamera()
-            
+        i = 0  
+        
         while True:
+        
+            # DHT11 sensor
             result = instance.read()
+        
             if result.is_valid():
                 print("Last valid input: " + str(datetime.datetime.now()))
                 print("Temperature: %d C" % result.temperature)
                 print("Humidity: %d %%" % result.humidity)
                 
+                # Firebase database
                 self.msg.set(str(datetime.datetime.now()))
                 self.temp.set(result.temperature)
                 self.humid.set(result.humidity)
         
-            #if GPIO.input(20):
-            #    print("Motion detected...")
-
+        
+            # PIR sensor
             state = GPIO.input(20)
-            
             
             if state==0:
                 print "nothing..."
                 time.sleep(0.1)
             elif state==1:
+                i++
                 print "something here..."
-                camera.capture('/home/pi/python-fire/Pics/imagetest.jpg')
+                camera.capture('/home/pi/python-fire/Pics/image%d.jpg' % i)
 
             #pir.wait_for_motion
             #print("Alert")
@@ -102,15 +105,16 @@ class TEST():
                     
             time.sleep(1)
         
-        print('GET Okay!!')
-        
+        print('SET Okay!!')
+        GPIO.cleanup()
+
     def setDhtDB(self):
         self.msg.set('testsend')
         print(self.msg.get())            
         
         
         
-# Start
+# Start class
 test = TEST()
 
 #msg = Thread(target= test.setDhtDB)
