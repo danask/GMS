@@ -1,14 +1,21 @@
 # Gardening Management System (GMS)
-### Raspberry PI
+### 1. Raspberry PI to collect the data
 collects data source from sensors
 - DHT
 - PIR
 - Camera
-### Firebase
+### 2. Firebase Database and Storage for storing the data
 NoSQL database and file storage in the cloud
-### GMS Web Server 
-SaaS-based web application server for customers
-- User
-- Administrator
+### 3. GMS Web Server for managing the whole system
+	Features
+	- Login/out
+	- Dashboard
+	- History: current info, monitor images, alert, recommendation action
+	- User Management
+	- Settings
+
+	SaaS-based web application server for customers
+	- User
+	- Administrator
 ### Recommdendation module
 analyzes the data sources
