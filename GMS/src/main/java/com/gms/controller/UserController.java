@@ -9,16 +9,19 @@ import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.gms.model.*;
 import com.gms.service.*;
 
-@Controller
+@RestController
+@RequestMapping(value = "/User")
 @SessionAttributes("User")
 public class UserController {
 
@@ -31,9 +34,15 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
+	@RequestMapping(value = "/userAll", method = RequestMethod.GET)
+	public List<User> userAll() throws IOException 
+	{
+		List<User> listUser = userService.getAllUsers();
 
+		return listUser;
+	}
 	
-	@RequestMapping(value = "/listUser")
+	@RequestMapping(value = "/listUser", method = RequestMethod.GET)
 	public ModelAndView listUser(ModelAndView model, @ModelAttribute("User") User userSession) throws IOException 
 	{
 		List<User> listUser = userService.getAllUsers();
@@ -42,7 +51,6 @@ public class UserController {
 	
 		return mv;
 	}
-
 
 		
 	@RequestMapping(value = "/addUser", method = RequestMethod.GET)
@@ -56,6 +64,31 @@ public class UserController {
 		return mv;
 	}
 
+	
+	@RequestMapping(value = "/saveUserApi", method = RequestMethod.POST)
+	public ModelAndView saveUser(@RequestBody User user
+								) 
+	{
+		user.setRole("Guest");  // default
+		 
+		if(user.getId()==0)
+		{
+//			User userTemp = new User(name, email, password, phone, role);
+			userService.addUser(user);
+			System.out.println("----------------new user----------------");
+			return new ModelAndView("result");
+		}
+		else 
+		{ 
+//			User user = new User(Integer.parseInt(id), name, email, password, phone, role);
+			userService.updateUser(user);  
+//			return new ModelAndView("redirect:/listUser");
+			System.out.println("----------------old user----------------");
+			return new ModelAndView("result");
+		}
+	}
+	
+	
 	@RequestMapping(value = "/saveUser", method = RequestMethod.POST)
 	public ModelAndView saveUser(@RequestParam("id")String id,
 								@RequestParam("email")String email,
