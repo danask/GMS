@@ -7,14 +7,14 @@ collects data source from sensors
 ### 2. Firebase Database and Storage for storing the data
 NoSQL database and file storage in the cloud
 ### 3. GMS Web Server for managing the whole system
-Features
+	* Features
 	- Login/out
 	- Dashboard
 	- History: current info, monitor images, alert, recommendation action
 	- User Management
 	- Settings
 
-SaaS-based web application server for customers
+	* SaaS-based web application server for customers
 	- User
 	- Administrator
 ### 4. Recommdendation module
