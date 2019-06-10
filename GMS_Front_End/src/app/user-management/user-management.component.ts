@@ -10,30 +10,22 @@ import {ApiService} from '../shared/api.service';
 })
 export class UserManagementComponent implements OnInit {
 
-  // init User
-  userModel: User = {
-    name: '',
-    email: '',
-    password: '',
-    phone: '',
-    role: ''
-  };
+  users: User[] = [];
 
-  // constructor(private  http: HttpClient) { }
   constructor(private  apiService: ApiService) { }
 
   ngOnInit() {
+    this.getUserAll();
   }
 
-  addUser(): void {
-    // const url = 'http://localhost:8080/GMS/User/saveUser';
-    // this.http.post(url, this.model).subscribe(
-    this.apiService.setUser(this.userModel).subscribe(
+  public getUserAll() {
+
+    this.apiService.getUserAll().subscribe(
       res => {
-        location.reload();
+        this.users = res;
       },
       err => {
-        alert('Error in AddUser');
+        //alert('Error!!!');
       }
     );
   }

@@ -1,3 +1,29 @@
-<p>
-  dashboard works!
-</p>
+  <br/>
+  <div id="list">
+    <div class="containter">
+
+      <h3 id="form_header" align="center">Current Status</h3>
+      <div>&nbsp;</div>
+        <table class="table table-striped">
+
+          <!-- <th>ID</th> -->
+          <th>Number</th>
+          <th>Temperature</th>
+          <th>Humidity</th>
+          <th>Timestamp</th>
+<!--          <th></th>-->
+
+            <tr *ngFor="let sensor of sensors">
+              <td>{{sensor.id}}</td>
+              <td>{{sensor.sensorTemp}} &#8451; </td>
+              <td>{{sensor.sensorHumid}} %</td>
+              <td></td>
+<!--              <td><a href="editUser?id=${user.id}">Edit</a>&nbsp;&nbsp;-->
+<!--                <a href="deleteUser?id=${user.id}">Delete</a></td>-->
+            </tr>
+
+        </table>
+
+    </div>
+  </div>
+

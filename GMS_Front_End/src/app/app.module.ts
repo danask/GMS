@@ -10,6 +10,7 @@ import { Router, RouterModule, Routes} from '@angular/router';
 import {FormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import { UserManagementComponent } from './user-management/user-management.component';
+import { UserRegistrationComponent } from './user-registration/user-registration.component';
 
 const appRoutes: Routes = [
   {
@@ -21,10 +22,14 @@ const appRoutes: Routes = [
     component: UserManagementComponent
   },
   {
+    path: 'userRegistration',
+    component: UserRegistrationComponent
+  },
+  {
     path: 'logout',
     component: LogoutComponent
   },
-  // default
+  // default active menu
   {
     path: '',
     component: DashboardComponent,
@@ -44,7 +49,8 @@ const appRoutes: Routes = [
     LogoutComponent,
     DashboardComponent,
     NotFoundComponent,
-    UserManagementComponent
+    UserManagementComponent,
+    UserRegistrationComponent
   ],
   imports: [
     BrowserModule,

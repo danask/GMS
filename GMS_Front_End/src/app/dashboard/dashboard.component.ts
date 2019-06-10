@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {User} from './model/user';
 import {ApiService} from '../shared/api.service';
+import {Sensor} from './model/sensor';
 
 @Component({
   selector: 'app-dashboard',
@@ -10,22 +11,22 @@ import {ApiService} from '../shared/api.service';
 })
 export class DashboardComponent implements OnInit {
 
-  users: User[] = [];
+  sensors: Sensor[] = [];
 
   constructor(private  apiService: ApiService) { }
 
   ngOnInit() {
-    this.getUserAll();
+    this.getSensorAll();
   }
 
-  public getUserAll() {
+  public getSensorAll() {
 
-    this.apiService.getUserAll().subscribe(
+    this.apiService.getSensorAll().subscribe(
       res => {
-        this.users = res;
+        this.sensors = res;
       },
       err => {
-        alert('Error!!!');
+        //alert('Error!!!');
       }
     );
   }

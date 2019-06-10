@@ -1,103 +1,41 @@
 
-<div class="container">
-  <div class="row">
-    <div class="offset-3"></div>
-    <div class="col-md-6">
-      <form name="form" #f="ngForm"
-            (ngSubmit)="f.form.valid && addUser()" novalidate class="feedback-form">
-        <!-- Name -->
-        <div class="form-group">
-          <label for="name">First Name</label>
-          <input type="text"
-                 id="name"
-                 class="form-control"
-                 name="name"
-                 [(ngModel)]="userModel.name"
-                 placeholder="Your name"/>
-          <!--                 [(ngModel)]="model.name"-->
-          <!--                 #name="ngModel"-->
-          <!--                 [ngClass]="{ 'is-invalid': f.submitted && name.invalid }"-->
-          <!--                 required/>-->
-          <!-- input validation group -->
-          <!--          <div *ngIf="f.submitted && name.invalid" class="invalid-input">-->
-          <!-- individual validation errors -->
-          <!--            <div *ngIf="name.errors?.required">Field is required</div>-->
-          <!--          </div>-->
-        </div>
-        <!-- Email -->
-        <div class="form-group">
-          <label for="email">Email</label>
-          <input type="text"
-                 id="email"
-                 class="form-control"
-                 name="email"
-                 [(ngModel)]="userModel.email"
-                 placeholder="Your email">
-          <!--                 [(ngModel)]="model.email"-->
-          <!--                 #email="ngModel"-->
-          <!--                 [ngClass]="{ 'is-invalid': f.submitted && email.invalid }"-->
-          <!--                 required email/>-->
-          <!-- input validation group -->
-          <!--          <div *ngIf="f.submitted && email.invalid" class="invalid-input">-->
-          <!--            &lt;!&ndash; individual validation errors &ndash;&gt;-->
-          <!--            <div *ngIf="email.errors?.required">Field is required</div>-->
-          <!--            <div *ngIf="email.errors?.email">Field is not a valid email</div>-->
-          <!--          </div>-->
-        </div>
-        <div class="form-group">
-          <label for="password">Password</label>
-          <input type="password"
-                 id="password"
-                 class="form-control"
-                 name="password"
-                 [(ngModel)]="userModel.password"
-                 placeholder="Your password">
-        </div>
-        <div class="form-group">
-          <label for="phone">Phone</label>
-          <input type="text"
-                 id="phone"
-                 class="form-control"
-                 name="phone"
-                 [(ngModel)]="userModel.phone"
-                 placeholder="Your phone">
-        </div>
-        <div class="form-group">
-          <label for="role">Role</label>
-          <input type="text"
-                 id="role"
-                 class="form-control"
-                 name="role"
-                 [(ngModel)]="userModel.role"
-                 placeholder="Your role">
-        </div>
-<!--        <div class="form-group">-->
-<!--          <label for="id">Id</label>-->
-<!--          <input type="text"-->
-<!--                 id="id"-->
-<!--                 class="form-control"-->
-<!--                 name="id"-->
-<!--                 placeholder="Your id">-->
-<!--        </div>-->
+<!--<div>-->
+<!--  <h5>User List</h5>-->
+<!--  <ul class="users">-->
+<!--    <li *ngFor="let user of users" class="list-group-item list-group-item-action">-->
+<!--      <span class="fa fa-user">  {{user.name}}</span> {{user.email}}-->
+<!--    </li>-->
+<!--  </ul>-->
+<!--</div>-->
 
-        <!-- Feedback -->
-<!--        <div class="form-group">-->
-<!--          <label for="feedback">Feedback</label>-->
-<!--          <textarea-->
-<!--            id="feedback"-->
-<!--            class="form-control"-->
-<!--            name="feedback"-->
-<!--            placeholder="Your feedback"-->
-<!--            rows="10">-->
-<!--			    </textarea>-->
-<!--        </div>-->
+<br/>
+<div id="list">
+  <div class="containter">
 
-        <button type="submit" class="btn btn-info pull-right">
-          <i class="fa fa-envelope-o"></i>
-          <span> Add User</span>
-        </button>
-      </form>
-    </div>
-    <div class="offset-3"></div>
+    <h3 id="form_header" align="center">User List</h3>
+    <div>&nbsp;</div>
+    <table class="table table-striped">
+
+      <!-- <th>ID</th> -->
+      <th>Id</th>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Phone</th>
+      <th>Role</th>
+      <th></th>
+
+      <tr *ngFor="let user of users">
+        <td>{{user.id}}</td>
+        <td>{{user.name}} </td>
+        <td>{{user.email}} </td>
+        <td>{{user.phone}} </td>
+        <td>{{user.role}} </td>
+        <td><a href="editUser?id=${user.id}">Edit</a>&nbsp;&nbsp;
+          <a href="deleteUser?id=${user.id}">Delete</a></td>
+      </tr>
+
+    </table>
+
   </div>
 </div>
+

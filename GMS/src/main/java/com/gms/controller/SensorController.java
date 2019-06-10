@@ -1,6 +1,7 @@
 package com.gms.controller;
 
 import java.io.IOException;
+
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -8,18 +9,20 @@ import javax.servlet.http.HttpServletRequest;
 import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.gms.model.*;
-import com.gms.model.Sensor;
 import com.gms.service.*;
 
-@Controller
+@RestController
+@RequestMapping("/Sensor")
 @SessionAttributes("User")
 public class SensorController {
 
@@ -56,6 +59,15 @@ public class SensorController {
 		
 		return model;
 	}	
+	
+	@CrossOrigin
+	@RequestMapping(value = "/sensorAll", method = RequestMethod.GET)
+	public List<Sensor> sensorAll() throws IOException  
+	{
+		List<Sensor> listSensor = sensorService.getAllSensors();
+		
+		return listSensor;
+	}
 	
 	@RequestMapping(value = "/listSensor")
 	public ModelAndView listSensor(ModelAndView model, @ModelAttribute("User") User userSession) throws IOException 
