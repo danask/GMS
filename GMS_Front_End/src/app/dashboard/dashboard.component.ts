@@ -13,8 +13,8 @@ import {Weather} from './model/weather';
 })
 export class DashboardComponent implements OnInit {
 
-  sensors: Sensor[] = [];
-  motionSensors: MotionSensor[] = [];
+  sensor: Sensor;
+  motionSensor: MotionSensor;
 
   //weatherInfoEntity: Weather;
   weather = '';
@@ -29,15 +29,15 @@ export class DashboardComponent implements OnInit {
   constructor(private  apiService: ApiService) { }
 
   ngOnInit() {
-    this.getSensorAll();
-    this.getMotionSensorAll();
+    this.getLastSensor();
+    this.getLastMotionSensor();
   }
 
-  public getSensorAll() {
+  public getLastSensor() {
 
-    this.apiService.getSensorAll().subscribe(
+    this.apiService.getLastSensor().subscribe(
       res => {
-        this.sensors = res;
+        this.sensor = res;
       },
       err => {
         // alert('Error!!!');
@@ -45,11 +45,11 @@ export class DashboardComponent implements OnInit {
     );
   }
 
-  public getMotionSensorAll() {
+  public getLastMotionSensor() {
 
-    this.apiService.getMotionSensorAll().subscribe(
+    this.apiService.getLastMotionSensor().subscribe(
       res => {
-        this.motionSensors = res;
+        this.motionSensor = res;
       },
       err => {
         // alert('Error!!!');
@@ -65,10 +65,10 @@ export class DashboardComponent implements OnInit {
         const weatherInfo = res;
 
         if (weatherInfo != null) {
-          console.log(res);
-          console.log(weatherInfo.main.temp);
-          console.log(weatherInfo.main.humidity);
-          console.log(res.weather[0].main);
+          // console.log(res);
+          // console.log(weatherInfo.main.temp);
+          // console.log(weatherInfo.main.humidity);
+          // console.log(res.weather[0].main);
 
           this.weather = res.weather[0].main;
           this.humidity = weatherInfo.main.humidity;

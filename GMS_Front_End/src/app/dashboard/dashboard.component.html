@@ -1,18 +1,17 @@
-  <br/>
+
   <div id="list">
-    <div class="containter">
+    <h3 id="form_header" align="center">Dashboard</h3>
+    <div class="containter offset-1">
 
-      <h3 id="form_header" align="center">Dashboard</h3>
-
-      <h5>Weather Info</h5>
+      <h5>Weather Information</h5>
       <div>
         <ul>
           <li>Location: Vancouver, Canada</li>
           <li>Weather: {{weather}}, {{weatherDescription}}</li>
 <!--          <li>Local Temperature: {{temp}}&#8451; ,from {{temp_min}} &#8451; to {{temp_max}}&#8451;</li>-->
-          <li>Local Humidity: {{humidity}}</li>
-          <li>Local Pressure: {{pressure}}</li>
-          <li>Wind: {{wind}}</li>
+          <li>Local Humidity: {{humidity}} %</li>
+          <li>Local Pressure: {{pressure}} hpa</li>
+          <li>Wind: {{wind}} m/s</li>
         </ul>
 
         <div align="left">
@@ -26,49 +25,42 @@
         <br/>
         <h5>Garden Status</h5>
         <br/>
-        <h6>Motion Detect</h6>
+        <h6>Recent Motion Detect Status</h6>
         <div>
           <table class="table table-striped">
-
-            <!-- <th>ID</th> -->
-            <th>Number</th>
+<!--            <th>Number</th>-->
             <th>Alert</th>
             <th>Detect Time</th>
             <th>PIR ID</th>
-            <!--          <th></th>-->
-
-            <tr *ngFor="let sensor of motionSensors">
-              <td>{{sensor.id}}</td>
-              <td>{{sensor.alert}}</td>
-              <td>{{sensor.detectTime}} </td>
-              <td>{{sensor.pirId}} </td>
-              <!--              <td><a href="editUser?id=${user.id}">Edit</a>&nbsp;&nbsp;-->
-              <!--                <a href="deleteUser?id=${user.id}">Delete</a></td>-->
+            <tr>
+<!--              <td>{{motionSensor.id}}</td>-->
+              <td>{{motionSensor.alert}}</td>
+              <td>{{motionSensor.detectTime}} </td>
+              <td>{{motionSensor.pirId}} </td>
             </tr>
 
           </table>
         </div>
+      </div>
 
-        <h6>Room Status</h6>
-        <table class="table table-striped">
+      <div>
+        <br/>
+        <h6>Recent Room Status</h6>
+        <div >
+          <table class="table table-striped">
+<!--              <th>Number</th>-->
+              <th>Room Temperature</th>
+              <th>Room Humidity</th>
+              <th>Timestamp</th>
 
-            <!-- <th>ID</th> -->
-            <th>Number</th>
-            <th>Room Temperature</th>
-            <th>Room Humidity</th>
-            <th>Timestamp</th>
-  <!--          <th></th>-->
-
-            <tr *ngFor="let sensor of sensors">
-              <td>{{sensor.id}}</td>
-              <td>{{sensor.sensorTemp}} &#8451; </td>
-              <td>{{sensor.sensorHumid}} %</td>
-              <td>{{sensor.dateTime}} </td>
-<!--              <td><a href="editUser?id=${user.id}">Edit</a>&nbsp;&nbsp;-->
-<!--                <a href="deleteUser?id=${user.id}">Delete</a></td>-->
-            </tr>
-
-        </table>
+              <tr>
+<!--                <td>{{sensor.id}}</td>-->
+                <td>{{sensor.sensorTemp}} &#8451; </td>
+                <td>{{sensor.sensorHumid}} %</td>
+                <td>{{sensor.dateTime}} </td>
+              </tr>
+          </table>
+        </div>
       </div>
 
     </div>

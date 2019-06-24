@@ -1,0 +1,30 @@
+
+<div id="list">
+  <div class="containter">
+
+    <h3 id="form_header" align="center">Room Sensor History</h3>
+
+    <div>
+      <br/>
+<!--      <h5>Garden Status</h5>-->
+<!--      <br/>-->
+<!--      <h6>Room Status</h6>-->
+      <table class="table table-striped">
+        <th>Number</th>
+        <th>Room Temperature</th>
+        <th>Room Humidity</th>
+        <th>Timestamp</th>
+
+        <tr *ngFor="let sensor of sensors">
+          <td>{{sensor.id}}</td>
+          <td>{{sensor.sensorTemp}} &#8451; </td>
+          <td>{{sensor.sensorHumid}} %</td>
+          <td>{{sensor.dateTime}} </td>
+        </tr>
+      </table>
+
+    </div>
+
+  </div>
+</div>
+

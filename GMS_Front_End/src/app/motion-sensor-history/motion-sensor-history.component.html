@@ -1,0 +1,32 @@
+
+<div id="list">
+  <div class="containter">
+
+    <h3 id="form_header" align="center">Motion Sensor History</h3>
+
+    <div>
+      <br/>
+<!--      <h5>Garden Status</h5>-->
+<!--      <br/>-->
+<!--      <h6>Motion Detect</h6>-->
+      <div>
+        <table class="table table-striped">
+          <th>Number</th>
+          <th>Alert</th>
+          <th>Detect Time</th>
+          <th>PIR ID</th>
+          <tr *ngFor="let sensor of motionSensors">
+            <td>{{sensor.id}}</td>
+            <td>{{sensor.alert}}</td>
+            <td>{{sensor.detectTime}} </td>
+            <td>{{sensor.pirId}} </td>
+          </tr>
+
+        </table>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {User} from '../user-management/model/user';
 import {ApiService} from '../shared/api.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-user-registration',
@@ -20,7 +21,8 @@ export class UserRegistrationComponent implements OnInit {
   };
 
   // constructor(private  http: HttpClient) { }
-  constructor(private  apiService: ApiService) { }
+  constructor(private apiService: ApiService,
+              private router: Router) { }
 
   ngOnInit() {
   }
@@ -30,10 +32,15 @@ export class UserRegistrationComponent implements OnInit {
     // this.http.post(url, this.model).subscribe(
     this.apiService.setUser(this.userModel).subscribe(
       res => {
-        location.reload();
+        //location.reload();
+        if (res != null) {
+          this.router.navigate(['logout']);
+        } else {
+          alert('Failed to add');
+        }
       },
       err => {
-        alert('Error in AddUser');
+        //alert('Error in AddUser');
       }
     );
   }

@@ -1,3 +1,16 @@
+/*div#list{*/
+/*  margin-left:auto;*/
+/*  margin-right:auto;*/
+/*}*/
+
 .table{
   width:70%;
+}
+
+#status{
+  float: left;
+}
+
+th, td{
+  text-align: center;
 }

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {User} from '../dashboard/model/user';
+import {ApiService} from '../shared/api.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-logout',
@@ -8,19 +10,36 @@ import {User} from '../dashboard/model/user';
 })
 export class LogoutComponent implements OnInit {
 
-  constructor() { }
+  // init User
+  userModel: User = {
+    id: 0,
+    name: '',
+    email: '',
+    password: '',
+    phone: '',
+    role: ''
+  };
+
+  // constructor(private  http: HttpClient) { }
+  constructor(private  apiService: ApiService,
+              private router: Router) { }
 
   ngOnInit() {
   }
 
-  // addUser(): void {
-  //   const url = 'http://localhost:8080/GMS/User/saveUser';
-  //   this.http.post(url, this.model).subscribe(
-  //     res => {
-  //       location.reload();
-  //     },
-  //     err => {
-  //       alert('Error in AddUser');
-  //     }
-  //   );
+  getUser(): void {
+    this.apiService.getUser(this.userModel).subscribe(
+      res => {
+        // location.reload();
+        if (res != null) {
+          this.router.navigate(['dashboard']);
+        } else {
+          alert('Failed to sign in');
+        }
+      },
+      err => {
+        alert('Error in GetUser');
+      }
+    );
+  }
 }

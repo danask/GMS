@@ -44,6 +44,17 @@ public class UserController {
 		return listUser;
 	}
 	
+	@CrossOrigin
+	@RequestMapping(value = "/getUserByEmailPwd", method = RequestMethod.POST)
+	public User getUserByEmailPwd(@RequestBody User user) throws IOException 
+	{
+		User returnedUser = userService.getUserByEmailPwd(user.getEmail(), user.getPassword());
+
+		return returnedUser;
+	}
+	
+
+	
 	@RequestMapping(value = "/listUser", method = RequestMethod.GET)
 	public ModelAndView listUser(ModelAndView model, @ModelAttribute("User") User userSession) throws IOException 
 	{
@@ -66,28 +77,33 @@ public class UserController {
 		return mv;
 	}
 
-	
+	@CrossOrigin
 	@RequestMapping(value = "/saveUserApi", method = RequestMethod.POST)
-	public ModelAndView saveUser(@RequestBody User user
-								) 
+	public User saveUser(@RequestBody User user) 
 	{
 		user.setRole("Guest");  // default
-		 
-		if(user.getId()==0)
+		
+		if(!user.getEmail().equals("") && !user.getPassword().equals(""))
 		{
-//			User userTemp = new User(name, email, password, phone, role);
-			userService.addUser(user);
-			System.out.println("----------------new user----------------");
-			return new ModelAndView("result");
+			if(user.getId()==0)
+			{
+	//			User userTemp = new User(name, email, password, phone, role);
+				userService.addUser(user);
+				System.out.println("----------------new user----------------");
+			}
+			else 
+			{ 
+	//			User user = new User(Integer.parseInt(id), name, email, password, phone, role);
+				userService.updateUser(user);  
+	//			return new ModelAndView("redirect:/listUser");
+				System.out.println("----------------old user----------------");
+			}
+			
+			User returnedUser = userService.getUserByEmailPwd(user.getEmail(), user.getPassword());
+			
+			return returnedUser;
 		}
-		else 
-		{ 
-//			User user = new User(Integer.parseInt(id), name, email, password, phone, role);
-			userService.updateUser(user);  
-//			return new ModelAndView("redirect:/listUser");
-			System.out.println("----------------old user----------------");
-			return new ModelAndView("result");
-		}
+		return null;
 	}
 	
 	

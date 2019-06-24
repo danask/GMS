@@ -8,7 +8,6 @@
 <!--  </ul>-->
 <!--</div>-->
 
-<br/>
 <div id="list">
   <div class="containter">
 
@@ -22,7 +21,7 @@
       <th>Email</th>
       <th>Phone</th>
       <th>Role</th>
-      <th></th>
+<!--      <th></th>-->
 
       <tr *ngFor="let user of users">
         <td>{{user.id}}</td>
@@ -30,8 +29,8 @@
         <td>{{user.email}} </td>
         <td>{{user.phone}} </td>
         <td>{{user.role}} </td>
-        <td><a href="editUser?id=${user.id}">Edit</a>&nbsp;&nbsp;
-          <a href="deleteUser?id=${user.id}">Delete</a></td>
+<!--        <td><a href="editUser?id=${user.id}">Edit</a>&nbsp;&nbsp;-->
+<!--          <a href="deleteUser?id=${user.id}">Delete</a></td>-->
       </tr>
 
     </table>

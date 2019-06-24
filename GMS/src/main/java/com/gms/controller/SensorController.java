@@ -69,6 +69,17 @@ public class SensorController {
 		return listSensor;
 	}
 	
+	@CrossOrigin
+	@RequestMapping(value = "/sensorLatestOne", method = RequestMethod.GET)
+	public Sensor sensorLatestOne() throws IOException  
+	{
+		Sensor sensor = sensorService.getSensorLatestValue();
+		
+		return sensor;
+	}	
+	
+
+	
 //	@CrossOrigin
 //	@RequestMapping(value = "/weatherAll", method = RequestMethod.GET)
 //	public List<Weather> weatherAll() throws IOException  
