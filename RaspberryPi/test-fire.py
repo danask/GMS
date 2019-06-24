@@ -21,6 +21,7 @@ GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(20, GPIO.IN)
 
+#GPIO.cleanup()
         
 
 
@@ -30,9 +31,14 @@ PATH_CRED = '/home/pi/python-fire/gms-rasp.json'
 URL_DB = 'https://gms-rasp.firebaseio.com/'
 
 REF_DHT = 'DHT'
+REF_PIR = 'PIR'
+
 REF_TEMP = 'Temperature'
 REF_HUMID = 'Humidity'
 
+REF_ALERT = 'alert'
+REF_ID = 'id'
+REF_TIME = 'detectTime'
 
 class TEST():
 
@@ -47,8 +53,14 @@ class TEST():
         self.msg = db.reference('timestamp')
         
         self.dht = db.reference(REF_DHT)
+        self.pir = db.reference(REF_PIR)
+        
         self.temp = self.dht.child(REF_TEMP)
         self.humid = self.dht.child(REF_HUMID)
+        
+        self.alert = self.pir.child(REF_ALERT)
+        self.id = self.pir.child(REF_ID)
+        self.time = self.pir.child(REF_TIME)
         
         print(self.msg.get())
         
@@ -56,41 +68,41 @@ class TEST():
         print(self.temp.get())
         print(self.humid.get())
         
-        self.msg.set('testsend2')
-        print(self.msg.get())            
+        #self.msg.set('testsend2')
+        #print(self.msg.get())            
         
         # read data using pin 21
         instance = dht11.DHT11(pin=21)
         pir = MotionSensor(20)        
         camera = PiCamera()
-        i = 0  
-        
+            
         while True:
-        
-            # DHT11 sensor
             result = instance.read()
-        
             if result.is_valid():
                 print("Last valid input: " + str(datetime.datetime.now()))
                 print("Temperature: %d C" % result.temperature)
                 print("Humidity: %d %%" % result.humidity)
                 
-                # Firebase database
                 self.msg.set(str(datetime.datetime.now()))
                 self.temp.set(result.temperature)
                 self.humid.set(result.humidity)
         
-        
-            # PIR sensor
+            #if GPIO.input(20):
+            #    print("Motion detected...")
+
             state = GPIO.input(20)
+            
             
             if state==0:
                 print "nothing..."
+                #self.alert.set("false")
                 time.sleep(0.1)
             elif state==1:
-                i++
                 print "something here..."
-                camera.capture('/home/pi/python-fire/Pics/image%d.jpg' % i)
+                self.alert.set("true")
+                self.time.set(str(datetime.datetime.now()))
+                self.id.set("demo_uuid")
+                camera.capture('/home/pi/python-fire/Pics/imagetest.jpg')
 
             #pir.wait_for_motion
             #print("Alert")
@@ -103,18 +115,17 @@ class TEST():
             #camera.stop_preview()
             
                     
-            time.sleep(1)
+            time.sleep(5)
         
-        print('SET Okay!!')
-        GPIO.cleanup()
-
+        print('GET Okay!!')
+        
     def setDhtDB(self):
         self.msg.set('testsend')
         print(self.msg.get())            
         
         
         
-# Start class
+# Start
 test = TEST()
 
 #msg = Thread(target= test.setDhtDB)
