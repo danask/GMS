@@ -61,7 +61,8 @@
 	<tx:annotation-driven transaction-manager="transactionManager" />
 	
 	<!-- Quartz -->
-	 <bean id="sensorTask" class="com.gms.model.SensorTask"/>
+	<bean id="sensorTask" class="com.gms.model.SensorTask"/>
+	<bean id="motionSensorTask" class="com.gms.model.MotionSensorTask"/>
  
     <bean name="schedulerJob" class="org.springframework.scheduling.quartz.JobDetailFactoryBean"
           p:jobClass="com.gms.model.SchedulerTask"
@@ -69,6 +70,7 @@
         <property name="jobDataAsMap">
             <map>
                 <entry key="sensorTask" value-ref="sensorTask"/>
+                <entry key="motionSensorTask" value-ref="motionSensorTask"/>
             </map>
         </property>
     </bean>
@@ -81,7 +83,7 @@
              
 <!--     <bean id="cronTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean"
           p:jobDetail-ref="schedulerJob"
-          p:startDelay="3600000"
+          p:startDelay="10000"
           p:cronExpression="0/59 * * * * ?"/>
  
     <bean id="schedulerFactoryBean" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">

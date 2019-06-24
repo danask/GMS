@@ -21,7 +21,9 @@ public class Sensor
 	@Column
 	private String sensorHumid;
 	@Column
-	private int timestamp;
+	private long timestamp;
+	@Column
+	private String dateTime;	
 	@Column
 	private String description;
 	@Column
@@ -78,19 +80,24 @@ public class Sensor
 	public void setSensorHumid(String sensorHumid) {
 		this.sensorHumid = sensorHumid;
 	}
-	public int getTimestamp() {
+	public long getTimestamp() {
 		return timestamp;
 	}
-	public void setTimestamp(int timestamp) {
-		this.timestamp = timestamp;
+	public void setTimestamp(long l) {
+		this.timestamp = l;
+	}
+	public String getDateTime() {
+		return dateTime;
+	}
+	public void setDateTime(String dateTime) {
+		this.dateTime = dateTime;
 	}
 	public String getDescription() {
 		return description;
 	}
 	public void setDescription(String description) {
 		this.description = description;
-	}
-	
+	}	
 	public float getTemperature() {
 		return temperature;
 	}

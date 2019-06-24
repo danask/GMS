@@ -69,6 +69,19 @@ public class SensorController {
 		return listSensor;
 	}
 	
+//	@CrossOrigin
+//	@RequestMapping(value = "/weatherAll", method = RequestMethod.GET)
+//	public List<Weather> weatherAll() throws IOException  
+//	{
+////		Weather weather = new Weather();
+////		
+////		
+////		
+////		return listSensor;
+//	}
+	
+	
+	
 	@RequestMapping(value = "/listSensor")
 	public ModelAndView listSensor(ModelAndView model, @ModelAttribute("User") User userSession) throws IOException 
 	{

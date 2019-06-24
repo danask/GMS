@@ -12,6 +12,7 @@ import java.util.HashMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.ResourceUtils;
 
+import com.gms.service.MotionSensorService;
 import com.gms.service.SensorService;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.firebase.FirebaseApp;
@@ -22,14 +23,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class SensorTask 
+public class MotionSensorTask 
 {
 	@Autowired
-	private SensorService sensorService;
+	private MotionSensorService motionSensorService;
 	
 	public void getSensorInfoFromFirebase()
 	{
-		System.out.println("===========sensor info==========");
+		System.out.println("===========motion sensor info==========");
 		// service start
 		File file = null;
 		
@@ -69,7 +70,7 @@ public class SensorTask
 		
 		
 		final FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-		final Sensor sensors = null;
+		
 		DatabaseReference ref = firebaseDatabase.getReference("timestamp");
 		
         // app_title change listener
@@ -100,7 +101,7 @@ public class SensorTask
 		 });
 		
         // app_title change listener
-        firebaseDatabase.getReference("DHT").
+        firebaseDatabase.getReference("PIR").
                 addValueEventListener(new ValueEventListener() {
               @SuppressWarnings("null")
 			@Override
@@ -108,7 +109,7 @@ public class SensorTask
             	
             	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             	HashMap<String, String> m = new HashMap<>();
-            	Sensor sensor = new Sensor("0", "0", 1, "test");
+            	MotionSensor motionSensor = new MotionSensor(1, "test");
             	
   				for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
   					String key = snapshot.getKey();
@@ -116,11 +117,14 @@ public class SensorTask
   					System.out.println("2nd: " + key + ", " + val);
 //  					m.put(key, val);
   					
-  					if(key.equalsIgnoreCase("Temperature"))
-  						sensor.setSensorTemp(val);
+  					if(key.equalsIgnoreCase("id"))
+  						motionSensor.setPirId(val);
   					
-  					if(key.equalsIgnoreCase("Humidity"))
-  						sensor.setSensorHumid(val);
+  					if(key.equalsIgnoreCase("alert"))
+  						motionSensor.setAlert(val);
+  					
+  					if(key.equalsIgnoreCase("detectTime"))
+  						motionSensor.setDetectTime(val);
 		        }
   				
 //  			    for (String i : m.keySet()) 
@@ -135,12 +139,12 @@ public class SensorTask
 //  			    }
   			    
   				Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-		    	sensor.setTimestamp(timestamp.getTime());
-		    	sensor.setDateTime(sdf.format(timestamp));
-		    	sensor.setDescription("demo");
+  				motionSensor.setTimestamp(timestamp.getTime());
+  				motionSensor.setDateTime(sdf.format(timestamp));
+  				motionSensor.setDescription("demo");
 		    	
-		    	System.out.println(sensor);
-		    	sensorService.addSensor(sensor);
+		    	System.out.println(motionSensor);
+		    	motionSensorService.addMotionSensor(motionSensor);
               }
 
               @Override
