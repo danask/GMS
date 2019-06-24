@@ -2,27 +2,74 @@
   <div id="list">
     <div class="containter">
 
-      <h3 id="form_header" align="center">Current Status</h3>
-      <div>&nbsp;</div>
+      <h3 id="form_header" align="center">Dashboard</h3>
+
+      <h5>Weather Info</h5>
+      <div>
+        <ul>
+          <li>Location: Vancouver, Canada</li>
+          <li>Weather: {{weather}}, {{weatherDescription}}</li>
+<!--          <li>Local Temperature: {{temp}}&#8451; ,from {{temp_min}} &#8451; to {{temp_max}}&#8451;</li>-->
+          <li>Local Humidity: {{humidity}}</li>
+          <li>Local Pressure: {{pressure}}</li>
+          <li>Wind: {{wind}}</li>
+        </ul>
+
+        <div align="left">
+          <button (click)="getWeatherData()" >Get Weather Info</button>
+        </div>
+      </div>
+
+      <br/>
+
+      <div>
+        <br/>
+        <h5>Garden Status</h5>
+        <br/>
+        <h6>Motion Detect</h6>
+        <div>
+          <table class="table table-striped">
+
+            <!-- <th>ID</th> -->
+            <th>Number</th>
+            <th>Alert</th>
+            <th>Detect Time</th>
+            <th>PIR ID</th>
+            <!--          <th></th>-->
+
+            <tr *ngFor="let sensor of motionSensors">
+              <td>{{sensor.id}}</td>
+              <td>{{sensor.alert}}</td>
+              <td>{{sensor.detectTime}} </td>
+              <td>{{sensor.pirId}} </td>
+              <!--              <td><a href="editUser?id=${user.id}">Edit</a>&nbsp;&nbsp;-->
+              <!--                <a href="deleteUser?id=${user.id}">Delete</a></td>-->
+            </tr>
+
+          </table>
+        </div>
+
+        <h6>Room Status</h6>
         <table class="table table-striped">
 
-          <!-- <th>ID</th> -->
-          <th>Number</th>
-          <th>Temperature</th>
-          <th>Humidity</th>
-          <th>Timestamp</th>
-<!--          <th></th>-->
+            <!-- <th>ID</th> -->
+            <th>Number</th>
+            <th>Room Temperature</th>
+            <th>Room Humidity</th>
+            <th>Timestamp</th>
+  <!--          <th></th>-->
 
             <tr *ngFor="let sensor of sensors">
               <td>{{sensor.id}}</td>
               <td>{{sensor.sensorTemp}} &#8451; </td>
               <td>{{sensor.sensorHumid}} %</td>
-              <td></td>
+              <td>{{sensor.dateTime}} </td>
 <!--              <td><a href="editUser?id=${user.id}">Edit</a>&nbsp;&nbsp;-->
 <!--                <a href="deleteUser?id=${user.id}">Delete</a></td>-->
             </tr>
 
         </table>
+      </div>
 
     </div>
   </div>
