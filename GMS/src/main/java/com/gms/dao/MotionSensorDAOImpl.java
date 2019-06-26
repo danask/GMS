@@ -37,8 +37,23 @@ public class MotionSensorDAOImpl implements MotionSensorDAO {
 	@SuppressWarnings("unchecked")
 	public List<MotionSensor> getAllMotionSensors() 
 	{
-		return sessionFactory.getCurrentSession().createQuery("from MotionSensor")
-				.list();
+//		return sessionFactory.getCurrentSession().createQuery("from MotionSensor")
+//				.list();
+		List<MotionSensor> sensors = new ArrayList<MotionSensor>();
+		
+		sensors = sessionFactory.getCurrentSession()
+			.createQuery("from MotionSensor "
+					+ "order by timestamp desc")
+			.list();
+
+		if (sensors.size() > 0) 
+		{
+			return sensors;
+		} 
+		else 
+		{
+			return null;
+		}		
 	}
 
 	@Override
@@ -67,7 +82,9 @@ public class MotionSensorDAOImpl implements MotionSensorDAO {
 		List<MotionSensor> sensors = new ArrayList<MotionSensor>();
 		
 		sensors = sessionFactory.getCurrentSession()
-			.createQuery("from MotionSensor where sensorKey=? or sensorValue=?")
+			.createQuery("from MotionSensor "
+					+ "where sensorKey=? or sensorValue=?"
+					+ "order by timestamp desc")
 			.setParameter(0, sensorKey)
 			.setParameter(1, sensorValue)
 			.list();

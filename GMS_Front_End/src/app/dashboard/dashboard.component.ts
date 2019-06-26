@@ -31,6 +31,7 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
     this.getLastSensor();
     this.getLastMotionSensor();
+    // this.getWeatherData();
   }
 
   public getLastSensor() {
@@ -70,14 +71,14 @@ export class DashboardComponent implements OnInit {
           // console.log(weatherInfo.main.humidity);
           // console.log(res.weather[0].main);
 
-          this.weather = res.weather[0].main;
-          this.humidity = weatherInfo.main.humidity;
-          this.temp = (weatherInfo.main.temp - 32) / 1.8;
-          this.weatherDescription = res.weather[0].description;
-          this.temp_min = weatherInfo.main.temp_min;
-          this.temp_max = weatherInfo.main.temp_max;
-          this.wind = res.wind.speed;
-          this.pressure = weatherInfo.main.pressure;
+          // this.weather = res.weather[0].main;
+          // this.humidity = weatherInfo.main.humidity;
+          // this.temp = (weatherInfo.main.temp - 32) / 1.8;
+          // this.weatherDescription = res.weather[0].description;
+          // this.temp_min = weatherInfo.main.temp_min;
+          // this.temp_max = weatherInfo.main.temp_max;
+          // this.wind = res.wind.speed;
+          // this.pressure = weatherInfo.main.pressure;
 
           // this.weatherInfoEntity.humidity = weatherInfo.main.humidity;
           // this.weatherInfoEntity.pressure = weatherInfo.main.pressure;

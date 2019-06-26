@@ -2,9 +2,15 @@
 /*  margin-left:auto;*/
 /*  margin-right:auto;*/
 /*}*/
+.back-container{
+  background-color: #eee;
+}
+#form_header{
+  margin-bottom: 1em;
+}
 
 .table{
-  width:70%;
+  width:100%;
 }
 
 #status{
@@ -14,3 +20,38 @@
 th, td{
   text-align: center;
 }
+
+/*.card {*/
+/*  position: relative;*/
+/*  display: -ms-flexbox;*/
+/*  display: flex;*/
+/*  -ms-flex-direction: column;*/
+/*  flex-direction: column;*/
+/*  min-width: 0;*/
+/*  word-wrap: break-word;*/
+/*  background-color: #fff;*/
+/*  background-clip: border-box;*/
+/*  border: 1px solid rgba(0, 0, 0, .125);*/
+/*  border-radius: .25rem;*/
+/*}*/
+
+/*.card {*/
+/*  box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);*/
+/*  border: 0;*/
+/*  font-weight: 400;*/
+/*}*/
+
+/*.card-body {*/
+/*  -ms-flex: 1 1 auto;*/
+/*  flex: 1 1 auto;*/
+/*  padding: 1.25rem;*/
+/*}*/
+
+.card-main{
+  width: 70%;
+}
+
+app-navigation{
+  display: block;
+}
+

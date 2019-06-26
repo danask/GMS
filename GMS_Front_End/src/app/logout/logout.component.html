@@ -1,5 +1,38 @@
-
 <div class="container">
+<!--  <form class="form-signin">-->
+<!--  <form name="form" #f="ngForm"-->
+<!--        (ngSubmit)="f.form.valid && getUser()" novalidate class="form-signin">-->
+<!--    <div class="text-center mb-4">-->
+<!--      <img class="mb-4" src="/docs/4.3/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">-->
+<!--      <h1 class="h3 mb-3 font-weight-normal">Floating labels</h1>-->
+<!--      <p>Build form controls with floating labels via the <code>:placeholder-shown</code> pseudo-element. <a href="https://caniuse.com/#feat=css-placeholder-shown">Works in latest Chrome, Safari, and Firefox.</a></p>-->
+<!--    </div>-->
+
+<!--    <div class="form-label-group">-->
+<!--      <input type="email" id="inputEmail" class="form-control" [(ngModel)]="userModel.email"-->
+<!--             placeholder="Email address" required autofocus>-->
+<!--      <label for="inputEmail">Email address</label>-->
+<!--    </div>-->
+
+<!--    <div class="form-label-group">-->
+<!--      <input type="password" id="inputPassword" class="form-control" [(ngModel)]="userModel.password"-->
+<!--             placeholder="Password" required>-->
+<!--      <label for="inputPassword">Password</label>-->
+<!--    </div>-->
+
+<!--    <div class="checkbox mb-3">-->
+<!--      <label>-->
+<!--        <input type="checkbox" value="remember-me"> Remember me-->
+<!--      </label>-->
+<!--    </div>-->
+<!--    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>-->
+<!--    <h6 id="form_header" align="center">-->
+<!--      If you are first time, <a routerLink="/userRegistration">Sign up</a>-->
+<!--    </h6>-->
+<!--    <p class="mt-5 mb-3 text-muted text-center">&copy; 2019</p>-->
+<!--  </form>-->
+
+
   <h4 id="form_header" align="center">Sign in</h4>
   <div class="row">
     <div class="offset-3"></div>
@@ -8,24 +41,6 @@
             (ngSubmit)="f.form.valid && getUser()" novalidate class="feedback-form">
         <!-- Name -->
         <br/>
-<!--        <div class="form-group">-->
-<!--          <label for="name">First Name</label>-->
-<!--          <input type="text"-->
-<!--                 id="name"-->
-<!--                 class="form-control"-->
-<!--                 name="name"-->
-<!--                 [(ngModel)]="userModel.name"-->
-<!--                 placeholder="Your name"/>-->
-          <!--                 [(ngModel)]="model.name"-->
-          <!--                 #name="ngModel"-->
-          <!--                 [ngClass]="{ 'is-invalid': f.submitted && name.invalid }"-->
-          <!--                 required/>-->
-          <!-- input validation group -->
-          <!--          <div *ngIf="f.submitted && name.invalid" class="invalid-input">-->
-          <!-- individual validation errors -->
-          <!--            <div *ngIf="name.errors?.required">Field is required</div>-->
-          <!--          </div>-->
-<!--        </div>-->
         <!-- Email -->
         <div class="form-group">
           <label for="email">Email</label>
@@ -35,16 +50,6 @@
                  name="email"
                  [(ngModel)]="userModel.email"
                  placeholder="Your email">
-          <!--                 [(ngModel)]="model.email"-->
-          <!--                 #email="ngModel"-->
-          <!--                 [ngClass]="{ 'is-invalid': f.submitted && email.invalid }"-->
-          <!--                 required email/>-->
-          <!-- input validation group -->
-          <!--          <div *ngIf="f.submitted && email.invalid" class="invalid-input">-->
-          <!--            &lt;!&ndash; individual validation errors &ndash;&gt;-->
-          <!--            <div *ngIf="email.errors?.required">Field is required</div>-->
-          <!--            <div *ngIf="email.errors?.email">Field is not a valid email</div>-->
-          <!--          </div>-->
         </div>
         <div class="form-group">
           <label for="password">Password</label>
@@ -55,51 +60,8 @@
                  [(ngModel)]="userModel.password"
                  placeholder="Your password">
         </div>
-<!--        <div class="form-group">-->
-<!--          <label for="phone">Phone</label>-->
-<!--          <input type="text"-->
-<!--                 id="phone"-->
-<!--                 class="form-control"-->
-<!--                 name="phone"-->
-<!--                 [(ngModel)]="userModel.phone"-->
-<!--                 placeholder="Your phone">-->
-<!--        </div>-->
-<!--        <div class="form-group">-->
-<!--          <label for="role">Role</label>-->
-<!--          <input type="text"-->
-<!--                 id="role"-->
-<!--                 class="form-control"-->
-<!--                 name="role"-->
-<!--                 [(ngModel)]="userModel.role"-->
-<!--                 placeholder="Your role">-->
-<!--        </div>-->
-        <!--        <div class="form-group">-->
-        <!--          <label for="id">Id</label>-->
-        <!--          <input type="text"-->
-        <!--                 id="id"-->
-        <!--                 class="form-control"-->
-        <!--                 name="id"-->
-        <!--                 placeholder="Your id">-->
-        <!--        </div>-->
-
-        <!-- Feedback -->
-        <!--        <div class="form-group">-->
-        <!--          <label for="feedback">Feedback</label>-->
-        <!--          <textarea-->
-        <!--            id="feedback"-->
-        <!--            class="form-control"-->
-        <!--            name="feedback"-->
-        <!--            placeholder="Your feedback"-->
-        <!--            rows="10">-->
-        <!--			    </textarea>-->
-        <!--        </div>-->
-
         <br/>
         <div align="center">
-<!--          <button type="submit" class="btn btn-info pull-right">-->
-<!--            <i class="fa fa-user"></i>-->
-<!--            <span> Sign up</span>-->
-<!--          </button>-->
           <button type="submit" class="btn btn-info">
             <i class="fa fa-sign-in"></i>
             <span> Sign in</span>

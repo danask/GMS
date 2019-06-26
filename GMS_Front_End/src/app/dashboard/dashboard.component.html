@@ -1,10 +1,14 @@
+<app-navigation></app-navigation>
 
-  <div id="list">
-    <h3 id="form_header" align="center">Dashboard</h3>
-    <div class="containter offset-1">
-
+<div class = "back-container ">
+<!--  <div id="list">-->
+  <div>
+    <h4 id="form_header" align="center">Dashboard</h4>
+<!--    <div class="containter offset-1">-->
+    <div class = "offset-1">
+      <div class="card-main">
       <h5>Weather Information</h5>
-      <div>
+
         <ul>
           <li>Location: Vancouver, Canada</li>
           <li>Weather: {{weather}}, {{weatherDescription}}</li>
@@ -15,16 +19,13 @@
         </ul>
 
         <div align="left">
-          <button (click)="getWeatherData()" >Get Weather Info</button>
+          <button (click)="getWeatherData()" >Refresh Weather Info</button>
         </div>
       </div>
+      <div class="card-main">
 
-      <br/>
-
-      <div>
-        <br/>
         <h5>Garden Status</h5>
-        <br/>
+
         <h6>Recent Motion Detect Status</h6>
         <div>
           <table class="table table-striped">
@@ -43,8 +44,8 @@
         </div>
       </div>
 
-      <div>
-        <br/>
+      <div class="card-main">
+
         <h6>Recent Room Status</h6>
         <div >
           <table class="table table-striped">
@@ -65,4 +66,4 @@
 
     </div>
   </div>
-
+</div>

@@ -37,8 +37,23 @@ public class SensorDAOImpl implements SensorDAO {
 	@SuppressWarnings("unchecked")
 	public List<Sensor> getAllSensors() 
 	{
-		return sessionFactory.getCurrentSession().createQuery("from Sensor")
-				.list();
+//		return sessionFactory.getCurrentSession().createQuery("from Sensor")
+//				.list();
+		List<Sensor> sensors = new ArrayList<Sensor>();
+		
+		sensors = sessionFactory.getCurrentSession()
+			.createQuery("from Sensor "
+					+ "order by timestamp desc")
+			.list();
+
+		if (sensors.size() > 0) 
+		{
+			return sensors;
+		} 
+		else 
+		{
+			return null;
+		}		
 	}
 
 	@Override
@@ -67,7 +82,9 @@ public class SensorDAOImpl implements SensorDAO {
 		List<Sensor> sensors = new ArrayList<Sensor>();
 		
 		sensors = sessionFactory.getCurrentSession()
-			.createQuery("from Sensor where sensorKey=? or sensorValue=?")
+			.createQuery("from Sensor "
+					+ "where sensorKey=? or sensorValue=?"
+					+ "order by timestamp desc")
 			.setParameter(0, sensorKey)
 			.setParameter(1, sensorValue)
 			.list();

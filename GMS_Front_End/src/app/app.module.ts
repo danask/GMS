@@ -42,7 +42,7 @@ const appRoutes: Routes = [
   // default active menu
   {
     path: '',
-    component: DashboardComponent,
+    component: LogoutComponent,//DashboardComponent,
     pathMatch: 'full'
   },
   {
