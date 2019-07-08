@@ -4,6 +4,7 @@
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import db
+from firebase_admin import storage
 from threading import Thread
 
 from picamera import PiCamera
@@ -29,6 +30,8 @@ GPIO.setup(20, GPIO.IN)
 
 PATH_CRED = '/home/pi/python-fire/gms-rasp.json'
 URL_DB = 'https://gms-rasp.firebaseio.com/'
+URL_STR = 'gms-rasp.appspot.com'
+
 
 REF_DHT = 'DHT'
 REF_PIR = 'PIR'
@@ -48,6 +51,7 @@ class TEST():
 
         firebase_admin.initialize_app(cred, {
             'databaseURL': URL_DB
+            'storageBucket': URL_STR
         })
 
         self.msg = db.reference('timestamp')
@@ -92,7 +96,10 @@ class TEST():
 
             state = GPIO.input(20)
             
-            
+            #db = firestore.client()
+            bucket = storage.bucket()
+            print bucket
+        
             if state==0:
                 print "nothing..."
                 #self.alert.set("false")
@@ -103,7 +110,10 @@ class TEST():
                 self.time.set(str(datetime.datetime.now()))
                 self.id.set("demo_uuid")
                 camera.capture('/home/pi/python-fire/Pics/imagetest.jpg')
-
+                blob = bucket.blob('/Pics/imagetest.jpg')
+                blob.upload_from_filename(filename='/home/pi/python-fire/Pics/imagetest.jpg')    
+                print(blob.public_url) # update this to db
+                               
             #pir.wait_for_motion
             #print("Alert")
             
