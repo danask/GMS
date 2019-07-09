@@ -5,6 +5,10 @@ import {ApiService} from '../shared/api.service';
 import {Sensor} from './model/sensor';
 import {MotionSensor} from './model/motionSensor';
 import {Weather} from './model/weather';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {AngularFireStorage} from '@angular/fire/storage';
+import {finalize} from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-dashboard',
@@ -12,6 +16,19 @@ import {Weather} from './model/weather';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
+
+  imgSrc: String = '/assets/img/default_statistics.png';
+  selectedImage: any = null;
+  isSubmitted: boolean
+
+  private url;
+
+
+  formTemplate = new FormGroup({
+    caption: new FormControl('', Validators.required),
+    category: new FormControl(''),
+    imageUrl: new FormControl('',  Validators.required)
+  })
 
   sensor: Sensor;
   motionSensor: MotionSensor;
@@ -26,13 +43,24 @@ export class DashboardComponent implements OnInit {
   wind = '';
   pressure = '';
 
-  constructor(private  apiService: ApiService) { }
+  constructor(private  apiService: ApiService,
+              private  storage: AngularFireStorage) {
+    this.getMediaURL('/CapturedImages/2019-07-09 00:13:32.549379.jpg');
+  }
 
   ngOnInit() {
     this.getLastSensor();
     this.getLastMotionSensor();
     // this.getWeatherData();
+    this.resetForm();
+    this.apiService.getImageDetailList();
   }
+
+  private getMediaURL(imageRef) {
+    const that = this;
+    this.apiService.getMediaURL(imageRef).then(url => that.url = url);
+  }
+
 
   public getLastSensor() {
 
@@ -92,5 +120,65 @@ export class DashboardComponent implements OnInit {
         // alert('Error!!!');
       }
     );
+
+
   }
+
+
+
+  showPreview(event:any)
+  {
+    if (event.target.files && event.target.files[0])
+    {
+      const reader = new FileReader();
+      reader.onload = (e:any) => this.imgSrc = e.target.result;
+      reader.readAsDataURL(event.target.files[0]);
+      this.selectedImage = event.target.files[0];
+    }
+    else
+    {
+      this.imgSrc = '/assets/img/default_statistics.png';
+      this.selectedImage = null;
+    }
+  }
+
+
+  onSubmit(formValue){
+    this.isSubmitted = true;
+
+    if (this.formTemplate.valid) {
+      var filePath = `${formValue.category}/${this.selectedImage.name}_${new Date().getTime()}`;
+    // .split('.').slice(0, -1).join('.')
+
+      const fileRef = this.storage.ref(filePath);
+      this.storage.upload(filePath, this.selectedImage).snapshotChanges().pipe(
+        finalize(() => {
+          fileRef.getDownloadURL().subscribe((url) => {
+            formValue['imageUrl'] = url;
+            this.apiService.insertImageDetails(formValue);
+            this.resetForm();
+          });
+        })
+      ).subscribe();
+    }
+  }
+
+  get formControls()
+  {
+    return this.formTemplate['controls'];
+  }
+
+  resetForm(){
+    this.formTemplate.reset();
+    this.formTemplate.setValue({
+      caption: '',
+      imageUrl: '',
+      category: 'type'
+    });
+    this.imgSrc = '/assets/img/default_statistics.png';
+    this.selectedImage = null;
+    this.isSubmitted = false;
+
+  }
+
 }

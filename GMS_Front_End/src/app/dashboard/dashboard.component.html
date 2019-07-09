@@ -3,12 +3,13 @@
 <div class = "back-container ">
 <!--  <div id="list">-->
   <div>
-    <h4 id="form_header" align="center">Dashboard</h4>
+    <h5 id="form_header" class = "offset-1">GMS > Dashboard</h5>
 <!--    <div class="containter offset-1">-->
+    <br>
     <div class = "offset-1">
       <div class="card-main">
       <h5>Weather Information</h5>
-
+        <hr>
         <ul>
           <li>Location: Vancouver, Canada</li>
           <li>Weather: {{weather}}, {{weatherDescription}}</li>
@@ -24,20 +25,21 @@
       </div>
       <div class="card-main">
 
-        <h5>Garden Status</h5>
-
-        <h6>Recent Motion Detect Status</h6>
+<!--        <h5>Garden Status</h5>-->
+<!--        <hr>-->
+        <h5>Recent Motion Detect Status</h5>
         <div>
           <table class="table table-striped">
 <!--            <th>Number</th>-->
             <th>Alert</th>
             <th>Detect Time</th>
-            <th>PIR ID</th>
+            <th>Captured Image</th>
             <tr>
 <!--              <td>{{motionSensor.id}}</td>-->
               <td>{{motionSensor.alert}}</td>
               <td>{{motionSensor.detectTime}} </td>
-              <td>{{motionSensor.pirId}} </td>
+<!--              <td>{{motionSensor.pirId}} </td>-->
+              <td><img [src]="url" width="150px" height="100"></td>
             </tr>
 
           </table>
@@ -46,7 +48,7 @@
 
       <div class="card-main">
 
-        <h6>Recent Room Status</h6>
+        <h5>Recent Room Status</h5>
         <div >
           <table class="table table-striped">
 <!--              <th>Number</th>-->
@@ -63,6 +65,59 @@
           </table>
         </div>
       </div>
+
+
+<!--      <div class="card" style="width:24rem">-->
+<!--        <div class="card-body">-->
+<!--          <form [formGroup]="formTemplate" (submit)="onSubmit(formTemplate.value)">-->
+<!--            <div class="text-center">-->
+<!--&lt;!&ndash;              <img src="/assets/img/default_statistics.png" width="200px" height="200px">&ndash;&gt;-->
+<!--              <img [src]="imgSrc" width="200px" height="200px"-->
+<!--                (click)="fileUploader.click()">-->
+<!--            </div>-->
+
+
+<!--            <div class="form-group">-->
+<!--              <label>Select file to upload</label>-->
+<!--              <input type="file" accept="image/*" class="form-control" #fileUploader formControlName="imageUrl"-->
+<!--                (change)="showPreview($event)">-->
+<!--              <div class="text-danger" *ngIf="isSubmitted && formControls.imageUrl.errors?.required"> This file is required. </div>-->
+<!--            </div>-->
+
+<!--            <div class="form-group">-->
+<!--              <input class="form-control" formControlName="caption" placeholder="Status">-->
+<!--              <div class="text-danger" *ngIf="isSubmitted && formControls.caption.errors?.required"> This file is required. </div>-->
+<!--            </div>-->
+
+<!--            <div class="form-group">-->
+<!--              <select formControlName="category" class="form form-control">-->
+<!--                <option value="type">type</option>-->
+<!--                <option value="time">time</option>-->
+<!--              </select>-->
+<!--            </div>-->
+
+<!--            <div class="form-row">-->
+
+<!--              <div class="form-group col-md-6">-->
+<!--                <a routerLink="/motionSensorHistory" class="btn btn-success btn-block float-right">-->
+<!--                  Go to list-->
+<!--                </a>-->
+<!--              </div>-->
+
+<!--              <div class="form-group col-md-6">-->
+<!--                <button type="submit" class="btn btn-success btn-block float-right">-->
+<!--                  Submit-->
+<!--                </button>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </form>-->
+
+<!--        </div>-->
+
+<!--      </div>-->
+
+
+
 
     </div>
   </div>

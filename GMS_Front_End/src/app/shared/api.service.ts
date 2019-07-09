@@ -5,6 +5,8 @@ import {User} from '../dashboard/model/user';
 import {Sensor} from '../dashboard/model/sensor';
 import {MotionSensor} from '../dashboard/model/motionSensor';
 import {Weather} from '../dashboard/model/weather';
+import {AngularFireDatabase, AngularFireList} from '@angular/fire/database';
+import { AngularFireStorage } from '@angular/fire/storage';
 
 @Injectable({
   providedIn: 'root'
@@ -27,8 +29,29 @@ export class ApiService {
   private WEATHER_URL = this.WEATHER_BASE_URL +
                   'weather?q=Vancouver&APPID=1b5fcb8df3906c5092aca2b51707953b';
 
-  constructor(private http: HttpClient) {
+  imageDetailList: AngularFireList <any>;
 
+  constructor(private http: HttpClient,
+              private firebase: AngularFireDatabase,
+              private firebaseStorage: AngularFireStorage ) {
+  }
+
+  getImageDetailList() {
+    this.imageDetailList = this.firebase.list('PIR');
+  }
+
+  // image handling
+  getMediaURL(image): Promise<any> {
+    const storageRef = this.firebaseStorage.storage.ref().child(image);
+    return storageRef.getDownloadURL().then(url => {
+      console.log('firebase response: ' + url);
+      return url;
+    });
+  }
+
+
+  insertImageDetails(imageDetails){
+    this.imageDetailList.push(imageDetails);
   }
 
   getUserAll(): Observable<User[]>{

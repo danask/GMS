@@ -81,7 +81,7 @@
             <!--p:repeatInterval="3000"-->
             <!--p:startDelay="1000"/>-->
              
-<!--     <bean id="cronTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean"
+<!--      <bean id="cronTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean"
           p:jobDetail-ref="schedulerJob"
           p:startDelay="10000"
           p:cronExpression="0/59 * * * * ?"/>
@@ -92,6 +92,6 @@
                 <ref bean="cronTrigger"/>
             </list>
         </property>
-    </bean> -->
+    </bean>  --> 
 	
 </beans>

@@ -1,6 +1,13 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireStorageModule } from '@angular/fire/storage';
+import { AngularFireDatabaseModule} from '@angular/fire/database';
+import { ReactiveFormsModule } from "@angular/forms";
+import { environment } from '../environments/environment';
+
+
 import { AppComponent } from './app.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { LogoutComponent } from './logout/logout.component';
@@ -13,6 +20,8 @@ import { UserManagementComponent } from './user-management/user-management.compo
 import { UserRegistrationComponent } from './user-registration/user-registration.component';
 import { MotionSensorHistoryComponent } from './motion-sensor-history/motion-sensor-history.component';
 import { RoomSensorHistoryComponent } from './room-sensor-history/room-sensor-history.component';
+
+
 
 const appRoutes: Routes = [
   {
@@ -68,6 +77,11 @@ const appRoutes: Routes = [
     BrowserModule,
     HttpClientModule,
     FormsModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireStorageModule,
+    AngularFireDatabaseModule,
+    ReactiveFormsModule,
+
     RouterModule.forRoot(appRoutes, {enableTracing: true})
     // RouterModule.forRoot([
     //   {path: 'logout', component: LogoutComponent}]
