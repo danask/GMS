@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Sensor} from '../dashboard/model/sensor';
 import {MotionSensor} from '../dashboard/model/motionSensor';
 import {ApiService} from '../shared/api.service';
+import {AngularFireStorage} from '@angular/fire/storage';
 
 @Component({
   selector: 'app-motion-sensor-history',
@@ -13,11 +14,13 @@ export class MotionSensorHistoryComponent implements OnInit {
   motionSensors: MotionSensor[] = [];
   imageList: any[];
   rowIndexArray: any[];
+  capturedImageURL: any[];
 
   private url;
 
-  constructor(private  apiService: ApiService) {
-    this.getMediaURL('/CapturedImages/2019-07-09 00:13:32.549379.jpg');
+  constructor(private  apiService: ApiService,
+              private  storage: AngularFireStorage) {
+
   }
 
   ngOnInit() {
@@ -44,6 +47,15 @@ export class MotionSensorHistoryComponent implements OnInit {
     this.apiService.getMotionSensorAll().subscribe(
       res => {
         this.motionSensors = res;
+
+        for (let i = 0; i < this.motionSensors.length; i++ ){
+          this.apiService.getMediaURL('/CapturedImages/' + this.motionSensors[i].detectTime + '.jpg').
+          then(url => this.motionSensors[i].pirId = url);
+
+          if (this.url == null) {
+            this.motionSensors[i].pirId = '/assets/img/default_statistics.png';
+          }
+        }
       },
       err => {
         // alert('Error!!!');

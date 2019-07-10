@@ -22,7 +22,7 @@ export class DashboardComponent implements OnInit {
   isSubmitted: boolean
 
   private url;
-
+  private tempMediaURL;
 
   formTemplate = new FormGroup({
     caption: new FormControl('', Validators.required),
@@ -45,7 +45,7 @@ export class DashboardComponent implements OnInit {
 
   constructor(private  apiService: ApiService,
               private  storage: AngularFireStorage) {
-    this.getMediaURL('/CapturedImages/2019-07-09 00:13:32.549379.jpg');
+
   }
 
   ngOnInit() {
@@ -54,6 +54,7 @@ export class DashboardComponent implements OnInit {
     // this.getWeatherData();
     this.resetForm();
     this.apiService.getImageDetailList();
+
   }
 
   private getMediaURL(imageRef) {
@@ -79,6 +80,11 @@ export class DashboardComponent implements OnInit {
     this.apiService.getLastMotionSensor().subscribe(
       res => {
         this.motionSensor = res;
+        // this.tempMediaURL = '/CapturedImages/' + this.motionSensor.detectTime + '.jpg';
+        // console.log(this.tempMediaURL);
+        this.getMediaURL('/CapturedImages/' + this.motionSensor.detectTime + '.jpg');
+
+        // this.getMediaURL('/CapturedImages/2019-07-09 00:13:40.180848.jpg');
       },
       err => {
         // alert('Error!!!');
