@@ -139,12 +139,18 @@ public class MotionSensorTask
 //  			    }
   			    
   				Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+  				String dateTime = sdf.format(timestamp);
   				motionSensor.setTimestamp(timestamp.getTime());
-  				motionSensor.setDateTime(sdf.format(timestamp));
+  				motionSensor.setDateTime(dateTime);
   				motionSensor.setDescription("demo");
 		    	
-		    	System.out.println(motionSensor);
-		    	motionSensorService.addMotionSensor(motionSensor);
+		    	// to store only one time; to avoid the conflict with the previous one
+		    	if(!motionSensorService.getMotionSensorLatestValue().getDetectTime().
+		    			equals(motionSensor.getDetectTime()))
+		    	{
+			    	System.out.println(motionSensor);
+		    		motionSensorService.addMotionSensor(motionSensor);
+		    	}
               }
 
               @Override

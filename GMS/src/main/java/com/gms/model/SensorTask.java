@@ -135,12 +135,21 @@ public class SensorTask
 //  			    }
   			    
   				Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+  				String dateTime = sdf.format(timestamp);
 		    	sensor.setTimestamp(timestamp.getTime());
-		    	sensor.setDateTime(sdf.format(timestamp));
+		    	sensor.setDateTime(dateTime);
 		    	sensor.setDescription("demo");
 		    	
-		    	System.out.println(sensor);
-		    	sensorService.addSensor(sensor);
+		    	
+		    	// to store only one time; to avoid the conflict with the previous one
+		    	if(!sensorService.getSensorLatestValue().getSensorTemp()
+	    			.equals(sensor.getSensorTemp()) ||
+	    			!sensorService.getSensorLatestValue().getSensorHumid()
+	    			.equals(sensor.getSensorHumid()))
+		    	{
+			    	System.out.println(sensor);
+			    	sensorService.addSensor(sensor);
+		    	}
               }
 
               @Override
