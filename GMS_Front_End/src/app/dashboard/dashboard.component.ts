@@ -4,17 +4,21 @@ import {User} from './model/user';
 import {ApiService} from '../shared/api.service';
 import {Sensor} from './model/sensor';
 import {MotionSensor} from './model/motionSensor';
+import {Criteria} from './model/criteria';
+
 import {Weather} from './model/weather';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {AngularFireStorage} from '@angular/fire/storage';
 import {finalize} from 'rxjs/operators';
-
+import { formatDate } from '@angular/common';
+import { Status } from './model/status';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
+
 export class DashboardComponent implements OnInit {
 
   imgSrc: String = '/assets/img/default_statistics.png';
@@ -32,6 +36,8 @@ export class DashboardComponent implements OnInit {
 
   sensor: Sensor;
   motionSensor: MotionSensor;
+  criteria: Criteria;
+  status: Status;
 
   //weatherInfoEntity: Weather;
   weather = '';
@@ -42,19 +48,31 @@ export class DashboardComponent implements OnInit {
   temp_max = '';
   wind = '';
   pressure = '';
+  currentDate = '';
+
+  temp_gap = '0';
 
   constructor(private  apiService: ApiService,
-              private  storage: AngularFireStorage) {
+              private  storage: AngularFireStorage
+              ) 
+  {
 
   }
 
   ngOnInit() {
     this.getLastSensor();
     this.getLastMotionSensor();
+    this.getCriteria();
     // this.getWeatherData();
     this.resetForm();
     this.apiService.getImageDetailList();
+    this.currentDate = formatDate(new Date(), 'yyyy/MM/dd', 'en').toString();
 
+    // var tempGap = parseInt(this.criteria.criteriaTemperature.toString()) - 
+    //               parseInt(this.sensor.sensorTemp.toString());
+
+    // this.status.temperature = tempGap.toString();
+    // this.temp_gap = tempGap.toString();
   }
 
   private getMediaURL(imageRef) {
@@ -62,6 +80,22 @@ export class DashboardComponent implements OnInit {
     this.apiService.getMediaURL(imageRef).then(url => that.url = url);
   }
 
+  public getCriteria()
+  {
+    this.apiService.getCriteria().subscribe(
+      res => {
+        this.criteria = res;
+
+
+        // if(tempGap < 0)
+
+        // alert(this.temp_gap);
+      },
+      err => {
+        // alert('Error!!!');
+      }
+    );    
+  }
 
   public getLastSensor() {
 

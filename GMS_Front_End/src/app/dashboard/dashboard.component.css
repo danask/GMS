@@ -48,10 +48,46 @@ th, td{
 /*}*/
 
 .card-main{
-  width: 70%;
+  width: 39em;
+  margin-right: 1em;
+  margin-bottom: 1em;
+  float: left;
 }
+
+.card-main.weatherCard{
+  height: 28.8em;
+}
+
+.card-main.motionCard
+{
+  clear: both;
+}
+
+.card-main.roomCard{
+  margin-bottom: 10em;
+}
+
+.flex-container {
+  width: 45%;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+}
+
 
 app-navigation{
   display: block;
+}
+
+table td, th{
+  border: 1px solid #ddd;
+  background-color: transparent;
+  border-collapse: collapse;
+  width: 3em;
+}
+
+.lastUpdated
+{
+  text-align: right;
 }
 

@@ -143,7 +143,7 @@ export class RoomSensorHistoryComponent implements OnInit {
           {
             this.tempData[size -1 - i] = this.sensors[i].sensorTemp;
             this.humidityData[size -1 - i] = this.sensors[i].sensorHumid;
-            this.dateData[size -1 - i] = this.sensors[i].dateTime.substring(8,10);
+            this.dateData[size -1 - i] = this.sensors[i].dateTime.substring(5,10);
             this.dateLabel = 'date (' + this.sensors[i].dateTime.substring(5,7) + ')';
             console.log(this.dateLabel);
           }

@@ -1,3 +1,13 @@
-li:last-of-type{
-  padding-left: 15rem;
+li:first-of-type{
+  padding-left: 10px;
+}
+
+li:nth-of-type(5){
+  /* float: right; */
+  padding-right: 6rem;
+}
+
+li{
+  color: white;
+  
 }
