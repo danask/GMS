@@ -12,6 +12,11 @@ footer{
   margin-top: 10em;
   display: block;
   clear: both;
+  padding-top: 10px;
+  padding-bottom: 0px;
+  position: relative;
+  bottom:0;
+  width:100%;
 }
 
 footer .main-footer{	padding: 20px 0;	background: #252525;}

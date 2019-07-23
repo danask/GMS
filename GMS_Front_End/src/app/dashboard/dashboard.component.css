@@ -61,10 +61,12 @@ th, td{
 .card-main.motionCard
 {
   clear: both;
+  height: 20em;
 }
 
 .card-main.roomCard{
   margin-bottom: 10em;
+  height: 20em;
 }
 
 .flex-container {

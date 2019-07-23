@@ -4,6 +4,8 @@
 
 body{
   background-color: #eee;
+  height: 100%;
+  /* margin-bottom:50px; */
 }
 
 .card-main{

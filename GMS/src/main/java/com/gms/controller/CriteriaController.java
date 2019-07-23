@@ -108,19 +108,19 @@ public class CriteriaController {
 				
 		switch(criteria.getPlantType())
 		{
-			case "Dry":
+			case "dry":
 				criteriaWater *= 0.5;
 				break;
 				
-			case "Normal":
+			case "normal":
 				criteriaWater *= 1.0;
 				break;
 				
-			case "Wet":
+			case "wet":
 				criteriaWater *= 2.0;
 				break;		
 
-			case "Mixed":
+			case "mixed":
 				criteriaWater *= 1.5;
 				break;				
 		}
@@ -128,19 +128,19 @@ public class CriteriaController {
 		
 		switch(criteria.getSpaceSize())
 		{
-			case "Indoor":
+			case "indoor":
 				criteriaWater *= 1.0;
 				break;
 				
-			case "Medium":
+			case "medium":
 				criteriaWater *= 2.0;
 				break;
 				
-			case "Large":
+			case "large":
 				criteriaWater *= 3.0;
 				break;		
 
-			case "Outdoor":
+			case "outdoor":
 				criteriaWater *= 5.0;
 				break;				
 		}	
