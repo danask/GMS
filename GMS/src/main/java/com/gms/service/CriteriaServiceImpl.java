@@ -11,7 +11,8 @@ import com.gms.model.Criteria;
 
 @Service("CriteriaService")
 @Transactional
-public class CriteriaServiceImpl implements CriteriaService{
+public class CriteriaServiceImpl implements CriteriaService
+{
 
 	@Autowired
 	private CriteriaDAO criteriaDAO;
@@ -19,6 +20,11 @@ public class CriteriaServiceImpl implements CriteriaService{
 	@Override
 	public Criteria getCriteria() {
 		return criteriaDAO.getCriteria();
+	}
+
+	@Override
+	public void updateCriteria(Criteria criteria) { 
+		criteriaDAO.updateCriteria(criteria);
 	}
 
 }

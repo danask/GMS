@@ -23,13 +23,16 @@ export class ApiService {
 
   private ALL_SENSORS_URL = this.BASE_URL + '\\Sensor\\sensorAll';
   private ALL_MOTION_SENSORS_URL = this.BASE_URL + '\\MotionSensor\\motionSensorAll';
-  private ALL_CRITERIA_URL = this.BASE_URL + '\\Criteria\\getCriteria';
 
   private LAST_SENSOR_URL = this.BASE_URL + '\\Sensor\\sensorLatestOne';
   private LAST_MOTION_SENSOR_URL = this.BASE_URL + '\\MotionSensor\\motionSensorLatestOne';
 
+  private ALL_CRITERIA_URL = this.BASE_URL + '\\Criteria\\getCriteria';
+  private ADD_CRITERIA_URL = this.BASE_URL + '\\Criteria\\saveCriteria';
+
   private WEATHER_URL = this.WEATHER_BASE_URL +
                   'weather?q=Vancouver&APPID=1b5fcb8df3906c5092aca2b51707953b';
+                  
   imageDetailList: AngularFireList <any>;
 
   constructor(private http: HttpClient,
@@ -77,6 +80,10 @@ export class ApiService {
 
   getCriteria(): Observable<Criteria>{
     return this.http.get<Criteria>(this.ALL_CRITERIA_URL);
+  }
+
+  setCriteria(criteria: Criteria): Observable<any>{
+    return this.http.post(this.ADD_CRITERIA_URL, criteria);
   }
 
   getLastSensor(): Observable<Sensor>{

@@ -20,6 +20,7 @@ import { UserManagementComponent } from './user-management/user-management.compo
 import { UserRegistrationComponent } from './user-registration/user-registration.component';
 import { MotionSensorHistoryComponent } from './motion-sensor-history/motion-sensor-history.component';
 import { RoomSensorHistoryComponent } from './room-sensor-history/room-sensor-history.component';
+import { SettingsComponent } from './settings/settings.component';
 
 
 
@@ -48,6 +49,10 @@ const appRoutes: Routes = [
     path: 'logout',
     component: LogoutComponent
   },
+  {
+    path: 'settings',
+    component: SettingsComponent
+  },
   // default active menu
   {
     path: '',
@@ -71,7 +76,8 @@ const appRoutes: Routes = [
     UserManagementComponent,
     UserRegistrationComponent,
     MotionSensorHistoryComponent,
-    RoomSensorHistoryComponent
+    RoomSensorHistoryComponent,
+    SettingsComponent
   ],
   imports: [
     BrowserModule,

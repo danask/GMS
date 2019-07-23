@@ -1,5 +1,7 @@
 export interface Criteria {
     id: number;
+    plantType: String;
+    spaceSize: String;
     criteriaWater: String; 
     criteriaSunshine: String;
     criteriaTemperature: String;

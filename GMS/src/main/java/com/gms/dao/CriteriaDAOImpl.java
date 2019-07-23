@@ -34,4 +34,10 @@ public class CriteriaDAOImpl implements CriteriaDAO
 		}	
 	}
 
+	@Override
+	public void updateCriteria(Criteria criteria) {
+
+		sessionFactory.getCurrentSession().update(criteria);
+	}
+
 }

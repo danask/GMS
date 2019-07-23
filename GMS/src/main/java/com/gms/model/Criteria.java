@@ -14,6 +14,11 @@ public class Criteria
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
+	
+	@Column
+	private String spaceSize;	
+	@Column
+	private String plantType;		
 	@Column
 	private String criteriaWater;
 	@Column
@@ -25,9 +30,34 @@ public class Criteria
 	@Column
 	private String criteriaVentilation;
 
+	@Column
 	private String gapTemperature;
+	
+	@Column
 	private String gapHumidity;
 	
+	
+	
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	
+	
+	public String getSpaceSize() {
+		return spaceSize;
+	}
+	public void setSpaceSize(String spaceSize) {
+		this.spaceSize = spaceSize;
+	}
+	public String getPlantType() {
+		return plantType;
+	}
+	public void setPlantType(String plantType) {
+		this.plantType = plantType;
+	}
 	public String getCriteriaWater() {
 		return criteriaWater;
 	}
