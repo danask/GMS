@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.gms.model.Criteria;
+import com.gms.model.NotificationTask;
 import com.gms.model.Sensor;
 import com.gms.model.User;
 import com.gms.service.CriteriaService;
@@ -78,6 +79,17 @@ public class CriteriaController {
 		
 		Sensor sensor = sensorService.getSensorLatestValue();
 		Criteria orgCriteria = criteriaService.getCriteria();
+		
+		// for default settings
+		if(orgCriteria.getCriteriaWater() == null)
+		{
+			orgCriteria.setCriteriaWater("2000");
+			orgCriteria.setCriteriaHumidity("50");
+			orgCriteria.setCriteriaSunshine("1");
+			orgCriteria.setCriteriaTemperature("25");
+			orgCriteria.setCriteriaVentilation("1");
+		}
+		
 		
 		int gapTemp = Integer.parseInt(orgCriteria.getCriteriaTemperature()) 
 				- Integer.parseInt(sensor.getSensorTemp());
@@ -151,6 +163,9 @@ public class CriteriaController {
 								+ criteriaWater);
 		criteriaService.updateCriteria(criteria);  
 
+		// for testing
+		NotificationTask.sendEmail();
+		
 		return criteria;
 	}
 }

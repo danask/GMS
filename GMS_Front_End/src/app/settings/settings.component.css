@@ -35,6 +35,10 @@ label {
     width: 5em;
 }
 
+label.headLabel{
+    width: 10em;
+}
+
 label.radioField{
     margin-left: 5em;
 }

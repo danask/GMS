@@ -12,6 +12,7 @@ import java.util.HashMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.ResourceUtils;
 
+import com.gms.service.CriteriaService;
 import com.gms.service.MotionSensorService;
 import com.gms.service.SensorService;
 import com.google.auth.oauth2.GoogleCredentials;
@@ -27,6 +28,11 @@ public class MotionSensorTask
 {
 	@Autowired
 	private MotionSensorService motionSensorService;
+	
+	@Autowired
+	private CriteriaService criteriaService;
+	
+	public final int EMAIL_INTERVAL = 120; // mins: 30 times -> 8min
 	
 	public void getSensorInfoFromFirebase()
 	{
@@ -151,6 +157,32 @@ public class MotionSensorTask
 			    	System.out.println(motionSensor);
 		    		motionSensorService.addMotionSensor(motionSensor);
 		    	}
+		    	
+		    	
+		    	// to send email 
+		    	Criteria currentCriteria = criteriaService.getCriteria();
+		    	
+		    	if(!criteriaService.getEmailNotification().equals("off"))
+		    	{
+		    		if(criteriaService.getEmailNotification().equals("on"))
+		    		{
+		    			NotificationTask.sendEmail(); 
+		    			currentCriteria.setEmailNotification("1");
+		    		}
+		    		else  // numbers
+		    		{
+		    			int tempNumber = Integer.parseInt(currentCriteria.getEmailNotification());
+		    			
+		    			// till boundary
+		    			if(tempNumber == EMAIL_INTERVAL)  
+		    				currentCriteria.setEmailNotification("on");
+		    			else // increase number
+		    				currentCriteria.setEmailNotification(String.valueOf((++tempNumber)));
+		    		}
+		    		
+	    			criteriaService.updateCriteria(currentCriteria);
+		    	}
+		    	
               }
 
               @Override

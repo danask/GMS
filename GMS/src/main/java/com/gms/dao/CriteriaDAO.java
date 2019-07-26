@@ -9,4 +9,6 @@ public interface CriteriaDAO
 	public Criteria getCriteria();
 	
 	public void updateCriteria(Criteria criteria);
+	
+	public String getEmailNotification();
 }

@@ -27,4 +27,9 @@ public class CriteriaServiceImpl implements CriteriaService
 		criteriaDAO.updateCriteria(criteria);
 	}
 
+	@Override
+	public String getEmailNotification() {
+		return criteriaDAO.getEmailNotification();
+	}
+
 }

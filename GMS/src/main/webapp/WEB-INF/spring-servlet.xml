@@ -92,6 +92,6 @@
                 <ref bean="cronTrigger"/>
             </list>
         </property>
-    </bean>  
+    </bean>   
 	
 </beans>

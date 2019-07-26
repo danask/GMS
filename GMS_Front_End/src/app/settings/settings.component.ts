@@ -27,6 +27,9 @@ export class SettingsComponent implements OnInit {
     this.apiService.getCriteria().subscribe(
       res => {
         this.criteria = res;
+
+        if(this.criteria.emailNotification != "off")
+          this.criteria.emailNotification = "on";
       },
       err => {
         // alert('Error!!!');

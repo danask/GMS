@@ -18,7 +18,17 @@ public class Criteria
 	@Column
 	private String spaceSize;	
 	@Column
-	private String plantType;		
+	private String plantType;	
+	
+	@Column
+	private String emailNotification;		
+	@Column
+	private String emailAccount;		
+	@Column
+	private String emailPassword;	
+	@Column
+	private String notificationInterval;	
+	
 	@Column
 	private String criteriaWater;
 	@Column
@@ -32,7 +42,6 @@ public class Criteria
 
 	@Column
 	private String gapTemperature;
-	
 	@Column
 	private String gapHumidity;
 	
@@ -58,6 +67,32 @@ public class Criteria
 	public void setPlantType(String plantType) {
 		this.plantType = plantType;
 	}
+	public String getEmailNotification() {
+		return emailNotification;
+	}
+	public void setEmailNotification(String emailNotification) {
+		this.emailNotification = emailNotification;
+	}
+	
+	public String getEmailAccount() {
+		return emailAccount;
+	}
+	public void setEmailAccount(String emailAccount) {
+		this.emailAccount = emailAccount;
+	}
+	public String getEmailPassword() {
+		return emailPassword;
+	}
+	public void setEmailPassword(String emailPassword) {
+		this.emailPassword = emailPassword;
+	}
+	public String getNotificationInterval() {
+		return notificationInterval;
+	}
+	public void setNotificationInterval(String notificationInterval) {
+		this.notificationInterval = notificationInterval;
+	}
+	
 	public String getCriteriaWater() {
 		return criteriaWater;
 	}

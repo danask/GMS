@@ -6,14 +6,14 @@
 
   <div class="containter card-main offset-1">
 
-    <h5>Settings</h5>
+    <h5>Configuration</h5>
     <hr>
       
     <form name="form" #f="ngForm"
     (ngSubmit)="f.form.valid && addCriteria()" novalidate class="feedback-form">
 
       <div class="formRow">
-          <label for="plantType">Plant Type</label>
+          <label for="plantType" class="headLabel"><b>Plant Type</b></label>
       </div>
       <div>
           <label class="radioField" for="dry">Dry</label>
@@ -27,7 +27,7 @@
       </div>
 
       <div class="formRow">
-          <label for="spaceSize">Room Size</label>
+          <label for="spaceSize" class="headLabel"><b>Room Size</b></label>
       </div>
       <div>
           <label class="radioField" for="indoor">Indoor</label>
@@ -39,6 +39,26 @@
           <label class="radioField" for="outdoor">Outdoor</label>
           <input type="radio" name="spaceSize " value="outdoor" [(ngModel)]="criteria.spaceSize"/>
       </div>
+
+      <div class="formRow">
+        <label for="email" class="headLabel"><b>Email Notification</b></label>
+      </div>
+      <div>
+          <label class="radioField" for="on">Turn On</label>
+          <input type="radio" name="on " value="on" [(ngModel)]="criteria.emailNotification"/>
+          <label class="radioField" for="off">Turn Off</label>
+          <input type="radio" name="off" value="off" [(ngModel)]="criteria.emailNotification"/>
+      </div>
+      <!-- <div class="form-group">
+        <label for="email"><b>Email Notification</b></label>
+        <input type="text"
+              id="email"
+              class="form-control"
+              name="email"
+              [(ngModel)]="criteria.email"
+              placeholder="Your email">
+      </div> -->
+
       <br/>
       <div align="center">
         <button type="submit" class="btn btn-info">

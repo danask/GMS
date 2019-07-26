@@ -40,4 +40,22 @@ public class CriteriaDAOImpl implements CriteriaDAO
 		sessionFactory.getCurrentSession().update(criteria);
 	}
 
+	@Override
+	public String getEmailNotification()
+	{
+		List<Criteria> criteria = new ArrayList<Criteria>();
+		
+		criteria = sessionFactory.getCurrentSession()
+			.createQuery("from Criteria")
+			.list();
+
+		if (criteria.size() > 0) 
+		{
+			return criteria.get(0).getEmailNotification();
+		} 
+		else 
+		{
+			return null;
+		}	
+	}
 }
