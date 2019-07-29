@@ -64,6 +64,7 @@ export class DashboardComponent implements OnInit {
     this.getLastMotionSensor();
     this.getCriteria();
     // this.getWeatherData();
+    this.temp = "23.5";
     this.resetForm();
     this.apiService.getImageDetailList();
     this.currentDate = formatDate(new Date(), 'yyyy/MM/dd', 'en').toString();
@@ -85,11 +86,16 @@ export class DashboardComponent implements OnInit {
     this.apiService.getCriteria().subscribe(
       res => {
         this.criteria = res;
+        var criteriaWater = parseFloat(this.criteria.criteriaWater.toString()) / 1000;
+        // to calculate how long sunshine should be lasted
+        this.criteria.criteriaSunshine = 
+              ((parseFloat(this.temp) / 25.0) * 60).toString(); 
+        this.criteria.criteriaWater = 
+              (criteriaWater).toFixed(1).toString();
 
-
-        // if(tempGap < 0)
-
-        // alert(this.temp_gap);
+        // 1: 2 = x : 1.8
+        this.sensor.description = 
+              (parseFloat(this.sensor.description)*criteriaWater*0.5).toFixed(1);
       },
       err => {
         // alert('Error!!!');
@@ -114,10 +120,12 @@ export class DashboardComponent implements OnInit {
     this.apiService.getLastMotionSensor().subscribe(
       res => {
         this.motionSensor = res;
+
         // this.tempMediaURL = '/CapturedImages/' + this.motionSensor.detectTime + '.jpg';
         // console.log(this.tempMediaURL);
         this.getMediaURL('/CapturedImages/' + this.motionSensor.detectTime + '.jpg');
 
+        this.motionSensor.detectTime = this.motionSensor.detectTime.substring(0, 19);
         // this.getMediaURL('/CapturedImages/2019-07-09 00:13:40.180848.jpg');
       },
       err => {
@@ -134,19 +142,19 @@ export class DashboardComponent implements OnInit {
         const weatherInfo = res;
 
         if (weatherInfo != null) {
-          // console.log(res);
-          // console.log(weatherInfo.main.temp);
+          console.log(res);
+          console.log(res.main.temp);
           // console.log(weatherInfo.main.humidity);
           // console.log(res.weather[0].main);
 
-          // this.weather = res.weather[0].main;
-          // this.humidity = weatherInfo.main.humidity;
-          // this.temp = (weatherInfo.main.temp - 32) / 1.8;
-          // this.weatherDescription = res.weather[0].description;
-          // this.temp_min = weatherInfo.main.temp_min;
-          // this.temp_max = weatherInfo.main.temp_max;
-          // this.wind = res.wind.speed;
-          // this.pressure = weatherInfo.main.pressure;
+          this.weather = res.weather[0].main;
+          this.humidity = weatherInfo.main.humidity;
+          this.temp = weatherInfo.main.temp;
+          this.weatherDescription = res.weather[0].description;
+          this.temp_min = weatherInfo.main.temp_min;
+          this.temp_max = weatherInfo.main.temp_max;
+          this.wind = res.wind.speed;
+          this.pressure = weatherInfo.main.pressure;
 
           // this.weatherInfoEntity.humidity = weatherInfo.main.humidity;
           // this.weatherInfoEntity.pressure = weatherInfo.main.pressure;

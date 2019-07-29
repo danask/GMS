@@ -9,5 +9,5 @@ export interface Criteria {
     criteriaVentilation: String;
     gapTemperature: String;
     gapHumidity: String;
-    email: String;
+    emailNotification: String;
   }

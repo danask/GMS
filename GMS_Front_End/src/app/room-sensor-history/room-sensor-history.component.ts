@@ -18,6 +18,7 @@ export class RoomSensorHistoryComponent implements OnInit {
   chartHumidity = [];
   tempData = [];
   humidityData = [];
+  waterData = [];
   dateData = [];
   dateLabel = 'date';
 
@@ -26,6 +27,8 @@ export class RoomSensorHistoryComponent implements OnInit {
   ngOnInit() {
 
     this.getSensorAll();
+
+ 
 
     // disiplay charts
     this.chartTemperature = new Chart('canvasTemperature', {
@@ -115,7 +118,56 @@ export class RoomSensorHistoryComponent implements OnInit {
             display: true,
             scaleLabel: {
               display: true,
-              labelString: 'degree'
+              labelString: 'Percent (%)'
+            }
+          }]
+        }
+      }
+    });
+
+
+    // disiplay water charts
+    this.chartTemperature = new Chart('canvasWater', {
+      type: 'line',
+      data: {
+        labels: this.dateData,
+        datasets: [
+          {
+            label: 'Amount of Water',
+            data: this.waterData,
+            backgraoundColor: 'rgb(160,19,194)',
+            borderColor: 'rgb(160,19,194)',
+            fill: true,
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        title: {
+          display: false,
+          text: 'Temperature'
+        },
+        tooltips: {
+          mode: 'index',
+          intersect: false,
+        },
+        hover: {
+          mode: 'nearest',
+          intersect: true
+        },
+        scales: {
+          xAxes: [{
+            display: true,
+            scaleLabel: {
+              display: true,
+              labelString: this.dateLabel
+            }
+          }],
+          yAxes: [{
+            display: true,
+            scaleLabel: {
+              display: true,
+              labelString: 'liters (l)'
             }
           }]
         }
@@ -143,6 +195,7 @@ export class RoomSensorHistoryComponent implements OnInit {
           {
             this.tempData[size -1 - i] = this.sensors[i].sensorTemp;
             this.humidityData[size -1 - i] = this.sensors[i].sensorHumid;
+            this.waterData[size -1 - i] = this.sensors[i].description;
             this.dateData[size -1 - i] = this.sensors[i].dateTime.substring(5,10);
             this.dateLabel = 'date (' + this.sensors[i].dateTime.substring(5,7) + ')';
             console.log(this.dateLabel);

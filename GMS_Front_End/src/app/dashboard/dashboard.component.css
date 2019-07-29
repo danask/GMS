@@ -85,8 +85,9 @@ table td, th{
   border: 1px solid #ddd;
   background-color: transparent;
   border-collapse: collapse;
-  width: 3em;
+  /* width: 2em; */
 }
+
 
 .lastUpdated
 {

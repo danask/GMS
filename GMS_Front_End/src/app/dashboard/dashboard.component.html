@@ -15,28 +15,29 @@
             <table class="table table-striped">
                 <tr>
                     <th>Influential Factors</th>
-                    <th>Status</th>
-                    <th>Recommendation</th>
+                    <th>Status<br>(by logic)</th>
+                    <th>General Criteria</th>
                 <tr>
                   <td>Water</td>
-                  <td>-</td>
-                  <td>{{criteria?.criteriaWater}} ml a week</td>
+                  <td>{{sensor?.description}} liters </td>
+                  <td>Around {{criteria?.criteriaWater}} liters a week</td>
                 </tr>
                 <tr>
                     <td>Sunshine</td>
-                    <td>-</td>
-                    <td>{{criteria?.criteriaSunshine}} hour a day</td>
+                    <td>{{criteria?.criteriaSunshine}} minutes</td>
+                    <td>Around 60.0 minutes a day</td>
                 </tr>
                 <tr>
                     <td>Temperature</td>
-                    <td>{{sensor?.sensorTemp}} &#8451; </td>
+                    <td>{{criteria?.gapTemperature}} ({{sensor?.sensorTemp}}&#8451;)
+                       </td>
                     <!-- <td>{{temp_gap}} &#8451;</td> -->
-                    <td>{{criteria?.gapTemperature}}. {{criteria?.criteriaTemperature}}&#8451; is appropriate</td>
+                    <td> {{criteria?.criteriaTemperature}}&#8451; is appropriate</td>
                 </tr>
                 <tr>
                     <td>Humidity</td>
-                    <td>{{sensor?.sensorHumid}} %</td>
-                    <td>{{criteria?.gapHumidity}}. {{criteria?.criteriaHumidity}}% or more is appropriate</td>
+                    <td>{{criteria?.gapHumidity}} ({{sensor?.sensorHumid}}%)</td>
+                    <td> {{criteria?.criteriaHumidity}}% or more is appropriate</td>
                 </tr>
                 <tr>
                     <td>Ventilation</td>
@@ -58,7 +59,7 @@
         <ul>
           <li>Location: Vancouver, Canada</li>
           <li>Weather: {{weather}}, {{weatherDescription}}</li>
-<!--          <li>Local Temperature: {{temp}}&#8451; ,from {{temp_min}} &#8451; to {{temp_max}}&#8451;</li>-->
+          <li>Local Temperature: {{temp}}&#8451; ,from {{temp_min}} &#8451; to {{temp_max}}&#8451;</li>
           <li>Local Humidity: {{humidity}} %</li>
           <li>Local Pressure: {{pressure}} hpa</li>
           <li>Wind: {{wind}} m/s</li>

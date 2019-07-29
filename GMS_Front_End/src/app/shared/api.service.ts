@@ -31,7 +31,7 @@ export class ApiService {
   private ADD_CRITERIA_URL = this.BASE_URL + '\\Criteria\\saveCriteria';
 
   private WEATHER_URL = this.WEATHER_BASE_URL +
-                  'weather?q=Vancouver&APPID=1b5fcb8df3906c5092aca2b51707953b';
+                  'weather?q=Vancouver&units=metric&APPID=1b5fcb8df3906c5092aca2b51707953b';
                   
   imageDetailList: AngularFireList <any>;
 
