@@ -24,10 +24,12 @@
       <br/>
       <div>
         <table class="table table-striped">
-          <th>Number</th>
-          <th>Alert</th>
-          <th>Detect Time</th>
-          <th>Captured Image</th>
+          <tr>
+            <th>Number</th>
+            <th>Alert</th>
+            <th>Detect Time</th>
+            <th>Captured Image</th>
+          </tr>
           <tr *ngFor="let sensor of motionSensors">
             <td>{{sensor.id}}</td>
             <td>{{sensor.alert}}</td>

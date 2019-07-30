@@ -48,13 +48,16 @@ export class MotionSensorHistoryComponent implements OnInit {
       res => {
         this.motionSensors = res;
 
-        for (let i = 0; i < this.motionSensors.length; i++ ){
+        for (let i = 0; i < this.motionSensors.length; i++ )
+        {
           this.apiService.getMediaURL('/CapturedImages/' + this.motionSensors[i].detectTime + '.jpg').
           then(url => this.motionSensors[i].pirId = url);
 
           if (this.url == null) {
-            this.motionSensors[i].pirId = '/assets/img/default_statistics.png';
+            this.motionSensors[i].pirId = '/assets/img/sprout.png';
           }
+
+          this.motionSensors[i].detectTime = this.motionSensors[i].detectTime.substring(0, 19);
         }
       },
       err => {

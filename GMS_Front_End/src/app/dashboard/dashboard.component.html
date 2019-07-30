@@ -7,42 +7,41 @@
 <!--    <div class="containter offset-1">-->
     
     <div class = "offset-1">
-
         <div class="card-main">
             <h5>Daily Summary</h5>
             <hr/>
             <p class= "lastUpdated"><i>Last updated: {{currentDate}}</i></p>
             <table class="table table-striped">
                 <tr>
-                    <th>Influential Factors</th>
-                    <th>Status<br>(by logic)</th>
-                    <th>General Criteria</th>
+                  <th>Influential Factors</th>
+                  <th>Recommendation</th>
+                  <th>General Criteria</th>
                 <tr>
                   <td>Water</td>
                   <td>{{sensor?.description}} liters </td>
                   <td>Around {{criteria?.criteriaWater}} liters a week</td>
                 </tr>
                 <tr>
-                    <td>Sunshine</td>
-                    <td>{{criteria?.criteriaSunshine}} minutes</td>
-                    <td>Around 60.0 minutes a day</td>
+                  <td>Sunshine</td>
+                  <td>{{criteria?.criteriaSunshine}} minutes</td>
+                  <td>Around 60.0 minutes a day</td>
                 </tr>
                 <tr>
-                    <td>Temperature</td>
-                    <td>{{criteria?.gapTemperature}} ({{sensor?.sensorTemp}}&#8451;)
-                       </td>
-                    <!-- <td>{{temp_gap}} &#8451;</td> -->
-                    <td> {{criteria?.criteriaTemperature}}&#8451; is appropriate</td>
+                  <td>Temperature</td>
+                  <td>{{criteria?.gapTemperature}} ({{sensor?.sensorTemp}}&#8451;)
+                      </td>
+                  <!-- <td>{{temp_gap}} &#8451;</td> -->
+                  <td> {{criteria?.criteriaTemperature}}&#8451; is appropriate</td>
                 </tr>
                 <tr>
-                    <td>Humidity</td>
-                    <td>{{criteria?.gapHumidity}} ({{sensor?.sensorHumid}}%)</td>
-                    <td> {{criteria?.criteriaHumidity}}% or more is appropriate</td>
+                  <td>Humidity</td>
+                  <td>{{criteria?.gapHumidity}} ({{sensor?.sensorHumid}}%)</td>
+                  <td> {{criteria?.criteriaHumidity}}% or more is appropriate</td>
                 </tr>
                 <tr>
-                    <td>Ventilation</td>
-                    <td>-</td>
-                    <td>At least {{criteria?.criteriaVentilation}}hour or more</td>
+                  <td>Ventilation</td>
+                  <td>-</td>
+                  <td>At least {{criteria?.criteriaVentilation}}hour or more</td>
                 </tr>    
                 <!-- <tr>
                     <td>Invader Alert</td>
@@ -52,31 +51,50 @@
             </table>
         </div>
 
-      <div class="card-main weatherCard">
-      <h5>Weather Information</h5>
+      <div class="card-main">
+        <h5>Weather Information</h5>
         <hr>
+        <!-- <button (click)="getWeatherData()" >Refresh Weather Info</button> -->
         <p class= "lastUpdated"><i>Last updated: {{currentDate}}</i></p>
-        <ul>
-          <li>Location: Vancouver, Canada</li>
-          <li>Weather: {{weather}}, {{weatherDescription}}</li>
-          <li>Local Temperature: {{temp}}&#8451; ,from {{temp_min}} &#8451; to {{temp_max}}&#8451;</li>
-          <li>Local Humidity: {{humidity}} %</li>
-          <li>Local Pressure: {{pressure}} hpa</li>
-          <li>Wind: {{wind}} m/s</li>
-        </ul>
-
-        <div align="left">
-          <button (click)="getWeatherData()" >Refresh Weather Info</button>
-        </div>
+        <table class="table table-striped">
+          <tr>
+            <th>Weather Factors</th>
+            <th>Today's Status</th>
+          </tr>
+          <tr>
+            <td>Location</td>
+            <td>Vancouver, Canada
+              <img [src] = "countryUrl" width = '30px'>
+            </td>
+          </tr>
+          <tr>
+            <td>Weather</td>
+            <td>{{weather}}, {{weatherDescription}}
+              <img [src] = "weatherUrl" width = '30px'>
+            </td>
+          </tr>
+          <tr>
+            <td>Area Temperature</td>
+            <td>{{temp}}&#8451;, from {{temp_min}} &#8451; to {{temp_max}}&#8451;
+              <img [src] = "temperatureUrl" width = '30px'>
+            </td>
+          </tr>
+          <tr>
+            <td>Area Humidity</td>
+            <td>{{humidity}} %</td>
+          </tr>
+          <!-- <tr>
+            <td>Local Pressure</td>
+            <td>{{pressure}} hpa</td>
+          </tr> -->
+          <tr>
+            <td>Wind</td>
+            <td>{{wind}} m/s</td>
+          </tr>      
+        </table>
       </div>
 
-
-
-
       <div class="card-main motionCard">
-
-<!--        <h5>Garden Status</h5>-->
-<!--        <hr>-->
         <h5>Recent Motion Detect Status</h5>
         <hr/>
         <p class= "lastUpdated"><i>Last updated: {{currentDate}}</i></p>

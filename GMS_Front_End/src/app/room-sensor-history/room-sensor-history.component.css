@@ -3,6 +3,7 @@
     float: left; 
     margin-left: 0em; 
     margin-right: 0em;
+    /* max-width: ; */
 }
 
 .card-main
@@ -19,7 +20,11 @@
     clear: both;
     height: 100%;
     width: 91%;
+
+    margin-bottom: 10em;
 } 
+
+
 
 /* .card-main:nth-of-type(1)
 {

@@ -50,9 +50,13 @@ public class CriteriaController {
 		{
 			criteria.setGapTemperature(("Need " + String.valueOf(gapTemp)) + " up");
 		}
-		else
+		else if(gapTemp < 0)
 		{
 			criteria.setGapTemperature(("Need " + String.valueOf(-gapTemp)) + " down");
+		}
+		else
+		{
+			criteria.setGapTemperature("Good");
 		}
 		
 		int gapHumid = Integer.parseInt(criteria.getCriteriaHumidity()) 
@@ -98,9 +102,13 @@ public class CriteriaController {
 		{
 			criteria.setGapTemperature(("Need " + String.valueOf(gapTemp)) + " up");
 		}
-		else
+		else if(gapTemp < 0)
 		{
 			criteria.setGapTemperature(("Need " + String.valueOf(-gapTemp)) + " down");
+		}
+		else
+		{
+			criteria.setGapTemperature("Good");
 		}
 		
 		int gapHumid = Integer.parseInt(orgCriteria.getCriteriaHumidity()) 

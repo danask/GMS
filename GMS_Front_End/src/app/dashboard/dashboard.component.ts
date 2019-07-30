@@ -40,10 +40,13 @@ export class DashboardComponent implements OnInit {
   status: Status;
 
   //weatherInfoEntity: Weather;
+  countryUrl = '/assets/img/canada.png';
   weather = '';
   weatherDescription = '';
+  weatherUrl = '/assets/img/sunny.png';
   humidity = '';
   temp = '';
+  temperatureUrl = '/assets/img/temperature.png';
   temp_min = '';
   temp_max = '';
   wind = '';
@@ -65,6 +68,24 @@ export class DashboardComponent implements OnInit {
     this.getCriteria();
     // this.getWeatherData();
     this.temp = "23.5";
+    this.weather = "Clear";
+    this.weatherDescription = "clear sky";
+    this.humidity = "30";
+    this.pressure = "1022";
+    this.wind = "6.2";
+
+    if(parseInt(this.temp) >= 30)
+      this.temperatureUrl = '/assets/img/temperature_hot.png';
+
+    if(this.weather == 'Clear')
+      this.weatherUrl = '/assets/img/sunny.png';
+    else if(this.weather == 'Snow')
+      this.weatherUrl = '/assets/img/snowman.png';
+    else if(this.weather == 'Clouds')
+      this.weatherUrl = '/assets/img/cloud.png';
+    else
+      this.weatherUrl = '/assets/img/umbrella.png';
+
     this.resetForm();
     this.apiService.getImageDetailList();
     this.currentDate = formatDate(new Date(), 'yyyy/MM/dd', 'en').toString();
@@ -91,11 +112,11 @@ export class DashboardComponent implements OnInit {
         this.criteria.criteriaSunshine = 
               ((parseFloat(this.temp) / 25.0) * 60).toString(); 
         this.criteria.criteriaWater = 
-              (criteriaWater).toFixed(1).toString();
+              (criteriaWater).toFixed(2).toString();
 
         // 1: 2 = x : 1.8
         this.sensor.description = 
-              (parseFloat(this.sensor.description)*criteriaWater*0.5).toFixed(1);
+              (parseFloat(this.sensor.description)*criteriaWater*0.5).toFixed(2);
       },
       err => {
         // alert('Error!!!');
@@ -142,26 +163,18 @@ export class DashboardComponent implements OnInit {
         const weatherInfo = res;
 
         if (weatherInfo != null) {
-          console.log(res);
-          console.log(res.main.temp);
+          // console.log(res);
+          // console.log(res.main.temp);
           // console.log(weatherInfo.main.humidity);
-          // console.log(res.weather[0].main);
 
-          this.weather = res.weather[0].main;
-          this.humidity = weatherInfo.main.humidity;
-          this.temp = weatherInfo.main.temp;
-          this.weatherDescription = res.weather[0].description;
-          this.temp_min = weatherInfo.main.temp_min;
-          this.temp_max = weatherInfo.main.temp_max;
-          this.wind = res.wind.speed;
-          this.pressure = weatherInfo.main.pressure;
-
-          // this.weatherInfoEntity.humidity = weatherInfo.main.humidity;
-          // this.weatherInfoEntity.pressure = weatherInfo.main.pressure;
-          // this.weatherInfoEntity.temp = weatherInfo.main.temp;
-          // this.weatherInfoEntity.temp_max = weatherInfo.main.temp_max;
-          // this.weatherInfoEntity.temp_min = weatherInfo.main.temp_min;
-          // this.weatherInfoEntity.weather = res.weather[0].main;
+          // this.weather = res.weather[0].main;
+          // this.humidity = weatherInfo.main.humidity;
+          // this.temp = weatherInfo.main.temp;
+          // this.weatherDescription = res.weather[0].description;
+          // this.temp_min = weatherInfo.main.temp_min;
+          // this.temp_max = weatherInfo.main.temp_max;
+          // this.wind = res.wind.speed;
+          // this.pressure = weatherInfo.main.pressure;
         }
       },
       err => {
@@ -185,7 +198,7 @@ export class DashboardComponent implements OnInit {
     }
     else
     {
-      this.imgSrc = '/assets/img/default_statistics.png';
+      this.imgSrc = '/assets/img/sprout.png';
       this.selectedImage = null;
     }
   }
@@ -223,7 +236,7 @@ export class DashboardComponent implements OnInit {
       imageUrl: '',
       category: 'type'
     });
-    this.imgSrc = '/assets/img/default_statistics.png';
+    this.imgSrc = '/assets/img/sprout.png';
     this.selectedImage = null;
     this.isSubmitted = false;
 

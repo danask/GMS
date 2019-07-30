@@ -3,6 +3,7 @@ import {Sensor} from '../dashboard/model/sensor';
 import {MotionSensor} from '../dashboard/model/motionSensor';
 import {ApiService} from '../shared/api.service';
 import {Chart} from 'chart.js';
+import {Criteria} from '../dashboard/model/criteria';
 
 @Component({
   selector: 'app-room-sensor-history',
@@ -21,14 +22,16 @@ export class RoomSensorHistoryComponent implements OnInit {
   waterData = [];
   dateData = [];
   dateLabel = 'date';
-
+  criteria: Criteria;
+  criteriaWater;
+  
   constructor(private  apiService: ApiService) { }
 
   ngOnInit() {
 
+    this.getCriteria();
     this.getSensorAll();
-
- 
+    
 
     // disiplay charts
     this.chartTemperature = new Chart('canvasTemperature', {
@@ -41,7 +44,14 @@ export class RoomSensorHistoryComponent implements OnInit {
             data: this.tempData,
             backgraoundColor: 'rgb(255,99,132)',
             borderColor: 'rgb(255,99,132)',
-            fill: true,
+            fill: false,
+          },
+          {
+            label: 'Humidity',
+            data: this.humidityData,
+            backgraoundColor: 'rgb(54,162,235)',
+            borderColor: 'rgb(54,162,235)',
+            fill: false,
           }
         ]
       },
@@ -66,14 +76,34 @@ export class RoomSensorHistoryComponent implements OnInit {
               display: true,
               labelString: this.dateLabel
             }
-          }],
+          }
+          ],
           yAxes: [{
             display: true,
-            scaleLabel: {
+            scaleLabel:{
+              id: 'y-axis-1',
               display: true,
-              labelString: 'degree'
+              stacked: true,
+              position: 'right',
+              labelString: 'degree(C) / percent(%)'
             }
           }]
+          // yAxes: [{
+          //   display: true,
+          //   scaleLabels:[{
+          //     id: 'y-axis-1',
+          //     display: true,
+          //     position: 'right',
+          //     labelString: 'degree'
+          //   },
+          //   {
+          //     id: 'y-axis-2',
+          //     display: true,
+          //     position: 'right',
+          //     labelString: 'degree2'
+          //   }]
+           
+          // }]
         }
       }
     });
@@ -168,6 +198,10 @@ export class RoomSensorHistoryComponent implements OnInit {
             scaleLabel: {
               display: true,
               labelString: 'liters (l)'
+            },
+            ticks: {
+              min: 1.0,
+              
             }
           }]
         }
@@ -195,6 +229,11 @@ export class RoomSensorHistoryComponent implements OnInit {
           {
             this.tempData[size -1 - i] = this.sensors[i].sensorTemp;
             this.humidityData[size -1 - i] = this.sensors[i].sensorHumid;
+
+            // 1: 2 = x : 1.8
+            this.sensors[i].description = 
+              (parseFloat(this.sensors[i].description)*this.criteriaWater*0.5).toFixed(3);
+
             this.waterData[size -1 - i] = this.sensors[i].description;
             this.dateData[size -1 - i] = this.sensors[i].dateTime.substring(5,10);
             this.dateLabel = 'date (' + this.sensors[i].dateTime.substring(5,7) + ')';
@@ -207,6 +246,22 @@ export class RoomSensorHistoryComponent implements OnInit {
         // alert('Error!!!');
       }
     );
+  }
+
+  public getCriteria()
+  {
+    this.apiService.getCriteria().subscribe(
+      res => {
+        this.criteria = res;
+        this.criteriaWater = parseFloat(this.criteria.criteriaWater.toString()) / 1000;
+
+        this.criteria.criteriaWater = 
+              (this.criteriaWater).toFixed(3).toString();
+      },
+      err => {
+        // alert('Error!!!');
+      }
+    );    
   }
 
 }
