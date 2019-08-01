@@ -1,21 +1,19 @@
 <app-navigation></app-navigation>
 
 
-<table *ngIf="imageList">
-  <tr *ngFor="let i of rowIndexArray">
-    <td>
-      <div class="imagebox">
-<!--        <img [src]="imageList[3*i].id" class="img-fluid">-->
-<!--        <img src="https://firebasestorage.googleapis.com/v0/b/gms-rasp.appspot.com/o/Pics%2F2019-07-08%2017%3A56%3A59.974444.jpg?alt=media&token=d25727c0-144b-44f1-9c21-81679152c4ed" class="img-fluid">-->
-<!--        <span class="imagebox-desc">{{imageList[2]}}</span>-->
-      </div>
-    </td>
-  </tr>
-</table>
 
 <div id="motionSensorList">
-  <h5 id="form_header" class = "offset-1">GMS > Motion Detection History</h5>
+  <h5 id="form_header" class = "offset-1">GMS > Motion Detection History
+      <img id="myImg2"  src="/assets/img/reload.png" width='18' (click)="refresh()"/>
+  </h5>
   <br>
+
+  <div id="myModal" class="modal">
+      <span class="close">&times;</span>
+      <img class="modal-content" id="img01">
+      <div id="caption"></div>
+  </div>
+
   <div  class="container card-main offset-1" align="center">
 
     <h4 id="form_header" >Motion Detection History</h4>
@@ -34,9 +32,14 @@
             <td>{{sensor.id}}</td>
             <td>{{sensor.alert}}</td>
             <td>{{sensor.detectTime}} </td>
+            <td>
+                <img id="myImg" [src]="sensor.pirId" width="150px" 
+                        alt={{sensor.detectTime}}>
 
 
-            <td><img [src]="sensor.pirId" width="150px" height="100" alt="Nothing to display"></td>
+              </td>
+
+            <!-- <td><img [src]="sensor.pirId" width="150px" height="100" alt="Nothing to display"></td> -->
           </tr>
 
         </table>

@@ -21,10 +21,16 @@ import { UserRegistrationComponent } from './user-registration/user-registration
 import { MotionSensorHistoryComponent } from './motion-sensor-history/motion-sensor-history.component';
 import { RoomSensorHistoryComponent } from './room-sensor-history/room-sensor-history.component';
 import { SettingsComponent } from './settings/settings.component';
+import { HomeComponent } from './home/home.component';
+
 
 
 
 const appRoutes: Routes = [
+  {
+    path: 'home',
+    component: HomeComponent
+  },
   {
     path: 'dashboard',
     component: DashboardComponent
@@ -77,7 +83,8 @@ const appRoutes: Routes = [
     UserRegistrationComponent,
     MotionSensorHistoryComponent,
     RoomSensorHistoryComponent,
-    SettingsComponent
+    SettingsComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -89,6 +96,7 @@ const appRoutes: Routes = [
     ReactiveFormsModule,
 
     RouterModule.forRoot(appRoutes, {enableTracing: true})
+
     // RouterModule.forRoot([
     //   {path: 'logout', component: LogoutComponent}]
     // )

@@ -90,6 +90,8 @@ export class DashboardComponent implements OnInit {
     this.apiService.getImageDetailList();
     this.currentDate = formatDate(new Date(), 'yyyy/MM/dd', 'en').toString();
 
+    this.imageModal();
+
     // var tempGap = parseInt(this.criteria.criteriaTemperature.toString()) - 
     //               parseInt(this.sensor.sensorTemp.toString());
 
@@ -241,5 +243,33 @@ export class DashboardComponent implements OnInit {
     this.isSubmitted = false;
 
   }
+    
+  public refresh(): void {
+    window.location.reload();
+  }
 
+  
+  
+  public imageModal()
+  {
+
+    // Get the modal
+    var modal = document.getElementById("myModal");
+
+    // Get the image and insert it inside the modal - use its "alt" text as a caption
+    var img = document.getElementById("myImg") as HTMLImageElement;
+    var modalImg = document.getElementById("img01") as HTMLImageElement;
+    var captionText = document.getElementById("caption") as HTMLImageElement;
+
+    img.onclick = function(){
+      modal.style.display = "block";
+      modalImg.src = img.src;
+      captionText.innerHTML = img.alt;
+    }
+
+    var span = document.getElementsByClassName("close")[0] as HTMLImageElement;
+   span.onclick = function(){
+    modal.style.display = "none";
+   } 
+  }
 }

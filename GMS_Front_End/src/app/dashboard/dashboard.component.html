@@ -3,7 +3,9 @@
 <div class = "back-container ">
 <!--  <div id="list">-->
   <div>
-    <h5 id="form_header" class = "offset-1">GMS > Dashboard</h5>
+    <h5 id="form_header" class = "offset-1">GMS > Dashboard
+        <img src="/assets/img/reload.png" width='18' (click)="refresh()"/>
+    </h5>
 <!--    <div class="containter offset-1">-->
     
     <div class = "offset-1">
@@ -18,29 +20,29 @@
                   <th>General Criteria</th>
                 <tr>
                   <td>Water</td>
-                  <td>{{sensor?.description}} liters </td>
+                  <td class="table-color">{{sensor?.description}} liters </td>
                   <td>Around {{criteria?.criteriaWater}} liters a week</td>
                 </tr>
                 <tr>
                   <td>Sunshine</td>
-                  <td>{{criteria?.criteriaSunshine}} minutes</td>
+                  <td class="table-color">{{criteria?.criteriaSunshine}} minutes</td>
                   <td>Around 60.0 minutes a day</td>
                 </tr>
                 <tr>
                   <td>Temperature</td>
-                  <td>{{criteria?.gapTemperature}} ({{sensor?.sensorTemp}}&#8451;)
+                  <td class="table-color">{{criteria?.gapTemperature}} ({{sensor?.sensorTemp}}&#8451;)
                       </td>
                   <!-- <td>{{temp_gap}} &#8451;</td> -->
                   <td> {{criteria?.criteriaTemperature}}&#8451; is appropriate</td>
                 </tr>
                 <tr>
                   <td>Humidity</td>
-                  <td>{{criteria?.gapHumidity}} ({{sensor?.sensorHumid}}%)</td>
+                  <td class="table-color">{{criteria?.gapHumidity}} ({{sensor?.sensorHumid}}%)</td>
                   <td> {{criteria?.criteriaHumidity}}% or more is appropriate</td>
                 </tr>
                 <tr>
                   <td>Ventilation</td>
-                  <td>-</td>
+                  <td class="table-color">-</td>
                   <td>At least {{criteria?.criteriaVentilation}}hour or more</td>
                 </tr>    
                 <!-- <tr>
@@ -106,11 +108,17 @@
               <th>Captured Image</th>
             </tr>
             <tr>
-<!--              <td>{{motionSensor.id}}</td>-->
               <td>{{motionSensor.alert}}</td>
               <td>{{motionSensor.detectTime}} </td>
-<!--              <td>{{motionSensor.pirId}} </td>-->
-              <td><img [src]="url" width="150px" height="100"></td>
+              <td>
+                <img id="myImg" [src]="url" width="150px" height="100" 
+                        alt={{motionSensor.detectTime}}>
+                <div id="myModal" class="modal">
+                    <span class="close">&times;</span>
+                    <img class="modal-content" id="img01">
+                    <div id="caption"></div>
+                  </div>
+              </td>
             </tr>
 
           </table>

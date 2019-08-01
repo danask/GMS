@@ -31,10 +31,11 @@ export class RoomSensorHistoryComponent implements OnInit {
 
     this.getCriteria();
     this.getSensorAll();
-    
+
+
 
     // disiplay charts
-    this.chartTemperature = new Chart('canvasTemperature', {
+    new Chart('canvasTemperature', {
       type: 'line',
       data: {
         labels: this.dateData,
@@ -42,14 +43,14 @@ export class RoomSensorHistoryComponent implements OnInit {
           {
             label: 'Temperature',
             data: this.tempData,
-            backgraoundColor: 'rgb(255,99,132)',
+            // backgraoundColor: 'rgb(255,99,132)',
             borderColor: 'rgb(255,99,132)',
             fill: false,
           },
           {
             label: 'Humidity',
             data: this.humidityData,
-            backgraoundColor: 'rgb(54,162,235)',
+            // backgraoundColor: 'rgb(54,162,235)',
             borderColor: 'rgb(54,162,235)',
             fill: false,
           }
@@ -81,10 +82,10 @@ export class RoomSensorHistoryComponent implements OnInit {
           yAxes: [{
             display: true,
             scaleLabel:{
-              id: 'y-axis-1',
+              // id: 'y-axis-1',
               display: true,
-              stacked: true,
-              position: 'right',
+              // stacked: true,
+              // position: 'right',
               labelString: 'degree(C) / percent(%)'
             }
           }]
@@ -108,56 +109,56 @@ export class RoomSensorHistoryComponent implements OnInit {
       }
     });
 
-    this.chartHumidity = new Chart('canvasHumidity', {
-      type: 'line',
-      data: {
-        labels: this.dateData,
-        datasets: [
-          {
-            label: 'Humidity',
-            data: this.humidityData,
-            backgraoundColor: 'rgb(54,162,235)',
-            borderColor: 'rgb(54,162,235)',
-            fill: true,
-          }
-        ]
-      },
-      options: {
-        responsive: true,
-        title: {
-          display: false,
-          text: 'Humidity'
-        },
-        tooltips: {
-          mode: 'index',
-          intersect: false,
-        },
-        hover: {
-          mode: 'nearest',
-          intersect: true
-        },
-        scales: {
-          xAxes: [{
-            display: true,
-            scaleLabel: {
-              display: true,
-              labelString: this.dateLabel
-            }
-          }],
-          yAxes: [{
-            display: true,
-            scaleLabel: {
-              display: true,
-              labelString: 'Percent (%)'
-            }
-          }]
-        }
-      }
-    });
+    // this.chartHumidity = new Chart('canvasHumidity', {
+    //   type: 'line',
+    //   data: {
+    //     labels: this.dateData,
+    //     datasets: [
+    //       {
+    //         label: 'Humidity',
+    //         data: this.humidityData,
+    //         backgraoundColor: 'rgb(54,162,235)',
+    //         borderColor: 'rgb(54,162,235)',
+    //         fill: true,
+    //       }
+    //     ]
+    //   },
+    //   options: {
+    //     responsive: true,
+    //     title: {
+    //       display: false,
+    //       text: 'Humidity'
+    //     },
+    //     tooltips: {
+    //       mode: 'index',
+    //       intersect: false,
+    //     },
+    //     hover: {
+    //       mode: 'nearest',
+    //       intersect: true
+    //     },
+    //     scales: {
+    //       xAxes: [{
+    //         display: true,
+    //         scaleLabel: {
+    //           display: true,
+    //           labelString: this.dateLabel
+    //         }
+    //       }],
+    //       yAxes: [{
+    //         display: true,
+    //         scaleLabel: {
+    //           display: true,
+    //           labelString: 'Percent (%)'
+    //         }
+    //       }]
+    //     }
+    //   }
+    // });
 
 
     // disiplay water charts
-    this.chartTemperature = new Chart('canvasWater', {
+    new Chart('canvasWater', {
       type: 'line',
       data: {
         labels: this.dateData,
@@ -165,7 +166,7 @@ export class RoomSensorHistoryComponent implements OnInit {
           {
             label: 'Amount of Water',
             data: this.waterData,
-            backgraoundColor: 'rgb(160,19,194)',
+            // backgraoundColor: 'rgb(160,19,194)',
             borderColor: 'rgb(160,19,194)',
             fill: true,
           }
@@ -207,7 +208,6 @@ export class RoomSensorHistoryComponent implements OnInit {
         }
       }
     });
-
   }
 
   public getSensorAll() {
@@ -263,5 +263,10 @@ export class RoomSensorHistoryComponent implements OnInit {
       }
     );    
   }
+    
+  public refresh(): void {
+    window.location.reload();
+  }
+
 
 }
