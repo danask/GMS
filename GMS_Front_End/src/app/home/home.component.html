@@ -3,11 +3,15 @@
 <!-- Main jumbotron for a primary marketing message or call to action -->
 <div class="jumbotron">
     <div class="container">
-      <h1 class="display-3 mainText">Welcome to GMS!</h1>
-      <p class="mainText">GMS is a short expression for Gardening Management System. 
-        This is a template for a simple marketing or informational website. 
-        It includes a large callout called a jumbotron and three supporting pieces of content. 
-        Use it as a starting point to create something more unique.</p>
+      <h1 class="display-3 mainText">Welcome to GMS</h1>
+      <p class="mainText"><b>GMS is a short expression for Gardening Management System. 
+        This is an integrated solution program to provide ease
+        of plant management with the environmental parameters such as temperature, humidity,
+        and daily weather information.User can check the status on their web browser out and the
+        system recommends an appropriate action as the situation. Therefore, this application helps
+        people who are interested in the advanced management of gardening to monitor their plant
+        more efficiently and flexibly. Moreover, this will be suitable for implementing and
+        extending various programming language and network knowledge which we have learnt.</b></p>
       <p><a class="btn btn-primary btn-lg" href="/dashboard" role="button">Learn more &raquo;</a></p>
     </div>
 </div>
@@ -20,19 +24,24 @@
     <!-- Example row of columns -->
     <div class="row">
       <div class="col-md-4">
-        <h2>Heading</h2>
-        <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-        <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
+        <h2>Sensor Data Collection (IoT) </h2>
+        <p>To gather the data from sensors in the
+          garden and weather data from weather
+          broadcasting system. To share the data from collection part,
+          cloud-based database is used. </p>
+        <p><a class="btn btn-secondary" href="./home/#secondSection" role="button">View details &raquo;</a></p>
       </div>
       <div class="col-md-4">
-        <h2>Heading</h2>
-        <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-        <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
+        <h2>Server Monitoring (Angular, Spring)</h2>
+        <p>Each module are completely separated. This makes ease of maintenance and fault tolerance. 
+          To show the current status to users and manage and analyze the data asthe purpose.</p>
+        <p><a class="btn btn-secondary" href="./home/#thirdSection" role="button">View details &raquo;</a></p>
       </div>
       <div class="col-md-4">
-        <h2>Heading</h2>
-        <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-        <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
+        <h2>Recommendation (Tensorflow)</h2>
+        <p>To give the proper response as the
+          background data and situation</p>
+        <p><a class="btn btn-secondary" href="./home/#fourthSection" role="button">View details &raquo;</a></p>
       </div>
     </div>
 
@@ -41,10 +50,10 @@
   </div> <!-- /container -->
 
 
-  <div class="container">
+  <div class="container" >
 
       <!--Section: Main info-->
-      <section class="mt-5 wow fadeIn">
+      <section class="mt-5 wow fadeIn" id="firstSection">
   
         <!--Grid row-->
         <div class="row">
@@ -62,29 +71,16 @@
           <div class="col-md-6 mb-4">
   
             <!-- Main heading -->
-            <h3 class="h3 mb-3">Material Design for Bootstrap</h3>
-            <p>This template is created with Material Design for Bootstrap (
-              <strong>MDB</strong> ) framework.</p>
-            <p>Read details below to learn more about MDB.</p>
+            <h3 class="h3 mb-3">About GMS</h3>
+            <p>Gardening Management System (GMS) is a system to notify the current status as alerts and recommend the action through data analysis with source data, which is about a variety of environment factors such as weather, temperature, humidity, and so on.</p>
             <!-- Main heading -->
-  
-            <hr>
-  
+            <hr>  
             <p>
-              <strong>400+</strong> material UI elements,
-              <strong>600+</strong> material icons,
-              <strong>74</strong> CSS animations, SASS files, templates, tutorials and many more.
-              <strong>Free for personal and commercial use.</strong>
+                For monitoring system, we basically need to build the monitoring equipment with the sensors in the network. 
+                This data is sent to a main server to display and guide properly it using machine learning to end user. 
+                Finally, the main server filters more useful information to recommend. 
             </p>
-  
-            <!-- CTA -->
-            <a target="_blank" href="https://mdbootstrap.com/getting-started/" class="btn btn-indigo btn-md">Download
-              <i class="fas fa-download ml-1"></i>
-            </a>
-            <a target="_blank" href="https://mdbootstrap.com/components/" class="btn btn-indigo btn-md">Live demo
-              <i class="fas fa-image ml-1"></i>
-            </a>
-  
+
           </div>
           <!--Grid column-->
   
@@ -97,9 +93,9 @@
       <hr class="my-5">
   
       <!--Section: Main features & Quick Start-->
-      <section>
+      <section id="secondSection">
   
-        <h3 class="h3 text-center mb-5">About MDB</h3>
+        <h3 class="h3 text-center mb-5">Sensor Data Collection</h3>
   
         <!--Grid row-->
         <div class="row wow fadeIn">
@@ -110,11 +106,12 @@
             <!--First row-->
             <div class="row">
               <div class="col-1 mr-3">
-                <i class="fas fa-code fa-2x indigo-text"></i>
+                <i class="fa fa-download fa-2x indigo-text"></i>
               </div>
               <div class="col-10">
-                <h5 class="feature-title">Bootstrap 4</h5>
-                <p class="grey-text">Thanks to MDB you can take advantage of all feature of newest Bootstrap 4.</p>
+                <h5 class="feature-title">Raspberry-Pi</h5>
+                <p class="grey-text">Raspberry Pi server monitors the target image and generates data source via
+                    the sensors.</p>
               </div>
             </div>
             <!--/First row-->
@@ -124,13 +121,16 @@
             <!--Second row-->
             <div class="row">
               <div class="col-1 mr-3">
-                <i class="fas fa-book fa-2x blue-text"></i>
+                <i class="fa fa-download fa-2x blue-text"></i>
               </div>
               <div class="col-10">
-                <h5 class="feature-title">Detailed documentation</h5>
-                <p class="grey-text">We give you detailed user-friendly documentation at your disposal. It will help you
-                  to implement your ideas
-                  easily.
+                <h5 class="feature-title">Sensors</h5>
+                <p class="grey-text">Python on Raspberry Pi with DHT, PIR, and Camera sensors.
+                  <!-- <ul>
+                    <li>DHT (Temperature, Humidity sensor)</li>
+                    <li>PIR (motion sensor)</li>
+                    <li>Camera</li>
+                  </ul> -->
                 </p>
               </div>
             </div>
@@ -141,13 +141,12 @@
             <!--Third row-->
             <div class="row">
               <div class="col-1 mr-3">
-                <i class="fas fa-graduation-cap fa-2x cyan-text"></i>
+                <i class="fa fa-download fa-2x cyan-text"></i>
               </div>
               <div class="col-10">
-                <h5 class="feature-title">Lots of tutorials</h5>
-                <p class="grey-text">We care about the development of our users. We have prepared numerous tutorials,
-                  which allow you to learn
-                  how to use MDB as well as other technologies.</p>
+                <h5 class="feature-title">Firebase database and storage</h5>
+                <p class="grey-text">Raspberry Pi server uploads the files and updates the data to DB by interval
+                  Python used for the interface for Firebase database and storage</p>
               </div>
             </div>
             <!--/Third row-->
@@ -157,11 +156,13 @@
   
           <!--Grid column-->
           <div class="col-lg-6 col-md-12">
-  
-            <p class="h5 text-center mb-4">Watch our "5 min Quick Start" tutorial</p>
-            <div class="embed-responsive embed-responsive-16by9">
+            <img src="./assets/img/raspberry_pi.jpg" 
+                class="z-depth-0 img-fluid">
+            <!-- <p class="h5 text-center mb-4">Watch our "5 min Quick Start" tutorial</p> -->
+
+            <!-- <div class="embed-responsive embed-responsive-16by9">
               <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/cXTThxoywNQ" allowfullscreen></iframe>
-            </div>
+            </div> -->
           </div>
           <!--/Grid column-->
   
@@ -174,9 +175,9 @@
       <hr class="my-5">
   
       <!--Section: Not enough-->
-      <section>
+      <section id="thirdSection">
   
-        <h2 class="my-5 h3 text-center">Not enough?</h2>
+        <h2 class="my-5 h3 text-center">Server Monitoring</h2>
   
         <!--First row-->
         <div class="row features-small mb-5 mt-3 wow fadeIn">
@@ -186,12 +187,15 @@
             <!--First row-->
             <div class="row">
               <div class="col-2">
-                <i class="fas fa-check-circle fa-2x indigo-text"></i>
+                <i class="fa fa-desktop  fa-2x indigo-text"></i>
               </div>
               <div class="col-10">
-                <h6 class="feature-title">Free for personal and commercial use</h6>
-                <p class="grey-text">Our license is user-friendly. Feel free to use MDB for both private as well as
-                  commercial projects.
+                <h6 class="feature-title">Front-end: Angular 6</h6>
+                <p class="grey-text">fetches the data from database and send them to the service of typescript in 
+                    Angular. Finally, these data send to the html page. Angular6 with typescript, Spring framework, Restful API, 
+                    JSON, Postman
+
+           
                 </p>
                 <div style="height:15px"></div>
               </div>
@@ -201,10 +205,10 @@
             <!--Second row-->
             <div class="row">
               <div class="col-2">
-                <i class="fas fa-check-circle fa-2x indigo-text"></i>
+                <i class="fa fa-desktop  fa-2x indigo-text"></i>
               </div>
               <div class="col-10">
-                <h6 class="feature-title">400+ UI elements</h6>
+                <h6 class="feature-title">Front-end: Bootstrap, Chart.js</h6>
                 <p class="grey-text">An impressive collection of flexible components allows you to develop any project.
                 </p>
                 <div style="height:15px"></div>
@@ -215,11 +219,13 @@
             <!--Third row-->
             <div class="row">
               <div class="col-2">
-                <i class="fas fa-check-circle fa-2x indigo-text"></i>
+                <i class="fa fa-desktop  fa-2x indigo-text"></i>
               </div>
               <div class="col-10">
-                <h6 class="feature-title">600+ icons</h6>
-                <p class="grey-text">Hundreds of useful, scalable, vector icons at your disposal.</p>
+                <h6 class="feature-title">Weather information via weather server</h6>
+                <p class="grey-text">understanding of openAPI from external 
+                    server and JSON handling
+                </p>
                 <div style="height:15px"></div>
               </div>
             </div>
@@ -228,13 +234,13 @@
             <!--Fourth row-->
             <div class="row">
               <div class="col-2">
-                <i class="fas fa-check-circle fa-2x indigo-text"></i>
+                <i class="fa fa-desktop  fa-2x indigo-text"></i>
               </div>
               <div class="col-10">
-                <h6 class="feature-title">Fully responsive</h6>
-                <p class="grey-text">It doesn't matter whether your project will be displayed on desktop, laptop, tablet
-                  or mobile phone. MDB
-                  looks great on each screen.</p>
+                <h6 class="feature-title">Notification</h6>
+                <p class="grey-text">
+                    This is triggered only when the alert captured
+                    </p>
                 <div style="height:15px"></div>
               </div>
             </div>
@@ -244,7 +250,7 @@
   
           <!--Second column-->
           <div class="col-md-4 flex-center">
-            <img src="https://mdbootstrap.com/img/Others/screens.png" alt="MDB Magazine Template displayed on iPhone"
+            <img src="./assets/img/computer_server3.png" 
               class="z-depth-0 img-fluid">
           </div>
           <!--/Second column-->
@@ -254,12 +260,11 @@
             <!--First row-->
             <div class="row">
               <div class="col-2">
-                <i class="fas fa-check-circle fa-2x indigo-text"></i>
+                <i class="fa fa-check-circle  fa-2x indigo-text"></i>
               </div>
               <div class="col-10">
-                <h6 class="feature-title">70+ CSS animations</h6>
-                <p class="grey-text">Neat and easy to use animations, which will increase the interactivity of your
-                  project and delight your visitors.
+                <h6 class="feature-title">Back-end: Spring Framework</h6>
+                <p class="grey-text">Java based framework. The main server polls to get the data by the given interval.  
                 </p>
                 <div style="height:15px"></div>
               </div>
@@ -269,11 +274,11 @@
             <!--Second row-->
             <div class="row">
               <div class="col-2">
-                <i class="fas fa-check-circle fa-2x indigo-text"></i>
+                <i class="fa fa-check-circle  fa-2x indigo-text"></i>
               </div>
               <div class="col-10">
-                <h6 class="feature-title">Plenty of useful templates</h6>
-                <p class="grey-text">Need inspiration? Use one of our predefined templates for free.</p>
+                <h6 class="feature-title">Back-end: Quartz</h6>
+                <p class="grey-text">fetches the values from Firebase database by the given internal (e.g.,10,000ms)</p>
                 <div style="height:15px"></div>
               </div>
             </div>
@@ -282,11 +287,11 @@
             <!--Third row-->
             <div class="row">
               <div class="col-2">
-                <i class="fas fa-check-circle fa-2x indigo-text"></i>
+                <i class="fa fa-check-circle  fa-2x indigo-text"></i>
               </div>
               <div class="col-10">
-                <h6 class="feature-title">Easy installation</h6>
-                <p class="grey-text">5 minutes, a few clicks and... done. You will be surprised at how easy it is.
+                <h6 class="feature-title">Back-end: Apache Tomcat</h6>
+                <p class="grey-text">Provides the persistent service as web server.
                 </p>
                 <div style="height:15px"></div>
               </div>
@@ -296,17 +301,25 @@
             <!--Fourth row-->
             <div class="row">
               <div class="col-2">
-                <i class="fas fa-check-circle fa-2x indigo-text"></i>
+                <i class="fa fa-check-circle  fa-2x indigo-text"></i>
               </div>
               <div class="col-10">
-                <h6 class="feature-title">Easy to use and customize</h6>
-                <p class="grey-text">Using MDB is straightforward and pleasant. Components flexibility allows you deep
-                  customization. You will
-                  easily adjust each component to suit your needs.</p>
+                <h6 class="feature-title">Back-end: MySQL (RDBMS)</h6>
+                <p class="grey-text">This works with Spring Hibernate as on-premise store</p>
                 <div style="height:15px"></div>
               </div>
             </div>
             <!--/Fourth row-->
+            <div class="row">
+                <div class="col-2">
+                  <i class="fa fa-check-circle  fa-2x indigo-text"></i>
+                </div>
+                <div class="col-10">
+                  <h6 class="feature-title">Back-end: Open API</h6>
+                  <p class="grey-text">Back-end logic basically use Restful API and extend to other application as well.</p>
+                  <div style="height:15px"></div>
+                </div>
+              </div>            
           </div>
           <!--/Third column-->
   
@@ -318,160 +331,69 @@
   
       <hr class="mb-5">
   
+
+
+    <!-- <hr class="my-5"> -->
+
+    <section id="fourthSection">
+
+      <h3 class="h3 text-center mb-5">Recommendation</h3>
+      <div class="row wow fadeIn">
+        <div class="col-lg-6 col-md-12 px-4">
+          <div class="row">
+            <div class="col-1 mr-3">
+              <i class="fa fa-code fa-2x indigo-text"></i>
+            </div>
+            <div class="col-10">
+              <h5 class="feature-title">Tensorflow</h5>
+              <p class="grey-text">Used as Python libray to analyze data input and provide the appropriate amount of water</p>
+            </div>
+          </div>
+          <div style="height:30px"></div>
+          <div class="row">
+            <div class="col-1 mr-3">
+              <i class="fa fa-code  fa-2x blue-text"></i>
+            </div>
+            <div class="col-10">
+              <h5 class="feature-title">Feedback for users</h5>
+              <p class="grey-text">How long the plant should be exposed to sunshine with temperature of weather server data
+                  The result is shown as Daily Summary on Dashboard.
+              </p>
+            </div>
+          </div>
+          <div style="height:30px"></div>
+          <div class="row">
+            <div class="col-1 mr-3">
+              <i class="fa fa-code  fa-2x cyan-text"></i>
+            </div>
+            <div class="col-10">
+              <h5 class="feature-title">Multi-value linear regression </h5>
+              <p class="grey-text">How much water needs for the plant with the room temperature and humidity 
+                  Settings feature for this and the final amount of water depends on these factors. 
+                  The result is shown as Daily Summary on Dashboard.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-12">
+            <img src="./assets/img/watering.png" 
+                class="z-depth-0 img-fluid">
+        </div>
+      </div>
+
+    </section>
+    <br/>
+    <hr class="mb-5">
+
+
       <!--Section: More-->
-      <section>
+      <section id="fifthSection">
   
-        <h2 class="my-5 h3 text-center">...and even more</h2>
+        <h2 class="my-5 h3 text-center">Overall Layout</h2>
   
         <!--First row-->
         <div class="row features-small mt-5 wow fadeIn">
   
-          <!--Grid column-->
-          <div class="col-xl-3 col-lg-6">
-            <!--Grid row-->
-            <div class="row">
-              <div class="col-2">
-                <i class="fab fa-firefox fa-2x mb-1 indigo-text" aria-hidden="true"></i>
-              </div>
-              <div class="col-10 mb-2 pl-3">
-                <h5 class="feature-title font-bold mb-1">Cross-browser compatibility</h5>
-                <p class="grey-text mt-2">Chrome, Firefox, IE, Safari, Opera, Microsoft Edge - MDB loves all browsers;
-                  all browsers love MDB.
-                </p>
-              </div>
-            </div>
-            <!--/Grid row-->
-          </div>
-          <!--/Grid column-->
-  
-          <!--Grid column-->
-          <div class="col-xl-3 col-lg-6">
-            <!--Grid row-->
-            <div class="row">
-              <div class="col-2">
-                <i class="fas fa-level-up-alt fa-2x mb-1 indigo-text" aria-hidden="true"></i>
-              </div>
-              <div class="col-10 mb-2">
-                <h5 class="feature-title font-bold mb-1">Frequent updates</h5>
-                <p class="grey-text mt-2">MDB becomes better every month. We love the project and enhance as much as
-                  possible.
-                </p>
-              </div>
-            </div>
-            <!--/Grid row-->
-          </div>
-          <!--/Grid column-->
-  
-          <!--Grid column-->
-          <div class="col-xl-3 col-lg-6">
-            <!--Grid row-->
-            <div class="row">
-              <div class="col-2">
-                <i class="far fa-comments fa-2x mb-1 indigo-text" aria-hidden="true"></i>
-              </div>
-              <div class="col-10 mb-2">
-                <h5 class="feature-title font-bold mb-1">Active community</h5>
-                <p class="grey-text mt-2">Our society grows day by day. Visit our forum and check how it is to be a part
-                  of our family.
-                </p>
-              </div>
-            </div>
-            <!--/Grid row-->
-          </div>
-          <!--/Grid column-->
-  
-          <!--Grid column-->
-          <div class="col-xl-3 col-lg-6">
-            <!--Grid row-->
-            <div class="row">
-              <div class="col-2">
-                <i class="fas fa-code fa-2x mb-1 indigo-text" aria-hidden="true"></i>
-              </div>
-              <div class="col-10 mb-2">
-                <h5 class="feature-title font-bold mb-1">jQuery 3.x</h5>
-                <p class="grey-text mt-2">MDB is integrated with newest jQuery. Therefore you can use all the latest
-                  features which come along with
-                  it.
-                </p>
-              </div>
-            </div>
-            <!--/Grid row-->
-          </div>
-          <!--/Grid column-->
-  
-        </div>
-        <!--/First row-->
-  
-        <!--Second row-->
-        <div class="row features-small mt-4 wow fadeIn">
-  
-          <!--Grid column-->
-          <div class="col-xl-3 col-lg-6">
-            <!--Grid row-->
-            <div class="row">
-              <div class="col-2">
-                <i class="fas fa-cubes fa-2x mb-1 indigo-text" aria-hidden="true"></i>
-              </div>
-              <div class="col-10 mb-2">
-                <h5 class="feature-title font-bold mb-1">Modularity</h5>
-                <p class="grey-text mt-2">Material Design for Bootstrap comes with both, compiled, ready to use libraries
-                  including all features as
-                  well as modules for CSS (SASS files) and JS.</p>
-              </div>
-            </div>
-            <!--/Grid row-->
-          </div>
-          <!--/Grid column-->
-  
-          <!--Grid column-->
-          <div class="col-xl-3 col-lg-6">
-            <!--Grid row-->
-            <div class="row">
-              <div class="col-2">
-                <i class="fas fa-question fa-2x mb-1 indigo-text" aria-hidden="true"></i>
-              </div>
-              <div class="col-10 mb-2">
-                <h5 class="feature-title font-bold mb-1">Technical support</h5>
-                <p class="grey-text mt-2">We care about reliability. If you have any questions - do not hesitate to
-                  contact us.
-                </p>
-              </div>
-            </div>
-            <!--/Grid row-->
-          </div>
-          <!--/Grid column-->
-  
-          <!--Grid column-->
-          <div class="col-xl-3 col-lg-6">
-            <!--Grid row-->
-            <div class="row">
-              <div class="col-2">
-                <i class="fas fa-th fa-2x mb-1 indigo-text" aria-hidden="true"></i>
-              </div>
-              <div class="col-10 mb-2">
-                <h5 class="feature-title font-bold mb-1">Flexbox</h5>
-                <p class="grey-text mt-2">MDB fully supports Flex Box. You can forget about alignment issues.</p>
-              </div>
-            </div>
-            <!--/Grid row-->
-          </div>
-          <!--/Grid column-->
-  
-          <!--Grid column-->
-          <div class="col-xl-3 col-lg-6">
-            <!--Grid row-->
-            <div class="row">
-              <div class="col-2">
-                <i class="far fa-file-code fa-2x mb-1 indigo-text" aria-hidden="true"></i>
-              </div>
-              <div class="col-10 mb-2">
-                <h5 class="feature-title font-bold mb-1">SASS files</h5>
-                <p class="grey-text mt-2">Arranged and well documented .scss files can't wait until you compile them.</p>
-              </div>
-            </div>
-            <!--/Grid row-->
-          </div>
-          <!--/Grid column-->
+            <img id="layout" src="./assets/img/gms_architecture_gray.jpg" width="80%"/>
   
         </div>
         <!--/Second row-->
