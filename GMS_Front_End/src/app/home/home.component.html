@@ -24,23 +24,24 @@
     <!-- Example row of columns -->
     <div class="row">
       <div class="col-md-4">
-        <h2>Sensor Data Collection (IoT) </h2>
-        <p>To gather the data from sensors in the
-          garden and weather data from weather
-          broadcasting system. To share the data from collection part,
+        <h2>Data Collection<br> (IoT) </h2>
+        <p>IoT is used to gather the data from sensors in the
+          garden and weather data from open weather
+          server. To share the data from collection part,
           cloud-based database is used. </p>
         <p><a class="btn btn-secondary" href="./home/#secondSection" role="button">View details &raquo;</a></p>
       </div>
       <div class="col-md-4">
-        <h2>Server Monitoring (Angular, Spring)</h2>
-        <p>Each module are completely separated. This makes ease of maintenance and fault tolerance. 
+        <h2>Monitoring Server <br>(Web)</h2>
+        <p>Each module are completely separated as the concept of MSA. This makes ease of maintenance and fault tolerance. 
           To show the current status to users and manage and analyze the data asthe purpose.</p>
         <p><a class="btn btn-secondary" href="./home/#thirdSection" role="button">View details &raquo;</a></p>
       </div>
       <div class="col-md-4">
-        <h2>Recommendation (Tensorflow)</h2>
-        <p>To give the proper response as the
-          background data and situation</p>
+        <h2>Recommendation <br>(ML)</h2>
+        <p>Maching learning is used to give the proper response as the
+          background data and situation. 
+          The linear regression logic works with Tensorflow library on Python.</p>
         <p><a class="btn btn-secondary" href="./home/#fourthSection" role="button">View details &raquo;</a></p>
       </div>
     </div>
@@ -61,7 +62,7 @@
           <!--Grid column-->
           <div class="col-md-6 mb-4">
   
-            <img src="https://mdbootstrap.com/img/Marketing/mdb-press-pack/mdb-main.jpg" class="img-fluid z-depth-1-half"
+            <img src="./assets/img/watering.png" class="img-fluid z-depth-1-half"
               alt="">
   
           </div>
@@ -71,14 +72,17 @@
           <div class="col-md-6 mb-4">
   
             <!-- Main heading -->
-            <h3 class="h3 mb-3">About GMS</h3>
-            <p>Gardening Management System (GMS) is a system to notify the current status as alerts and recommend the action through data analysis with source data, which is about a variety of environment factors such as weather, temperature, humidity, and so on.</p>
-            <!-- Main heading -->
+            <h3 class="h3 mb-3">What is GMS?</h3>
+            <p><strong>Gardening Management System (GMS)</strong> is a system to notify the current status as alerts 
+              and recommend the action through data analysis with source data, 
+              which is about a variety of environment factors such as weather, temperature, humidity, and so on.</p>
+
             <hr>  
             <p>
                 For monitoring system, we basically need to build the monitoring equipment with the sensors in the network. 
                 This data is sent to a main server to display and guide properly it using machine learning to end user. 
-                Finally, the main server filters more useful information to recommend. 
+                Finally, the main server filters more useful information to recommend and if neccessary, 
+                the notification is automatically sent to the user.
             </p>
 
           </div>
@@ -110,7 +114,7 @@
               </div>
               <div class="col-10">
                 <h5 class="feature-title">Raspberry-Pi</h5>
-                <p class="grey-text">Raspberry Pi server monitors the target image and generates data source via
+                <p class="grey-text">Raspberry Pi server monitors the target and capture the source data and image via
                     the sensors.</p>
               </div>
             </div>
@@ -125,7 +129,9 @@
               </div>
               <div class="col-10">
                 <h5 class="feature-title">Sensors</h5>
-                <p class="grey-text">Python on Raspberry Pi with DHT, PIR, and Camera sensors.
+                <p class="grey-text">
+                  DHT (Temperature, Humidity sensor), PIR (motion sensor), and camera are required.
+                  These are working on Raspberry Pi with Python.
                   <!-- <ul>
                     <li>DHT (Temperature, Humidity sensor)</li>
                     <li>PIR (motion sensor)</li>
@@ -145,8 +151,8 @@
               </div>
               <div class="col-10">
                 <h5 class="feature-title">Firebase database and storage</h5>
-                <p class="grey-text">Raspberry Pi server uploads the files and updates the data to DB by interval
-                  Python used for the interface for Firebase database and storage</p>
+                <p class="grey-text">Raspberry Pi server uploads the files and updates the data to database.
+                  It is neccessary to use the interface between server and Firebase database and storage.</p>
               </div>
             </div>
             <!--/Third row-->
@@ -191,11 +197,8 @@
               </div>
               <div class="col-10">
                 <h6 class="feature-title">Front-end: Angular 6</h6>
-                <p class="grey-text">fetches the data from database and send them to the service of typescript in 
-                    Angular. Finally, these data send to the html page. Angular6 with typescript, Spring framework, Restful API, 
-                    JSON, Postman
-
-           
+                <p class="grey-text">UX/UI handled by Angular framework. Typescript in Angular fetches the data
+                    from the back-end via Restful API. These data send to the html page.
                 </p>
                 <div style="height:15px"></div>
               </div>
@@ -209,7 +212,7 @@
               </div>
               <div class="col-10">
                 <h6 class="feature-title">Front-end: Bootstrap, Chart.js</h6>
-                <p class="grey-text">An impressive collection of flexible components allows you to develop any project.
+                <p class="grey-text">An impressive collection of flexible components allows you to develop this project for rich UI.
                 </p>
                 <div style="height:15px"></div>
               </div>
@@ -222,9 +225,9 @@
                 <i class="fa fa-desktop  fa-2x indigo-text"></i>
               </div>
               <div class="col-10">
-                <h6 class="feature-title">Weather information via weather server</h6>
-                <p class="grey-text">understanding of openAPI from external 
-                    server and JSON handling
+                <h6 class="feature-title">Weather information from the weather server</h6>
+                <p class="grey-text">Easily check the weather using openAPI from external 
+                    server and JSON handling. This factor affects on the recommendation. 
                 </p>
                 <div style="height:15px"></div>
               </div>
@@ -239,7 +242,7 @@
               <div class="col-10">
                 <h6 class="feature-title">Notification</h6>
                 <p class="grey-text">
-                    This is triggered only when the alert captured
+                    This is triggered when the alert captured and send e-mail by the period.
                     </p>
                 <div style="height:15px"></div>
               </div>
@@ -250,7 +253,7 @@
   
           <!--Second column-->
           <div class="col-md-4 flex-center">
-            <img src="./assets/img/computer_server3.png" 
+            <img src="./assets/img/computer_server4.png" 
               class="z-depth-0 img-fluid">
           </div>
           <!--/Second column-->
@@ -277,8 +280,8 @@
                 <i class="fa fa-check-circle  fa-2x indigo-text"></i>
               </div>
               <div class="col-10">
-                <h6 class="feature-title">Back-end: Quartz</h6>
-                <p class="grey-text">fetches the values from Firebase database by the given internal (e.g.,10,000ms)</p>
+                <h6 class="feature-title">Back-end: Apache Tomcat</h6>
+                <p class="grey-text">This web server provides the persistent service for users. </p>
                 <div style="height:15px"></div>
               </div>
             </div>
@@ -290,9 +293,8 @@
                 <i class="fa fa-check-circle  fa-2x indigo-text"></i>
               </div>
               <div class="col-10">
-                <h6 class="feature-title">Back-end: Apache Tomcat</h6>
-                <p class="grey-text">Provides the persistent service as web server.
-                </p>
+                <h6 class="feature-title">Back-end: Quartz</h6>
+                <p class="grey-text">This is used to fetches the data from Firebase database by the given internal. e.g.,10,000ms</p>    
                 <div style="height:15px"></div>
               </div>
             </div>
@@ -304,8 +306,8 @@
                 <i class="fa fa-check-circle  fa-2x indigo-text"></i>
               </div>
               <div class="col-10">
-                <h6 class="feature-title">Back-end: MySQL (RDBMS)</h6>
-                <p class="grey-text">This works with Spring Hibernate as on-premise store</p>
+                <h6 class="feature-title">Back-end: MySQL</h6>
+                <p class="grey-text">This works with Spring Hibernate as on-premise store.</p>
                 <div style="height:15px"></div>
               </div>
             </div>
@@ -345,37 +347,37 @@
               <i class="fa fa-code fa-2x indigo-text"></i>
             </div>
             <div class="col-10">
-              <h5 class="feature-title">Tensorflow</h5>
-              <p class="grey-text">Used as Python libray to analyze data input and provide the appropriate amount of water</p>
+              <h5 class="feature-title">Feedback for users</h5>
+              <p class="grey-text">How long the plant should be exposed to sunshine with temperature of weather server data
+                  The result is shown as Daily Summary on Dashboard.
+              </p>                      
             </div>
           </div>
-          <div style="height:30px"></div>
+          <!-- <div style="height:30px"></div>
           <div class="row">
             <div class="col-1 mr-3">
               <i class="fa fa-code  fa-2x blue-text"></i>
             </div>
             <div class="col-10">
-              <h5 class="feature-title">Feedback for users</h5>
-              <p class="grey-text">How long the plant should be exposed to sunshine with temperature of weather server data
-                  The result is shown as Daily Summary on Dashboard.
-              </p>
+              <h5 class="feature-title"></h5>
+              <p class="grey-text"></p>
             </div>
-          </div>
+          </div> -->
           <div style="height:30px"></div>
           <div class="row">
             <div class="col-1 mr-3">
               <i class="fa fa-code  fa-2x cyan-text"></i>
             </div>
             <div class="col-10">
-              <h5 class="feature-title">Multi-value linear regression </h5>
-              <p class="grey-text">How much water needs for the plant with the room temperature and humidity 
-                  Settings feature for this and the final amount of water depends on these factors. 
-                  The result is shown as Daily Summary on Dashboard.</p>
+              <h5 class="feature-title">Multi-value linear regression using Tensorflow </h5>
+              <p class="grey-text">How much water needs for the plant related to the room temperature and humidity. 
+                    The amount of water depends on the circumstance in Settings with this prediction factor. 
+              </p>             
             </div>
           </div>
         </div>
         <div class="col-lg-6 col-md-12">
-            <img src="./assets/img/watering.png" 
+            <img src="./assets/img/monitoring_main.jpg" 
                 class="z-depth-0 img-fluid">
         </div>
       </div>
@@ -393,8 +395,17 @@
         <!--First row-->
         <div class="row features-small mt-5 wow fadeIn">
   
-            <img id="layout" src="./assets/img/gms_architecture_gray.jpg" width="80%"/>
+            <!-- <img id="layout" src="./assets/img/gms_architecture_gray.jpg" width="80%"/> -->
   
+            <img id="myImg" src="./assets/img/gms_architecture_gray.jpg" 
+                      width="80%"
+                      alt="Gardening Management System Layout"/>
+            <div id="myModal" class="modal">
+                <span class="close">&times;</span>
+                <img class="modal-content" id="img01">
+                <div id="caption"></div>
+            </div>
+            <p id="layout">* Click the image to enlarge</p>
         </div>
         <!--/Second row-->
   

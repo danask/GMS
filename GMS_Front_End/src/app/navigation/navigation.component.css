@@ -2,9 +2,9 @@ li:first-of-type{
   padding-left: 10px;
 }
 
-li:nth-of-type(5){
+li:nth-of-type(6){
   /* float: right; */
-  padding-right: 6rem;
+  /* padding-right: 6rem; */
 }
 
 li{
