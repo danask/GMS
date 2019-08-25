@@ -20,6 +20,7 @@ import datetime
 
 
 
+
 # initialize GPIO
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BCM)
@@ -28,10 +29,11 @@ GPIO.setup(26, GPIO.OUT) #Buzzer
 #GPIO.cleanup()
         
 
+from mfrc522 import SimpleMFRC522
+reader = SimpleMFRC522()
 
 
-
-PATH_CRED = '/home/pi/python-fire/gms-rasp.json'
+PATH_CRED = '/home/pi/GMS/gms-rasp.json'
 URL_DB = 'https://gms-rasp.firebaseio.com/'
 URL_STR = 'gms-rasp.appspot.com'
 
@@ -139,7 +141,19 @@ class TEST():
                 
                 GPIO.output(26, True)
                 time.sleep(0.5)
-                GPIO.output(26, False)
+                
+                
+                print("Hold a tag near the reader")
+                id, text = reader.read()
+                print("ID: %s\nText: %s" % (id,text))
+                
+                
+                if id == 46054386582:
+                    GPIO.output(26, False)
+                    lcd.lcd_clear()
+                    lcd.lcd_display_string("[Alert]", 1)
+                    lcd.lcd_display_string("Clear by Admin", 2)
+                    time.sleep(3)
                 
                 ##self.alert.set("Motion Detect")
 
@@ -147,7 +161,7 @@ class TEST():
 
                 ##self.time.set(detectTime)
                                 
-                camera.capture('/home/pi/python-fire/Pics/imagetest.jpg')
+                camera.capture('/home/pi/GMS/Pics/imagetest.jpg')
                 
                 blobName = 'CapturedImages/'+ detectTime + '.jpg'
                 blob = bucket.blob(blobName)
@@ -183,4 +197,5 @@ test = TEST()
 #msg = Thread(target= test.setDhtDB)
 #msg.daemon = True
 #msg.start()
+
 
