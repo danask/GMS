@@ -45,7 +45,7 @@ REF_HUMID = 'Humidity'
 REF_ALERT = 'alert'
 REF_ID = 'id'
 REF_TIME = 'detectTime'
-
+REF_ADMIN = 46054386582
 
 class GmsDataCollector():
 
@@ -82,15 +82,16 @@ class GmsDataCollector():
 
         # read data using pin 21(DHT11), 20 (PIR), LCD, Camera, RC522
         dht = dht11.DHT11(pin=21)
-        #pir = MotionSensor(20) #GPIO.input(20) 
+        pir = MotionSensor(20) 
         lcd = lcddriver.lcd()
         camera = PiCamera()
         reader = SimpleMFRC522() # StepMotor
-
+        GPIO.output(26, False) # Buzzer to low
+        
         # init. LCD
         lcd.lcd_display_string("GMS Agent v1.0", 1)
         lcd.lcd_display_string("     by Daniel", 2)
-        time.sleep(3)
+        time.sleep(2)
         
         lcd.lcd_clear()
         lcd.lcd_display_string("Loading...", 1)
@@ -107,7 +108,7 @@ class GmsDataCollector():
                 
                 if tempHumid.is_valid():
 
-                    print("**Last valid input: " + currentTime)
+                    print("**Update time: " + currentTime)
                     
                     tempStr = "Temperature: "+  str(tempHumid.temperature) + "c"
                     humidStr = "Humidity: "+ str(tempHumid.humidity) +"%"
@@ -128,33 +129,41 @@ class GmsDataCollector():
                     ##self.humid.set(result.humidity)
             
 
-                pir = GPIO.input(20)
+                state = GPIO.input(20)
             
-                if pir == 0:
+                if state==0:
                     print ("nothing...")
                     time.sleep(0.5)
 
-                elif pir == 1:
+                elif state==1:
                     print ("something's here...")
                     lcd.lcd_clear()
                     lcd.lcd_display_string("[Alert]", 1)
                     lcd.lcd_display_string("Motion Detect", 2)
                     
-
-                    # RFID (2019/08/25)
-                    GPIO.output(26, True)
-                    time.sleep(0.5)
-                                    
-                    print("Hold a tag near the reader")
-                    id, text = reader.read()
-                    print("ID: %s\nText: %s" % (id,text))
-                                    
-                    if id == 46054386582: # temp
-                        GPIO.output(26, False)
-                        lcd.lcd_clear()
-                        lcd.lcd_display_string("[Alert]", 1)
-                        lcd.lcd_display_string("Clear by Admin", 2)
-                        time.sleep(3)
+                    while True:
+                        # RFID (2019/08/25)
+                        GPIO.output(26, True)
+                        time.sleep(0.5)
+                                        
+                        print("Hold a tag near the reader")
+                        id, text = reader.read()
+                        print("ID: XXXXXXXXXXX\nText: %s" % text)
+                        lcd.lcd_clear()        
+                                        
+                        if id == REF_ADMIN: # temp
+                            GPIO.output(26, False)
+                            clearMsg = "User: "+ str(text)
+                            
+                            lcd.lcd_display_string("Clear", 1)
+                            lcd.lcd_display_string(clearMsg, 2)
+                            time.sleep(2)
+                            break
+                        else:
+                            wrongMsg = "User: "+ str(text)
+                            
+                            lcd.lcd_display_string("Unauthorized", 1)
+                            lcd.lcd_display_string(wrongMsg, 2)
                     
                     # update the record to firebase database
                     detectTime = str(datetime.datetime.now())
@@ -260,7 +269,7 @@ def print_square(num):
 #        GPIO.cleanup()
         
 # Start
-gmsWateringMotor = GmsWateringMotor()
+#gmsWateringMotor = GmsWateringMotor()
 gmsDataCollector = GmsDataCollector()
 
 
