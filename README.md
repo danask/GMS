@@ -1,4 +1,4 @@
-# Gardening Management System (GMS)
+# Gardening Management System (GMS) and Remote Controller
 ### 1. Raspberry PI to collect the data
 collects data source from sensors
 - DHT
