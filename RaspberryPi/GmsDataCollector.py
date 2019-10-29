@@ -71,7 +71,8 @@ class GmsDataCollector():
         
         # mongodb        
         mongoDb = client.get_database('gms_data')
-        records = mongoDb.status        
+        records = mongoDb.status
+        sensors = mongoDb.sensors
         
         # get and test them
         self.msg = db.reference('timestamp')
@@ -193,11 +194,15 @@ class GmsDataCollector():
                         time.sleep(0.5)
                                         
                         print("Hold a tag near the reader")
+                        
+                        rfid = sensors.find({'key': 'rfid'}
+                        pValue = rfid.value
+                                                
                         id, text = reader.read()
                         print("ID: XXXXXXXXXXX\nText: %s" % text)
                         lcd.lcd_clear()        
                                         
-                        if id == REF_ADMIN: # temp
+                        if id == REF_ADMIN or pValue == 1234: # temp
                             GPIO.output(26, False)
                             clearMsg = "User: "+ str(text)
                             
@@ -208,12 +213,16 @@ class GmsDataCollector():
                                 'firstLine': "Clear",
                                 'secondLine': clearMsg
                             }
-                            
+                            rfid_update={
+                                'value': "0000"
+                            }
+                                            
                             records.update_one({'type':'tempHumid'}, {'$set': status_update})
-                             
+                            sensors.update_one({'key':'rfid'}, {'$set': rfid_update})
                             
                             time.sleep(2)
                             break
+
                         else:
                             wrongMsg = "User: "+ str(text)
                             
