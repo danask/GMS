@@ -1,5 +1,6 @@
 # author: Seongku (Daniel) Ahn
 # date: Aug-15, 2019
+# sudo python GmsDataCollector.py
 
 # Camera, PIR, DHT11
 import RPi.GPIO as GPIO
@@ -239,7 +240,7 @@ class GmsDataCollector():
                     blob = bucket.blob(blobName)
                     
                     # upload the file to firebase storage
-                    blob.upload_from_filename(filename='/home/pi/python-fire/Pics/imagetest.jpg')
+                    blob.upload_from_filename(filename='/home/pi/GMS/Pics/imagetest.jpg')
                     self.id.set(blob.public_url)
                     
                     time.sleep(1)
@@ -248,7 +249,7 @@ class GmsDataCollector():
                     blob = bucket.blob(blobName)
 
                     # upload the file to firebase storage
-                    blob.upload_from_filename(filename='/home/pi/python-fire/Pics/imagetest.jpg')
+                    blob.upload_from_filename(filename='/home/pi/GMS/Pics/imagetest.jpg')
                     self.id.set(blob.public_url) 
 
                     # update this to check
