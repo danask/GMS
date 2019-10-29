@@ -26,6 +26,13 @@ from firebase_admin import storage
 # multi-threading
 import threading
 
+# mongoDB
+# pip install pymongo --user
+# pip install dnspython --user
+
+from pymongo import MongoClient
+client = MongoClient("mongodb+srv://Dan:admin1010@cluster0-8af06.mongodb.net/test?retryWrites=true&w=majority")
+
 # initialize GPIO
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BCM) 
@@ -61,6 +68,10 @@ class GmsDataCollector():
         })
         bucket = storage.bucket()
         
+        # mongodb        
+        mongoDb = client.get_database('gms_data')
+        records = mongoDb.status        
+        
         # get and test them
         self.msg = db.reference('timestamp')
         
@@ -91,11 +102,30 @@ class GmsDataCollector():
         # init. LCD
         lcd.lcd_display_string("GMS Agent v1.0", 1)
         lcd.lcd_display_string("     by Daniel", 2)
+        
+        status_update ={
+                'firstLine': "GMS Agent v1.0",
+                'secondLine': "     by Daniel"
+        }
+                    
+        records.update_one({'type':'tempHumid'}, {'$set': status_update})
+                            
+        
         time.sleep(2)
         
         lcd.lcd_clear()
         lcd.lcd_display_string("Loading...", 1)
         lcd.lcd_display_string("", 2)
+        
+        status_update ={
+                'firstLine': "Loading...",
+                'secondLine': "     "
+        }
+                    
+        records.update_one({'type':'tempHumid'}, {'$set': status_update})
+
+        #print(records.count_documents({}))        
+        #print(list(records.find({'type': 'tempHumid'})))
         
         time.sleep(2) # to stabilize sensor
         
@@ -117,7 +147,14 @@ class GmsDataCollector():
 
                     print(tempStr)
                     print(humidStr)
-
+                    
+                    status_update ={
+                        'firstLine': tempStr,
+                        'secondLine': humidStr
+                    }
+                    
+                    records.update_one({'type':'tempHumid'}, {'$set': status_update})
+                    
                     print("Writing to display LCD")
                     lcd.lcd_clear()
                     lcd.lcd_display_string(tempStr, 1)
@@ -141,6 +178,14 @@ class GmsDataCollector():
                     lcd.lcd_display_string("[Alert]", 1)
                     lcd.lcd_display_string("Motion Detect", 2)
                     
+                    status_update ={
+                        'firstLine': "[Alert]",
+                        'secondLine': "Motion Detect"
+                    }
+                    
+                    records.update_one({'type':'tempHumid'}, {'$set': status_update})
+                                        
+                    
                     while True:
                         # RFID (2019/08/25)
                         GPIO.output(26, True)
@@ -157,6 +202,15 @@ class GmsDataCollector():
                             
                             lcd.lcd_display_string("Clear", 1)
                             lcd.lcd_display_string(clearMsg, 2)
+                            
+                            status_update ={
+                                'firstLine': "Clear",
+                                'secondLine': clearMsg
+                            }
+                            
+                            records.update_one({'type':'tempHumid'}, {'$set': status_update})
+                             
+                            
                             time.sleep(2)
                             break
                         else:
@@ -164,6 +218,14 @@ class GmsDataCollector():
                             
                             lcd.lcd_display_string("Unauthorized", 1)
                             lcd.lcd_display_string(wrongMsg, 2)
+                    
+                            status_update ={
+                                'firstLine': "Unauthorized",
+                                'secondLine': wrongMsg
+                            }
+                            
+                            records.update_one({'type':'tempHumid'}, {'$set': status_update})
+                                         
                     
                     # update the record to firebase database
                     detectTime = str(datetime.datetime.now())
@@ -175,15 +237,24 @@ class GmsDataCollector():
                     
                     blobName = 'CapturedImages/'+ detectTime + '.jpg'
                     blob = bucket.blob(blobName)
+                    
+                    # upload the file to firebase storage
+                    blob.upload_from_filename(filename='/home/pi/python-fire/Pics/imagetest.jpg')
+                    self.id.set(blob.public_url)
+                    
+                    time.sleep(1)
+
+                    blobName = 'LastImage/lastImage.jpg'
+                    blob = bucket.blob(blobName)
 
                     # upload the file to firebase storage
-                    ##blob.upload_from_filename(filename='/home/pi/python-fire/Pics/imagetest.jpg')
-                    ##self.id.set(blob.public_url) 
+                    blob.upload_from_filename(filename='/home/pi/python-fire/Pics/imagetest.jpg')
+                    self.id.set(blob.public_url) 
 
                     # update this to check
                     #print(blob.generate_signed_url(datetime.timedelta(seconds=300), method='GET')) 
                     ##self.id.set(blob.generate_signed_url(datetime.timedelta(seconds=300), method='GET'))
-                    time.sleep(3) # to avoid multiple detections                
+                    time.sleep(2) # to avoid multiple detections                
                         
                 time.sleep(2) # loop delay, should be less than detection delay
                 
@@ -276,5 +347,6 @@ gmsDataCollector = GmsDataCollector()
 #msg = Thread(target= test.setDhtDB)
 #msg.daemon = True
 #msg.start()
+
 
 
