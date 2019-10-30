@@ -135,9 +135,33 @@ class GmsDataCollector():
         
         try:
             while True:
-                
                 # timestamp
                 currentTime = str(datetime.datetime.now())
+
+                # Urgent message: abnormal status
+                receivedMessage = records.find_one({'type':'sendMessage'})
+                jsonReceivedMessage = dumps(receivedMessage)
+                firstLineMessage = json.loads(jsonReceivedMessage)['firstLine']
+                secondLineMessage = json.loads(jsonReceivedMessage)['secondLine']
+                duration = json.loads(jsonReceivedMessage)['duration']
+
+                if firstLineMessage != "":
+                    print("Writing to display LCD receiving from User")
+                    lcd.lcd_clear()
+                    lcd.lcd_display_string(firstLineMessage, 1)
+                    lcd.lcd_display_string(secondLineMessage, 2)    
+
+                    time.sleep(int(duration))
+
+                    # reset as ACK
+                    sendMessage_update ={
+                        'firstLine': "",
+                        'secondLine': ""
+                    }
+                            
+                    records.update_one({'type':'sendMessage'}, {'$set': sendMessage_update})
+
+                # Temperature and Humidity: normal status
                 tempHumid = dht.read()
                 
                 if tempHumid.is_valid():
@@ -170,6 +194,7 @@ class GmsDataCollector():
                     ##self.humid.set(result.humidity)
             
 
+                # Alarm check: motion detect
                 state = GPIO.input(20)
             
                 if state==0:
@@ -201,15 +226,15 @@ class GmsDataCollector():
                         jsonRfid = dumps(rfid)
                         pValue = json.loads(jsonRfid)['value']
                         match_count = match_count + 1                        
-			id = ""
-			text = "ADMIN"
+                        id = 0
+                        text = "ADMIN"
 
-			if match_count == 20:
+			            if match_count == 20:
                             id, text = reader.read()
                             print("ID: XXXXXXXXXXX\nText: %s" % text)
 			
                         lcd.lcd_clear()        
-			print ("****")                        
+			            print ("****")                        
                 
                         if id == REF_ADMIN or pValue == "1234": # temp
                             GPIO.output(26, False)
