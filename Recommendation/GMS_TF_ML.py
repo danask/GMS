@@ -4,8 +4,21 @@
 
 
 import tensorflow as tf
+# import tensorflow.compat.v1 as tf
+# tf.disable_v2_behavior()
+
 import mysql.connector
 
+# mongoDB
+# pip install pymongo --user
+# pip install dnspython --user
+
+from pymongo import MongoClient
+client = MongoClient("mongodb+srv://Dan:admin1010@cluster0-8af06.mongodb.net/test?retryWrites=true&w=majority")
+
+# mongodb        
+mongoDb = client.get_database('gms_data')
+records = mongoDb.status 
 
 while True:
 
@@ -83,4 +96,11 @@ while True:
             mycursor.execute(sql)
             mydb.commit()
             print(mycursor.rowcount, "record(s) affected")
+
+            status_update ={
+                'liters': str(result[0])
+            }
+                        
+            records.update_one({'type':'tempHumid'}, {'$set': status_update})
+
             isExist = 0
