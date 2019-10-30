@@ -14,6 +14,7 @@ NoSQL database and file storage in the cloud
 
 ### 3. GMS Web Server for managing the whole system
 Communication between back-end (Spring MVC) to front-end (Angular) via API calls
+
 **Features**
 - Login/out
 - Dashboard: current info (weather information, recent data from sensors)
@@ -26,8 +27,13 @@ Communication between back-end (Spring MVC) to front-end (Angular) via API calls
 - Administrator
 
 ### 4. Remote Controller
-- React and NodeJS based GMS Panel
+- React and NodeJS, WebSocket based GMS Panel
 - Android App
+**Features**
+- Watering control with recommendation
+- Alarm dismiss
+- Urgent message
+- Action history
 
 ### 5. Recommdendation module
 Analyzes the data sources using Tensorflow and machine learning
