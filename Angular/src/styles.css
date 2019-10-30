@@ -1,0 +1,38 @@
+/* You can add global styles to this file, and also import other style files */
+@import url(~node_modules/bootstrap/dist/css/bootstrap.min.css);
+@import url(~node_modules/font-awesome/css/font-awesome.css);
+
+body{
+  background-color: #eee;
+  height: 100%;
+}
+
+.card-main{
+  display: block;
+  padding: 20px;
+  /*float:left;*/
+  line-height: 1.7em;
+  position: relative;
+  border-radius: 3px;
+  background: white;
+  border-bottom: 2px solid lightgray;
+  border-left: 1px solid lightgray;
+  border-right: 1px solid lightgray;
+  border-top: 1px solid lightgray;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,0.16), 0 0 0 1px rgba(0,0,0,0.04);
+  width: 85%;
+}
+
+.card-main:hover{
+  box-shadow: 0 4px 8px 4px rgba(0,0,0,0.16), 0 0 0 1px rgba(0,0,0,0.04);
+  transition: box-shadow .3s ease-in-out;
+  transition-property: box-shadow;
+  transition-duration: 0.3s;
+  transition-timing-function: ease-in-out;
+  transition-delay: initial;
+}
+
+th, td{
+  text-align: center;
+}

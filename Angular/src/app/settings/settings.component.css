@@ -1,0 +1,44 @@
+
+.containter{
+    width: 70%;   
+}
+
+#settings{
+    margin-bottom: 40em;
+}
+
+/* form {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-flow: row wrap;
+    flex-flow: row wrap;
+ } 
+
+div.formRow {
+	display: -webkit-flex;
+	display: flex;
+	-webkit-flex-flow: row wrap;
+	flex-flow: row wrap;
+	margin: 7px 0px;
+}
+
+div.formRow > * {
+	-webkit-flex: 1 1 150px;
+	flex: 1 1 150px;
+} */
+
+label {
+    margin-left: 2em;
+    margin-bottom: 1em;
+    /* margin-right: 1em; */
+    display: inline-block;
+    width: 5em;
+}
+
+label.headLabel{
+    width: 10em;
+}
+
+label.radioField{
+    margin-left: 5em;
+}

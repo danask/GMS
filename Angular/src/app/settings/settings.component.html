@@ -1,0 +1,102 @@
+<app-navigation></app-navigation>
+<br/>
+<div id="settings">
+  <h5 id="form_header" class = "offset-1">GMS > Settings</h5>
+  <br>
+
+  <div class="containter card-main offset-1">
+
+    <h5>Configuration</h5>
+    <hr>
+      
+    <form name="form" #f="ngForm"
+    (ngSubmit)="f.form.valid && addCriteria()" novalidate class="feedback-form">
+
+      <div class="formRow">
+          <label for="plantType" class="headLabel"><b>Plant Type</b></label>
+      </div>
+      <div>
+          <label class="radioField" for="dry">Dry</label>
+          <input type="radio" name="plantType " value="dry" [(ngModel)]="criteria.plantType" />
+          <label class="radioField" for="normal">Normal</label>
+          <input type="radio" name="plantType" value="normal" [(ngModel)]="criteria.plantType"/>
+          <label class="radioField" for="wet">Wet</label>
+          <input type="radio" name="plantType " value="wet" [(ngModel)]="criteria.plantType"/>
+          <label class="radioField" for="mixed">Mixed</label>
+          <input type="radio" name="plantType " value="mixed" [(ngModel)]="criteria.plantType"/>
+      </div>
+
+      <div class="formRow">
+          <label for="spaceSize" class="headLabel"><b>Room Size</b></label>
+      </div>
+      <div>
+          <label class="radioField" for="indoor">Indoor</label>
+          <input type="radio" name="spaceSize " value="indoor" [(ngModel)]="criteria.spaceSize"/>
+          <label class="radioField" for="medium">Medium</label>
+          <input type="radio" name="spaceSize" value="medium" [(ngModel)]="criteria.spaceSize"/>
+          <label class="radioField" for="large">Large</label>
+          <input type="radio" name="spaceSize " value="large" [(ngModel)]="criteria.spaceSize"/>
+          <label class="radioField" for="outdoor">Outdoor</label>
+          <input type="radio" name="spaceSize " value="outdoor" [(ngModel)]="criteria.spaceSize"/>
+      </div>
+
+      <div class="formRow">
+        <label for="email" class="headLabel"><b>Email Notification</b></label>
+      </div>
+      <div>
+          <label class="radioField" for="on">Turn On</label>
+          <input type="radio" name="on " value="on" [(ngModel)]="criteria.emailNotification"/>
+          <label class="radioField" for="off">Turn Off</label>
+          <input type="radio" name="off" value="off" [(ngModel)]="criteria.emailNotification"/>
+      </div>
+      <!-- <div class="form-group">
+        <label for="email"><b>Email Notification</b></label>
+        <input type="text"
+              id="email"
+              class="form-control"
+              name="email"
+              [(ngModel)]="criteria.email"
+              placeholder="Your email">
+      </div> -->
+
+      <br/>
+      <div align="center">
+        <button type="submit" class="btn btn-info">
+          <i class="fa"></i>
+          <span> Save</span>
+        </button>
+      </div>
+    </form>
+
+
+      <!-- <div class="row ">
+        <div class="offset-3"></div>
+        <div class="col-md-6">
+          <form name="form" #f="ngForm"
+                (ngSubmit)="f.form.valid && addCriteria()" novalidate class="feedback-form">
+
+            <br/>
+            <div class="form-row">
+              <label for="plantType">Plant Type</label>
+							<span>
+								<label class="radioField" for="tyes">Yes</label>
+								<input type="radio" name="tunner " id="tyes"/>
+								<label class="radioField" for="tno">No</label>
+								<input type="radio" name="tunner" id="tno" checked/>
+							</span>
+            </div>
+
+            <div class="form-group">
+              <label for="spaceSize">Space Size</label>
+              <input type="text"
+                    id="spaceSize"
+                    class="form-control"
+                    name="spaceSize"
+                    [(ngModel)]="criteria.spaceSize"
+                    placeholder="Your email">
+            </div> -->
+  
+    
+
+  </div>
+</div>  
