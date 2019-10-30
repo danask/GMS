@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>GMS Panel</title>
+        <script src="https://unpkg.com/react@16.7.0/umd/react.development.js"></script>
+        <script src="https://unpkg.com/react-dom@16.7.0/umd/react-dom.development.js"></script>
+        <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.dev.js"></script>
+        <script
+            src="https://code.jquery.com/jquery-3.4.1.js"
+            integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+            crossorigin="anonymous">
+        </script>     
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/3.6.9/firebase.js"></script>
+
+        
+        
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css"> 
+        <!-- <link rel="stylesheet" href="./css/main.css" type="text/css"> -->
+        <script type="text/jsx" src="getScreenshot.js"></script>
+
+        <script>
+            // client.js
+            // var nmongoMovie = require("./nMongoDB1");
+            // import io from 'https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.dev.js';
+            
+            function lcdDisplay(dataFromtheServer) 
+            {
+                $("#originaldata").html(dataFromtheServer);
+                        
+                let data = JSON.parse(dataFromtheServer);
+                    
+                // console.log(data);            
+                console.log(data.length);
+                let header_set = false;
+                let h = "";
+                let v = "";    
+
+                $.each(data, (key, theRow) => {
+                    console.log(key + " , " + theRow); 
+                    //let number = Math.floor((Math.random() * 2) + 0);
+                    
+                    if(key == 0)
+                    {
+                        $.each(theRow, (theKeyInTheRow, theValueInTheRow) => {
+
+                            if(theKeyInTheRow != 'type')
+                            {
+                                if (!header_set)
+                                    h += "<th>" + theKeyInTheRow + "</th>";
+
+
+                                v += "<tr>" ;
+                                v += "<td>" + theValueInTheRow + "</td>";
+                                v += "</tr>" ;
+                            }
+                        });
+                                    
+                        if (!header_set) {
+                            h = "<tr>" + h + "</tr>";
+                            header_set = true;
+                        }
+                    }  
+                            
+                });
+
+                // disiplayig the data
+                $("#result thead > tr").remove();
+                $("#result thead").append("<tr><th></th></tr>");
+                $("#result tbody > tr").remove();
+                $("#result tbody").append(v);
+                            
+            }
+
+
+            var socket = io();
+
+
+            // socket.on('message', function(data){
+            //     $("#e1").html(data);
+            //     console.log(data);
+            // });
+            socket.on('message', function(data){
+                data = JSON.stringify(data);
+                console.log(data);
+                lcdDisplay(data);
+                console.log("display");
+            }); 
+
+            // var dataInterval = setInterval(getData, 3000);
+
+            // $('#clearGetData').click(()=>{
+            //     clearInterval(dataInterval);
+            // })     
+
+            var displayLCD = function(){
+                $.ajax({
+                    url: document.URL.replace("?", "") + 'getStatus',
+                    type: 'GET',
+                    success: lcdDisplay
+                });
+            }
+
+            $(document).ready(function() {
+
+                displayLCD();
+
+                $("#getData").click(()=>{
+                    displayLCD();
+                }); 
+                
+                $("#motorControlOn").click(()=>{
+
+                    $.ajax({
+                        url: document.URL.replace("?", "") + 'updateMotor',
+                        type: 'POST',
+                        success: function(response){
+                            console.log(response);
+                            
+                            // if(response === 'ok')
+                            $('#statusMessage').html("Applied successfully!");
+                            $('#cycle').val("");
+                            $('#cycle').focus();
+
+                            $('#alertMessage').show();
+
+                            $.ajax({
+                                url: document.URL.replace("?", "") + 'getStatus',
+                                type: 'GET',
+                                success: lcdDisplay
+                            
+                            });
+                        },
+                        data:{
+                            cycle: $('#cycle').val(),
+                            status: "on"
+                        }
+                    });
+
+                }); 
+                
+                $("#motorControlOff").click(()=>{
+
+
+                    $.ajax({
+                        url: document.URL.replace("?", "") + 'updateMotor',
+                        type: 'POST',
+                        success: function(response){
+                            console.log(response);
+                            
+                            // if(response === 'ok')
+                            $('#statusMessage').html("Applied successfully!");
+                            $('#cycle').val("");
+                            $('#cycle').focus();
+                            $('#alertMessage').show();
+
+                            $.ajax({
+                                url: document.URL.replace("?", "") + 'getStatus',
+                                type: 'GET',
+                                success: lcdDisplay
+                            
+                            });
+                        },
+                        data:{
+                            cycle: "",
+                            status: "off"
+                        }
+                    });
+                    
+                });
+
+
+                $("#sendMessage").click(()=>{
+
+                    console.log("1: "+ document.URL.replace("?", ""));
+                    $.ajax({
+                        url: document.URL.replace("?", "") + 'sendMessage',
+                        type: 'POST',
+                        success: function(response){
+                            console.log(response);
+                            
+                            // if(response === 'ok')
+                            $('#statusMessage').html("Sent message successfully!");
+                            $('#message').val("");
+                            $('#message').focus();
+                            $('#alertMessage').show();
+
+                            console.log("2: "+ document.URL.replace("?", ""));
+
+                            $.ajax({
+                                url: document.URL.replace("?", "")+'getStatus',
+                                type: 'GET',
+                                success: lcdDisplay
+                            
+                            });
+                        },
+                        data:{
+                            firstLine: $('#firstLine').val(),
+                            secondLine: $('#secondLine').val()
+                        }
+                    });
+
+                });
+
+                $("#alarmDismiss").click(()=>{
+
+                    $.ajax({
+                        url: document.URL.replace("?", "") + 'dismissAlarm',
+                        type: 'POST',
+                        success: function(response){
+                            console.log(response);
+                            
+                            // if(response === 'ok')
+                            $('#statusMessage').html("Sent message successfully!");
+                            $('#passcode').val("");
+                            $('#passcode').focus();
+                            $('#alertMessage').show();
+
+                            var dismiss = $.ajax({
+                                url: document.URL.replace("?", "") + 'getStatus',
+                                type: 'GET',
+                                success: lcdDisplay
+                            });
+                        },
+                        data:{
+                            passcode: $('#passcode').val()
+                        }
+                    });
+                });
+
+                $("#successMessage").click(()=>{
+                    // var div = this.parentElement;
+                    // div.style.opacity = "0";
+                    // setTimeout(function(){ div.style.display = "none"; }, 600);
+                    $('#alertMessage').hide();
+                });
+
+            });
+
+            // var close = document.getElementsByClassName("closebtn");
+            // var i;
+
+            // for (i = 0; i < close.length; i++) {
+            //     close[i].onclick = function(){
+            //         var div = this.parentElement;
+            //         div.style.opacity = "0";
+            //         setTimeout(function(){ div.style.display = "none"; }, 600);
+            //     }
+            // }            
+               
+
+
+        </script>
+    </head>
+
+    <body>
+           
+        <div /*class="container"*/ class="tablet">
+            <!-- <h3>Panels with Contextual Classes</h3> -->
+                <div class="panel-group">
+                        <!-- //  // panel-primary -->
+                    <div class="panel first-panel"> 
+                        <div class="first-panel-heading">GMS Remote Controller</div>
+                        <div class="panel-body">
+                            <div id = 'lcd' align="center">
+                                <!-- <p id = 'firstLine'>Ticker 0123<p> -->
+                                <table id="result">
+                                    <thead></thead>
+                                    <tbody></tbody>
+                                </table>                
+                            </div>    
+
+                            <fieldset id="customer">
+                                <!-- <legend>Device Status</legend> -->
+                                <div class="formRow">
+                                    <div align="right">
+                                        
+                                        <button id="getData" >Refresh</button>
+                                    </div>
+                                </div>
+                            </fieldset>                               
+
+                            <!-- <h2>Control Menu</h2>
+                            <p>To make the tabs toggleable, add the data-toggle="tab" attribute to each link. Then add a .tab-pane class with a unique ID for every tab and wrap them inside a div element with class .tab-content.</p> -->
+                            <ul class="nav nav-tabs">
+                                <li class="active"><a data-toggle="tab" href="#home">Control</a></li>
+                                <li><a data-toggle="tab" href="#menu1">Message</a></li>
+                                <li><a data-toggle="tab" href="#menu2">History</a></li>
+                                <li><a data-toggle="tab" href="#menu3">Settings</a></li>
+                            </ul>
+
+                            <div class="tab-content">
+                                <div id="home" class="tab-pane fade in active">
+                                    <!-- <h3>HOME</h3> -->
+                                    <br>
+                                    <p>This menu provides the options to configure and control the device manually. First of all, you can refer the recommendation numbers derived from GMS machine learning.</p>
+
+                                    
+                                    <!--<div id="motorControl"></div>-->
+                                    <script type="text/babel" src="./getRecommendations.js"></script>                                      
+
+                                    <br>
+                                    <div class="panel-group" id="accordion">
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                            <h4 class="panel-title">
+                                                <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Sprinkler</a>
+                                            </h4>
+                                            </div>
+                                            <div id="collapse1" class="panel-collapse collapse in">
+                                                <div class="panel-body">
+                                                    <form class="form-horizontal">
+                                                        <!-- <label for="cycle">Sprinkler Control</label> -->
+                                                        <!--react-->
+                                                        <p class="col-sm-offset-1 ">Recommendation by GMS calculation</p>
+                                                        <div class="col-sm-offset-1 " id="recommendation"></div>
+                                                        <br>
+                                                        <div class="form-group">
+                                                            <label class="control-label col-sm-3" for="cycle">Time (hours)</label>
+                                                            <div class="col-sm-8">
+                                                                <input type="number" class="form-control" id="cycle" min=0 placeholder="Enter your number">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">        
+                                                            <div class="col-sm-offset-3 col-sm-8">
+                                                                <button type="submit" class="btn btn-info" id="motorControlOn">Start Watering</button>
+                                                                <button type="submit" class="btn btn-info" id="motorControlOff">Stop Watering</button>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">        
+                                                            <div class="col-sm-offset-3 col-sm-8">
+                                                                <!-- <span><img src="./resources/images/watering/b0.png" height="35" width="35" alt="Image of a watering." /></span>         -->
+                                                            </div>
+                                                        </div>
+                                                    </form>                                         
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                            <h4 class="panel-title">
+                                                <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">Alarm</a>
+                                            </h4>
+                                            </div>
+                                            <div id="collapse2" class="panel-collapse collapse">
+                                                <div class="panel-body">
+                                                    <form class="form-horizontal">
+                                                        <div class="form-group">
+                                                                <label class="control-label col-sm-3" for="capturedImage">Captured image</label>
+                                                                <div class="col-sm-8">
+                                                                    <!-- <span><img src="./resources/images/watering/b1.png" height="35" width="35" alt="Image of a watering." /></span> -->
+                                                                    <div id="app"></div>
+                                                                </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="control-label col-sm-3" for="passcode">Passcode</label>
+                                                            <div class="col-sm-8">
+                                                                <input type="password" class="form-control" id="passcode" placeholder="Enter your code">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">        
+                                                            <div class="col-sm-offset-3 col-sm-8">
+                                                                <button type="submit" class="btn btn-info" id="alarmDismiss">Dismiss</button>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">        
+                                                            <div class="col-sm-offset-3 col-sm-8">
+                                                                <!-- <span><img src="./resources/images/watering/b0.png" height="35" width="35" alt="Image of a watering." /></span>         -->
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    </div>
+                                    <div id="menu1" class="tab-pane fade">
+                                      <!-- <h3>Menu 1</h3> -->
+                                        <br>
+                                        <p>You can send an urgent message to the LCD panel of GMS device. Each line can have 20 characters as the maximum length. </p>
+                                        <br>
+                                        
+                                        <form class="form-horizontal">
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-3" for="firstLine">First Line:</label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" class="form-control" id="firstLine" placeholder="Enter your message">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-3" for="secondLine">Second Line:</label>
+                                                <div class="col-sm-8">          
+                                                    <input type="text" class="form-control" id="secondLine" placeholder="Enter your message">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">        
+                                                <div class="col-sm-offset-3 col-sm-8">
+                                                    <button type="submit" class="btn btn-info" id="sendMessage">Send Message</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+
+                                    <div id="menu2" class="tab-pane fade">
+                                      <!-- <h3>Menu 2</h3> -->
+                                      <br>
+                                      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+                                    </div>
+                                    <div id="menu3" class="tab-pane fade">
+                                      <!-- <h3>Menu 3</h3> -->
+                                      <br>
+                                      <p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <!-- <script>
+                                var sprinklerArr = new Array(3);
+                                var curSprinkler = 0; // holds the images being shown
+                    
+                                // preload the image to the array
+                                for(let i = 0; i < sprinklerArr.length; i++)
+                                {
+                                    sprinklerArr[i] = "./resources/images/watering/b" + i + ".png";
+                                }
+                    
+                                function runningSprinkler()
+                                {
+                                    var dispImage = document.getElementsByTagName("img");
+                    
+                                    curSprinkler = curSprinkler % sprinklerArr.length;
+                                    dispImage[0].src = sprinklerArr[curSprinkler];
+                                    curSprinkler++;
+                                }
+                    
+                                // setInterval
+                                setInterval(runningSprinkler, 1000);
+                            </script> -->
+
+                            <!-- <fieldset id="customer">
+                            
+                                <legend>Control Menu</legend>
+                            
+
+                                <hr>
+                                
+
+                                </div>
+
+                            </fieldset>          
+
+                            
+                            <hr>
+                            <div id="originaldata"></div>
+                            
+                            <div id="JSONParsedata"></div-->
+                            
+
+ 
+                        </div> 
+
+
+                    </div>
+
+                    <div id = "alertMessage" class="alert success">
+                            <span id="successMessage" class="closebtn">&times;</span>  
+                            <p id="statusMessage">Message</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+
+</html>
