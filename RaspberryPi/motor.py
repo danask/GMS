@@ -7,7 +7,9 @@ import json
 client = MongoClient("mongodb+srv://Dan:admin1010@cluster0-8af06.mongodb.net/test?retryWrites=true&w=majority")
 
 GPIO.setmode(GPIO.BOARD)
-sensors = mongoDb.sensors
+
+mongoDb = client.get_database('gms_data')
+sensorList = mongoDb.sensors
 
 
 control_pins = [7,11,13,15]
@@ -27,29 +29,58 @@ halfstep_seq = [
 ]
 
 # rotation cycle
-motor = sensors.find_one({'key': 'motor'})
+
+wateringCycle = 10
+
+motor = sensorList.find_one({'key': 'motor'})
 jsonMotor = dumps(motor)
 cValue = json.loads(jsonMotor)['cycle']
+isOff = json.loads(jsonMotor)['status']
 
-wateringDuration = int(cValue)
+if isOff == "off":
+   wateringCycle = 0
+else:
+   print (cValue)
+   wateringCycle = int(cValue)
 
 try:        
     while True:
-              
-        for times in range (wateringDuration):
+        status = "on"
+
+        for times in range (wateringCycle):
             for i in range(256):
               for halfstep in range(8):
                 for pin in range(4):
                   GPIO.output(control_pins[pin], halfstep_seq[halfstep][pin])
                 time.sleep(0.001)
-                
-        wateringDuration = 0
 
-        # check and get the rotation number from Firebase
+	    print("wateringCycle " + str(wateringCycle))
+	    motor = sensorList.find_one({'key': 'motor'})
+	    jsonMotor = dumps(motor)
+            status = json.loads(jsonMotor)['status']
+	    time.sleep(0.005)
+            print("status " + status)
+            if status == "off":
+               break
                 
-        if wateringDuration == 0:
+        wateringCycle = 0
+	motor_update = {
+		'cycle': "0"
+	}
+	sensorList.update_one({'key':'motor'}, {'$set': motor_update})
+
+        # check and get the rotation number from db
+                
+        if wateringCycle == 0:
             print("Stand by: waiting for the watering input from GMS server...")
-            time.sleep(10.0)
+            time.sleep(5.0)
+
+	    motor = sensorList.find_one({'key': 'motor'})
+	    jsonMotor = dumps(motor)
+            cValue = json.loads(jsonMotor)['cycle']
+	    print (cValue)
+	    wateringCycle = int(cValue)
+
             #break;
             
 except KeyboardInterrupt:
