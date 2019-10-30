@@ -188,23 +188,29 @@ class GmsDataCollector():
                     }
                     
                     records.update_one({'type':'tempHumid'}, {'$set': status_update})
-                                        
+                    match_count = 0                    
                     
                     while True:
                         # RFID (2019/08/25)
                         GPIO.output(26, True)
                         time.sleep(0.5)
                                         
-                        print("Hold a tag near the reader")
+                        print("Hold a tag near the reader or input passcode")
                         
                         rfid = sensorList.find_one({'key': 'rfid'})
                         jsonRfid = dumps(rfid)
                         pValue = json.loads(jsonRfid)['value']
-                                                
-                        id, text = reader.read()
-                        print("ID: XXXXXXXXXXX\nText: %s" % text)
+                        match_count = match_count + 1                        
+			id = ""
+			text = "ADMIN"
+
+			if match_count == 20:
+                            id, text = reader.read()
+                            print("ID: XXXXXXXXXXX\nText: %s" % text)
+			
                         lcd.lcd_clear()        
-                                        
+			print ("****")                        
+                
                         if id == REF_ADMIN or pValue == "1234": # temp
                             GPIO.output(26, False)
                             clearMsg = "User: "+ str(text)
@@ -221,7 +227,7 @@ class GmsDataCollector():
                             }
                                             
                             records.update_one({'type':'tempHumid'}, {'$set': status_update})
-                            sensors.update_one({'key':'rfid'}, {'$set': rfid_update})
+                            sensorList.update_one({'key':'rfid'}, {'$set': rfid_update})
                             
                             time.sleep(2)
                             break
