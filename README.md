@@ -1,6 +1,6 @@
 # Gardening Management System (GMS) and Remote Controller
 ### 1. Raspberry PI to collect the data
-collects data source from sensors
+Collects data  from sensors and interact with user command
 - DHT
 - PIR (motion sensor)
 - Camera
@@ -27,8 +27,9 @@ Communication between back-end (Spring MVC) to front-end (Angular) via API calls
 - Administrator
 
 ### 4. Remote Controller
-- React and NodeJS, WebSocket based GMS Panel
+- React and NodeJS, WebSocket based control panel working in real-time
 - Android App
+
 **Features**
 - Watering control with recommendation
 - Alarm dismiss
