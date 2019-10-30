@@ -12,20 +12,15 @@
             crossorigin="anonymous">
         </script>     
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-app.js"></script>
+        <!-- <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-app.js"></script> -->
         <script src="https://www.gstatic.com/firebasejs/3.6.9/firebase.js"></script>
 
-        
-        
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css"> 
-        <!-- <link rel="stylesheet" href="./css/main.css" type="text/css"> -->
+        <link rel="stylesheet" href="./css/main.css" type="text/css">
         <script type="text/jsx" src="getScreenshot.js"></script>
 
         <script>
-            // client.js
-            // var nmongoMovie = require("./nMongoDB1");
-            // import io from 'https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.dev.js';
-            
+
             function lcdDisplay(dataFromtheServer) 
             {
                 $("#originaldata").html(dataFromtheServer);
@@ -103,15 +98,45 @@
                 });
             }
 
+            var successMsg = function(){
+                $('#statusMessage').html("Applied successfully!");
+                $('#alertSuccessMessage').show();
+            }
+
+            var failureMsg = function(){
+                $('#statusMessage').html("Fail to execute!");
+                $('#alertFailureMessage').show();
+            }
+
+
             $(document).ready(function() {
 
                 displayLCD();
+                $('#alertSuccessMessage').hide();
+                $('#alertFailureMessage').hide();
 
                 $("#getData").click(()=>{
-                    displayLCD();
+                    location.reload();
                 }); 
                 
                 $("#motorControlOn").click(()=>{
+
+                    var type = $('#unitType').val();
+                    var num = $('#cycle').val();
+
+                    if(num == "")
+                    {
+                        failureMsg();
+                        return;
+                    }
+
+                    if(type == "liter")
+                        num = num*60*6;
+                    else if(type == "time")
+                        num = num*6;
+
+                    num = Math.ceil(num);
+                    console.log(num);
 
                     $.ajax({
                         url: document.URL.replace("?", "") + 'updateMotor',
@@ -119,22 +144,19 @@
                         success: function(response){
                             console.log(response);
                             
-                            // if(response === 'ok')
-                            $('#statusMessage').html("Applied successfully!");
+                            successMsg();
                             $('#cycle').val("");
                             $('#cycle').focus();
 
-                            $('#alertMessage').show();
-
-                            $.ajax({
-                                url: document.URL.replace("?", "") + 'getStatus',
-                                type: 'GET',
-                                success: lcdDisplay
+                            // $.ajax({
+                            //     url: document.URL.replace("?", "") + 'getStatus',
+                            //     type: 'GET',
+                            //     success: lcdDisplay
                             
-                            });
+                            // });
                         },
                         data:{
-                            cycle: $('#cycle').val(),
+                            cycle: num,
                             status: "on"
                         }
                     });
@@ -149,28 +171,48 @@
                         type: 'POST',
                         success: function(response){
                             console.log(response);
-                            
-                            // if(response === 'ok')
-                            $('#statusMessage').html("Applied successfully!");
+                            successMsg();
                             $('#cycle').val("");
                             $('#cycle').focus();
-                            $('#alertMessage').show();
-
-                            $.ajax({
-                                url: document.URL.replace("?", "") + 'getStatus',
-                                type: 'GET',
-                                success: lcdDisplay
-                            
-                            });
                         },
                         data:{
-                            cycle: "",
+                            cycle: "0",
                             status: "off"
                         }
                     });
                     
                 });
 
+                $("#alarmDismiss").click(()=>{
+
+                    if($('#passcode').val() == "")
+                    {
+                        failureMsg();
+                        return;
+                    }
+
+                    $.ajax({
+                        url: document.URL.replace("?", "") + 'dismissAlarm',
+                        type: 'POST',
+                        success: function(response){
+                            console.log(response);
+                            
+                            successMsg();
+                            $('#passcode').val("");
+                            $('#passcode').focus();
+
+                            displayLCD();
+                            // var dismiss = $.ajax({
+                            //     url: document.URL.replace("?", "") + 'getStatus',
+                            //     type: 'GET',
+                            //     success: lcdDisplay
+                            // });
+                        },
+                        data:{
+                            passcode: $('#passcode').val()
+                        }
+                    });
+                });
 
                 $("#sendMessage").click(()=>{
 
@@ -195,6 +237,8 @@
                                 success: lcdDisplay
                             
                             });
+
+                            successMsg();
                         },
                         data:{
                             firstLine: $('#firstLine').val(),
@@ -204,39 +248,19 @@
 
                 });
 
-                $("#alarmDismiss").click(()=>{
-
-                    $.ajax({
-                        url: document.URL.replace("?", "") + 'dismissAlarm',
-                        type: 'POST',
-                        success: function(response){
-                            console.log(response);
-                            
-                            // if(response === 'ok')
-                            $('#statusMessage').html("Sent message successfully!");
-                            $('#passcode').val("");
-                            $('#passcode').focus();
-                            $('#alertMessage').show();
-
-                            var dismiss = $.ajax({
-                                url: document.URL.replace("?", "") + 'getStatus',
-                                type: 'GET',
-                                success: lcdDisplay
-                            });
-                        },
-                        data:{
-                            passcode: $('#passcode').val()
-                        }
-                    });
-                });
 
                 $("#successMessage").click(()=>{
                     // var div = this.parentElement;
                     // div.style.opacity = "0";
                     // setTimeout(function(){ div.style.display = "none"; }, 600);
-                    $('#alertMessage').hide();
+                    $('#alertSuccessMessage').hide();
                 });
-
+                $("#failureMessage").click(()=>{
+                    // var div = this.parentElement;
+                    // div.style.opacity = "0";
+                    // setTimeout(function(){ div.style.display = "none"; }, 600);
+                    $('#alertFailureMessage').hide();
+                });
             });
 
             // var close = document.getElementsByClassName("closebtn");
@@ -277,7 +301,7 @@
                                 <div class="formRow">
                                     <div align="right">
                                         
-                                        <button id="getData" >Refresh</button>
+                                        <button id="getData" class="btn btn-primary">Refresh</button>
                                     </div>
                                 </div>
                             </fieldset>                               
@@ -285,10 +309,10 @@
                             <!-- <h2>Control Menu</h2>
                             <p>To make the tabs toggleable, add the data-toggle="tab" attribute to each link. Then add a .tab-pane class with a unique ID for every tab and wrap them inside a div element with class .tab-content.</p> -->
                             <ul class="nav nav-tabs">
-                                <li class="active"><a data-toggle="tab" href="#home">Control</a></li>
-                                <li><a data-toggle="tab" href="#menu1">Message</a></li>
-                                <li><a data-toggle="tab" href="#menu2">History</a></li>
-                                <li><a data-toggle="tab" href="#menu3">Settings</a></li>
+                                <li class="active"><a data-toggle="tab" href="#home">Control Devices</a></li>
+                                <li><a data-toggle="tab" href="#menu1">Send Message</a></li>
+                                <li><a data-toggle="tab" href="#menu2">Action History</a></li>
+                                <li><a data-toggle="tab" href="#menu3">About</a></li>
                             </ul>
 
                             <div class="tab-content">
@@ -312,21 +336,29 @@
                                             <div id="collapse1" class="panel-collapse collapse in">
                                                 <div class="panel-body">
                                                     <form class="form-horizontal">
-                                                        <!-- <label for="cycle">Sprinkler Control</label> -->
                                                         <!--react-->
                                                         <p class="col-sm-offset-1 ">Recommendation by GMS calculation</p>
                                                         <div class="col-sm-offset-1 " id="recommendation"></div>
                                                         <br>
-                                                        <div class="form-group">
-                                                            <label class="control-label col-sm-3" for="cycle">Time (hours)</label>
-                                                            <div class="col-sm-8">
-                                                                <input type="number" class="form-control" id="cycle" min=0 placeholder="Enter your number">
+                                                        
+                                                        <form class="form-inline">
+                                                            <div class="form-row">
+                                                                <div class="col-sm-offset-1 col-sm-6">
+                                                                    <input type="number" class="form-control" id="cycle" min=0 placeholder="Enter your number" required>
+                                                                </div>
+                                                                <select class="form-control" id="unitType" >
+                                                                    <option value="liter">Liter (l)</option>
+                                                                    <option value="time">Time (minute)</option>
+                                                                    <option value="cycle" selected>Cycles (times)</option>
+                                                                </select>
                                                             </div>
-                                                        </div>
+                                                        </form>
+                                                        <br>
+
                                                         <div class="form-group">        
-                                                            <div class="col-sm-offset-3 col-sm-8">
-                                                                <button type="submit" class="btn btn-info" id="motorControlOn">Start Watering</button>
-                                                                <button type="submit" class="btn btn-info" id="motorControlOff">Stop Watering</button>
+                                                            <div class="col-sm-offset-1 col-sm-8">
+                                                                <button type="submit" class="btn btn-primary" id="motorControlOn">Start Watering</button>
+                                                                <button type="submit" class="btn btn-primary" id="motorControlOff">Stop Watering</button>
                                                             </div>
                                                         </div>
                                                         <div class="form-group">        
@@ -357,12 +389,12 @@
                                                         <div class="form-group">
                                                             <label class="control-label col-sm-3" for="passcode">Passcode</label>
                                                             <div class="col-sm-8">
-                                                                <input type="password" class="form-control" id="passcode" placeholder="Enter your code">
+                                                                <input type="password" class="form-control" id="passcode" placeholder="Enter your code" required>
                                                             </div>
                                                         </div>
                                                         <div class="form-group">        
                                                             <div class="col-sm-offset-3 col-sm-8">
-                                                                <button type="submit" class="btn btn-info" id="alarmDismiss">Dismiss</button>
+                                                                <button type="submit" class="btn btn-primary" id="alarmDismiss">Dismiss Alarm</button>
                                                             </div>
                                                         </div>
                                                         <div class="form-group">        
@@ -387,18 +419,18 @@
                                             <div class="form-group">
                                                 <label class="control-label col-sm-3" for="firstLine">First Line:</label>
                                                 <div class="col-sm-8">
-                                                    <input type="text" class="form-control" id="firstLine" placeholder="Enter your message">
+                                                    <input type="text" class="form-control" id="firstLine" maxlength=20 placeholder="Enter your message">
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="control-label col-sm-3" for="secondLine">Second Line:</label>
                                                 <div class="col-sm-8">          
-                                                    <input type="text" class="form-control" id="secondLine" placeholder="Enter your message">
+                                                    <input type="text" class="form-control" id="secondLine" maxlength=20 placeholder="Enter your message">
                                                 </div>
                                             </div>
                                             <div class="form-group">        
                                                 <div class="col-sm-offset-3 col-sm-8">
-                                                    <button type="submit" class="btn btn-info" id="sendMessage">Send Message</button>
+                                                    <button type="submit" class="btn btn-primary" id="sendMessage">Send Message</button>
                                                 </div>
                                             </div>
                                         </form>
@@ -410,9 +442,40 @@
                                       <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
                                     </div>
                                     <div id="menu3" class="tab-pane fade">
-                                      <!-- <h3>Menu 3</h3> -->
-                                      <br>
-                                      <p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+
+                                    <br>
+                                    <p>This is the definition about GMS remote controller for GMS. </p>
+                                    <br>
+                                    <div class="panel-group" id="accordion">
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                            <h4 class="panel-title">
+                                                <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">GMS Remote Controller</a>
+                                            </h4>
+                                            </div>
+                                            <div id="collapse1" class="panel-collapse collapse in">
+                                                <div class="panel-body">
+                                                    <form class="form-horizontal">
+                                                        <div class="form-group">
+                                                            <div class="col-sm-12">
+                                                                GMS is a short expression for Gardening Management System. 
+                                                                This is an integrated solution program to provide ease
+                                                                of plant management with the environmental parameters such as temperature, humidity,
+                                                                and daily weather information.User can check the status on their web browser out and the
+                                                                system recommends an appropriate action as the situation. 
+                                                                <br><br> 
+                                                                This application helps people who are interested in the advanced management of gardening to monitor their plant
+                                                                more efficiently and flexibly. Moreover, this will be suitable for implementing and
+                                                                extending various programming language and network knowledge which we have learnt.    
+                                                                <br><br>
+                                                                Copyright Douglas College CSIS4280 © 2019. 
+                                                                All rights reserved.
+                                                            </div>
+                                                        </div>   
+                                                    </form>                                         
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -466,9 +529,14 @@
 
                     </div>
 
-                    <div id = "alertMessage" class="alert success">
-                            <span id="successMessage" class="closebtn">&times;</span>  
-                            <p id="statusMessage">Message</p>
+                    <div id = "alertSuccessMessage" class="alert success">
+                        <span id="successMessage" class="closebtn">&times;</span>  
+                        <p id="statusMessage">Applied successfully</p>
+                    </div>
+
+                    <div id = "alertFailureMessage" class="alert">
+                        <span id="failureMessage" class="closebtn">&times;</span>  
+                        <p id="statusMessage">Fail to execute</p>
                     </div>
                 </div>
             </div>
