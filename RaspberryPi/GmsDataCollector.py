@@ -32,6 +32,8 @@ import threading
 # pip install dnspython --user
 
 from pymongo import MongoClient
+from bson.json_util import dumps
+import json
 client = MongoClient("mongodb+srv://Dan:admin1010@cluster0-8af06.mongodb.net/test?retryWrites=true&w=majority")
 
 # initialize GPIO
@@ -72,7 +74,7 @@ class GmsDataCollector():
         # mongodb        
         mongoDb = client.get_database('gms_data')
         records = mongoDb.status
-        sensors = mongoDb.sensors
+        sensorList = mongoDb.sensors
         
         # get and test them
         self.msg = db.reference('timestamp')
@@ -195,14 +197,15 @@ class GmsDataCollector():
                                         
                         print("Hold a tag near the reader")
                         
-                        rfid = sensors.find({'key': 'rfid'}
-                        pValue = rfid.value
+                        rfid = sensorList.find_one({'key': 'rfid'})
+                        jsonRfid = dumps(rfid)
+                        pValue = json.loads(jsonRfid)['value']
                                                 
                         id, text = reader.read()
                         print("ID: XXXXXXXXXXX\nText: %s" % text)
                         lcd.lcd_clear()        
                                         
-                        if id == REF_ADMIN or pValue == 1234: # temp
+                        if id == REF_ADMIN or pValue == "1234": # temp
                             GPIO.output(26, False)
                             clearMsg = "User: "+ str(text)
                             
