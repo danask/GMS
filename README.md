@@ -27,7 +27,7 @@ Communication between back-end (Spring MVC) to front-end (Angular) via API calls
 - Administrator
 
 ### 4. Remote Controller
-- React and NodeJS, WebSocket based control panel working in real-time
+- Control panel working in real-time using React, NodeJS, WebSocket, etc. (MERN stack)
 - Android App
 
 **Features**
