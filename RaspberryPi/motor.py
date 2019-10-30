@@ -1,7 +1,14 @@
 import RPi.GPIO as GPIO
 import time
 
+from pymongo import MongoClient
+from bson.json_util import dumps
+import json
+client = MongoClient("mongodb+srv://Dan:admin1010@cluster0-8af06.mongodb.net/test?retryWrites=true&w=majority")
+
 GPIO.setmode(GPIO.BOARD)
+sensors = mongoDb.sensors
+
 
 control_pins = [7,11,13,15]
 for pin in control_pins:
@@ -19,8 +26,12 @@ halfstep_seq = [
   [1,0,0,1]
 ]
 
- # rotation
-wateringDuration = 10
+# rotation cycle
+motor = sensors.find_one({'key': 'motor'})
+jsonMotor = dumps(motor)
+cValue = json.loads(jsonMotor)['cycle']
+
+wateringDuration = int(cValue)
 
 try:        
     while True:
