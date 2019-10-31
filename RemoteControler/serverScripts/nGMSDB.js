@@ -186,11 +186,11 @@ function getHistory(request, response)
       
       var dbo = db.db("gms_data");
       var query = {} ;
-      
+      var mysort = { time: -1 };
       var collection = dbo.collection("history");
       
       collection.find(query, {projection: {_id:0, category:1, type:1, param1:1, param2:1, param3:1, time:1}}).
-                              limit(10).toArray((err, result) => {
+                      sort(mysort).limit(10).toArray((err, result) => {
                         if (err) throw err;
                        
                         console.log(result);
@@ -202,6 +202,38 @@ function getHistory(request, response)
       });
   });
 }
+
+function updateHistory(request, response)
+{
+  mongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
+      if (err) throw err;
+      
+      let category = request.body.category;
+      let type = request.body.type;
+      let param1 = request.body.param1;
+      let param2 = request.body.param2;
+      let param3 = request.body.param3;
+      let time = new Date().getFullYear()+"-"+ (new Date().getMonth()+1)+"-"+new Date().getDate();
+
+      let dbo = db.db("gms_data");
+
+      let newvalues = { category:category, 
+                    type:type, 
+                    param1:param1, 
+                    param2:param2,
+                    param3:param3,
+                    time:time
+                 };
+      
+      dbo.collection("history").insertOne(newvalues, function(err, res) {
+                    if (err) throw err;
+                    console.log("1 document updated");
+                   
+                    db.close();
+      });
+  });
+}
+
 
 // function getMovieData(request, response)
 // {
@@ -280,6 +312,7 @@ function getHistory(request, response)
 exports.getHistory = getHistory;
 exports.getStatus = getStatus;
 exports.getWater = getWater;
+exports.updateHistory = updateHistory;
 exports.updateMotor = updateMotor;
 exports.sendPasscode = sendPasscode;
 exports.sendMessage = sendMessage;

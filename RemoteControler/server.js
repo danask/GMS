@@ -82,30 +82,6 @@ io.on('connection', function (socket) {
   	});
 });
 
-// app.post('/:code', (req, res) =>{
-//     console.log("code: " + req.params.code);
-
-
-// 	// if (req.params.code == 1)
-// 	// 	nmongoGMS.getWater(req, res); 
-// 	// else if (req.params.code == 2)
-// 	// 	nmongoGMS.sendPasscode(req, res); 
-// 	// else if (req.params.code == 5)
-// 	// {
-//     //     console.log("data param: " + req.body.param);
-// 	// 	nmongoGMS.getStatus(req, res);  
-// 	// }
-// 	// else if (req.params.code == 6)
-// 	// {
-// 	//     console.log("data param: " + req.body.cycle);
-// 	// 	nmongoGMS.updateMotor(req, res);  		
-// 	// }
-// 	// else if (req.params.code == 7)
-// 	// {
-// 	// 	nmongoGMS.sendMessage(req, res);  		
-// 	// }
-	
-// });
 
 app.post('/getWater', (req, res) =>{
 	nmongoGMS.getWater(req, res); 
@@ -116,23 +92,32 @@ app.get('/getStatus', (req, res) =>{
 });
 
 app.post('/dismissAlarm', (req, res) =>{
-	nmongoGMS.sendPasscode(req, res);  
+	nmongoGMS.sendPasscode(req, res); 
+	
+	if(req.body.retry == 'no')
+		nmongoGMS.updateHistory(req, res);
 });
 
 app.post('/updateMotor', (req, res) =>{
-	nmongoGMS.updateMotor(req, res);  
+	nmongoGMS.updateMotor(req, res); 
+
+	if(req.body.retry == 'no')
+		nmongoGMS.updateHistory(req, res);
 });
 
 app.post('/sendMessage', (req, res) =>{
 	nmongoGMS.sendMessage(req, res);  
+
+	if(req.body.retry == 'no')
+		nmongoGMS.updateHistory(req, res);
 });
 
 app.get('/getHistory', (req, res) =>{
 	nmongoGMS.getHistory(req, res);  
 });
 
-app.post('/retryAction', (req, res) =>{
-	nmongoGMS.retryAction(req, res);  
+app.post('/updateHistory', (req, res) =>{
+	nmongoGMS.updateHistory(req, res);  
 });
 
 

@@ -88,27 +88,27 @@
                 $.each(data, (key, value) => {
 
                     // v[count] += "<tr>" ;
-                    let check_set = false;
-                    let colCount = 0;
+                    // let check_set = false;
+                    // let colCount = 0;
 
                     $.each(value, (key2, value2) => {
                         if(!header_set)
                             h += "<th>" + key2.toUpperCase() + "</th>";
                         
-                        if(!check_set)
-                        {
-                            var checkInput = $(document.createElement('input')).attr({
-                                            id:    value2,
-                                            name:  value2,
-                                            value: value2,
-                                            type:  'checkbox'
-                            });
+                        // if(!check_set)
+                        // {
+                        //     var checkInput = $(document.createElement('input')).attr({
+                        //                     id:    value2,
+                        //                     name:  value2,
+                        //                     value: value2,
+                        //                     type:  'checkbox'
+                        //     });
 
-                            checkboxObject[count] = checkInput;
-                            }
+                        //     checkboxObject[count] = checkInput;
+                        //     }
                             
-                        // v[rowCount][colCount++] = value2+"";//"<td>" + value2 + "</td>";
-                        check_set = true;
+                        // // v[rowCount][colCount++] = value2+"";//"<td>" + value2 + "</td>";
+                        // check_set = true;
                     });
                     
                     if (!header_set) {
@@ -119,7 +119,7 @@
                     // v[count] += "</tr>" ;
                     // console.log(v[rowCount]);
 
-                    rowCount++;
+                    // rowCount++;
                 });                        
 
                 $("#actionHistory thead > tr").remove();
@@ -130,9 +130,14 @@
                     var tr = $("<tr />");
 
                     $.each(value, (key2, value2) => {
-                        tr.append($("<td />", { html: value2 }));
+                        // console.log(data[key]['category']+":"+data[key]['param1'] + ":" + key2);
+
+                        if(value['category'] == 'Alarm' && key2 == 'param1')
+                            tr.append($("<td />", { html: '<span style="color:WhiteSmoke;background-color:WhiteSmoke;">'+value2+'</span>' }));
+                        else
+                            tr.append($("<td />", { html: value2 }));
                     });
-                    tr.append($("<td />",{ html: '<button class="retry" id ='+ key +'>Retry</button>'}));
+                    tr.append($("<td />",{ html: '<button class="retry btn-primary" id ='+ key +'>Retry</button>'}));
 
                     $("#actionHistory tbody").append(tr);
                 });   
@@ -150,7 +155,6 @@
                     {
                         let unit = param1;
                         let num = parseInt(param2);
-                        alert(num);
 
                         if(unit == "liter")
                             num = num*60*6;
@@ -166,7 +170,8 @@
                             },
                             data:{
                                 cycle: num,
-                                status: "on"
+                                status: "on",
+                                retry: "yes"
                             }
                         });                       
                     }
@@ -180,7 +185,8 @@
                             },
                             data:{
                                 cycle: "0",
-                                status: "off"
+                                status: "off",
+                                retry: "yes"
                             }
                         });
                     }
@@ -196,7 +202,8 @@
                             data:{
                                 firstLine: param1,
                                 secondLine: param2,
-                                duration: param3
+                                duration: param3,
+                                retry: "yes"
                             }
                         });
                     }
@@ -210,10 +217,13 @@
                                 displayLCD();
                             },
                             data:{
-                                passcode: param1
+                                passcode: param1,
+                                retry: "yes"
                             }
                         });
                     }
+
+                    location.reload();
                 })
             }  
 
@@ -312,16 +322,19 @@
                             // });
                         },
                         data:{
+                            category: "Sprinkler",
+                            type: 'Start Watering',
                             cycle: num,
-                            status: "on"
+                            status: "on",
+                            param1: type,
+                            param2: num,
+                            retry: "no"
                         }
                     });
 
                 }); 
                 
                 $("#motorControlOff").click(()=>{
-
-
                     $.ajax({
                         url: document.URL.replace("?", "") + 'updateMotor',
                         type: 'POST',
@@ -332,8 +345,13 @@
                             $('#cycle').focus();
                         },
                         data:{
+                            category: "Sprinkler",
+                            type: 'Stop Watering',
                             cycle: "0",
-                            status: "off"
+                            status: "off",
+                            param1: $('#unitType').val(),
+                            param2:"0",
+                            retry: "no"
                         }
                     });
                     
@@ -360,7 +378,11 @@
                             displayLCD();
                         },
                         data:{
-                            passcode: $('#passcode').val()
+                            category: "Alarm",
+                            type: 'Dismiss Alarm',
+                            passcode: $('#passcode').val(),
+                            param1:$('#passcode').val(),
+                            retry: "no"
                         }
                     });
                 });
@@ -392,9 +414,15 @@
                             successMsg();
                         },
                         data:{
+                            category: "Message",
+                            type: 'Send Message',
                             firstLine: $('#firstLine').val(),
                             secondLine: $('#secondLine').val(),
-                            duration: $('#duration').val()
+                            duration: $('#duration').val(),
+                            param1: $('#firstLine').val(),
+                            param2: $('#secondLine').val(),
+                            param3: $('#duration').val(),
+                            retry: "no"
                         }
                     });
 
@@ -625,7 +653,7 @@
                                           <div class="panel panel-default">
                                               <div class="panel-heading">
                                               <h4 class="panel-title">
-                                                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Last 10 Actions List</a>
+                                                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Last Action List</a>
                                               </h4>
                                               </div>
                                               <div id="collapse1" class="panel-collapse collapse in">
@@ -636,7 +664,6 @@
                                                                 <table id="actionHistory" class="table table-striped">
                                                                     <thead></thead>
                                                                     <tbody>
-                                                                        <tr><td></td></tr>
                                                                     </tbody>
                                                                 </table>  
                                                               </div>

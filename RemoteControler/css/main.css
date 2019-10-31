@@ -85,8 +85,8 @@ body{
 /* The device with borders */
 .tablet {
 	position: relative;
-	width: 624px;
-	height: 1124px;
+	width: 724px;
+	height: 1224px;
 	margin: auto;
 	border: 16px black solid;
 	border-top-width: 60px;
@@ -226,5 +226,6 @@ label.radioField:nth-of-type(1){
 }
 
 #actionHistory{
-	font-size: 0.8em;
+	font-size: 1em;
 }
+
