@@ -58,7 +58,7 @@ try:
 	    motor = sensorList.find_one({'key': 'motor'})
 	    jsonMotor = dumps(motor)
             status = json.loads(jsonMotor)['status']
-	    time.sleep(0.005)
+	    #time.sleep(0.005)
             print("status " + status)
             if status == "off":
                break
