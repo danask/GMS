@@ -229,12 +229,12 @@ class GmsDataCollector():
                         id = 0
                         text = "ADMIN"
 
-			            if match_count == 20:
+                        if match_count == 20:
                             id, text = reader.read()
                             print("ID: XXXXXXXXXXX\nText: %s" % text)
-			
+            
                         lcd.lcd_clear()        
-			            print ("****")                        
+                        print ("****")                        
                 
                         if id == REF_ADMIN or pValue == "1234": # temp
                             GPIO.output(26, False)
