@@ -16,7 +16,7 @@
         <script src="https://www.gstatic.com/firebasejs/3.6.9/firebase.js"></script>
 
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css"> 
-        <link rel="stylesheet" href="./css/main.css" type="text/css">
+        <!-- <link rel="stylesheet" href="./css/main.css" type="text/css"> -->
         <script type="text/jsx" src="getScreenshot.js"></script>
 
         <script>
@@ -132,16 +132,92 @@
                     $.each(value, (key2, value2) => {
                         tr.append($("<td />", { html: value2 }));
                     });
-                    tr.append($("<td />",{ html: '<button class="Add" value ='+ key +'>Retry</button>'}));
+                    tr.append($("<td />",{ html: '<button class="retry" id ='+ key +'>Retry</button>'}));
 
                     $("#actionHistory tbody").append(tr);
-                });        
+                });   
+                
+                $('button.retry').on('click', function(){
+
+                    var cRow = $(this).parents('tr');
+                    var category = $('td:nth-child(1)', cRow).text();
+                    var type = $('td:nth-child(2)', cRow).text();
+                    var param1 = $('td:nth-child(3)', cRow).text();
+                    var param2 = $('td:nth-child(4)', cRow).text();
+                    var param3 = $('td:nth-child(5)', cRow).text();
+                    
+                    if(type == 'Start Watering')
+                    {
+                        let unit = param1;
+                        let num = parseInt(param2);
+                        alert(num);
+
+                        if(unit == "liter")
+                            num = num*60*6;
+                        else if(unit == "time")
+                            num = num*6;
+                        num = Math.ceil(num);
+
+                        $.ajax({
+                            url: document.URL.replace("?", "") + 'updateMotor',
+                            type: 'POST',
+                            success: function(response){
+                                successMsg();
+                            },
+                            data:{
+                                cycle: num,
+                                status: "on"
+                            }
+                        });                       
+                    }
+                    else if(type == 'Stop Watering')
+                    {
+                        $.ajax({
+                            url: document.URL.replace("?", "") + 'updateMotor',
+                            type: 'POST',
+                            success: function(response){
+                                successMsg();
+                            },
+                            data:{
+                                cycle: "0",
+                                status: "off"
+                            }
+                        });
+                    }
+                    else if(type == 'Send Message')
+                    {
+                        $.ajax({
+                            url: document.URL.replace("?", "") + 'sendMessage',
+                            type: 'POST',
+                            success: function(response){
+                                successMsg();
+                                displayLCD();
+                            },
+                            data:{
+                                firstLine: param1,
+                                secondLine: param2,
+                                duration: param3
+                            }
+                        });
+                    }
+                    else if(type == 'Dismiss Alarm')
+                    {
+                        $.ajax({
+                            url: document.URL.replace("?", "") + 'dismissAlarm',
+                            type: 'POST',
+                            success: function(response){
+                                successMsg();
+                                displayLCD();
+                            },
+                            data:{
+                                passcode: param1
+                            }
+                        });
+                    }
+                })
             }  
 
-
-
             var socket = io();
-
 
             // socket.on('message', function(data){
             //     $("#e1").html(data);
