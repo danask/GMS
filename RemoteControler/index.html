@@ -79,45 +79,63 @@
                 
                 let header_set = false;
                 let h = "";
-                let v = "";    
- 
-                {
-                    $.each(data, (key, value) => {
-                        v += "<tr>" ;
+                let v = [[0,0], [1,1]]; 
+                let checkboxObject = [];   
+                let colCount = 0;
+                let rowCount = 0;
+                let count = 0;
 
-                        $.each(value, (key2, value2) => {
-                            
+                $.each(data, (key, value) => {
 
-                            if (!header_set)
-                                h += "<th>" + key2.toUpperCase() + "</th>";
-                            
-                            v += "<td>" + value2 + "</td>";
-                        });
+                    // v[count] += "<tr>" ;
+                    let check_set = false;
+                    let colCount = 0;
+
+                    $.each(value, (key2, value2) => {
+                        if(!header_set)
+                            h += "<th>" + key2.toUpperCase() + "</th>";
                         
-                        if (!header_set) {
-                            h = "<tr>" + h + "</tr>";
-                            header_set = true;
-                        }
-                        v += "</tr>" ;
-                    });                        
-                }
+                        if(!check_set)
+                        {
+                            var checkInput = $(document.createElement('input')).attr({
+                                            id:    value2,
+                                            name:  value2,
+                                            value: value2,
+                                            type:  'checkbox'
+                            });
 
-
-                // disiplayig the data
-                {
-                    $("#actionHistory thead > tr").remove();
-                    $("#actionHistory thead").append(h);
-                    $("#actionHistory tbody > tr").remove();
-                    $("#actionHistory tbody").append(v);
-                                        
-                    // returnValue[0] = data[0].country;
-                    // returnValue[1] = data[0].iso2; 
+                            checkboxObject[count] = checkInput;
+                            }
+                            
+                        // v[rowCount][colCount++] = value2+"";//"<td>" + value2 + "</td>";
+                        check_set = true;
+                    });
                     
-                    // $("#population").html("");
-                    // $("#population").html(returnValue[0] + " | " + returnValue[1]);
-                }
-                
-                // return returnValue;
+                    if (!header_set) {
+                        h += "<th>ACTION</th>";
+                        h = "<tr>" + h + "</tr>";
+                        header_set = true;
+                    }
+                    // v[count] += "</tr>" ;
+                    // console.log(v[rowCount]);
+
+                    rowCount++;
+                });                        
+
+                $("#actionHistory thead > tr").remove();
+                $("#actionHistory thead").append(h);
+                $("#actionHistory tbody > tr").remove();
+               
+                $.each(data, (key, value) => {
+                    var tr = $("<tr />");
+
+                    $.each(value, (key2, value2) => {
+                        tr.append($("<td />", { html: value2 }));
+                    });
+                    tr.append($("<td />",{ html: '<button class="Add" value ='+ key +'>Retry</button>'}));
+
+                    $("#actionHistory tbody").append(tr);
+                });        
             }  
 
 
@@ -541,7 +559,9 @@
                                                               <div class="col-sm-12">
                                                                 <table id="actionHistory" class="table table-striped">
                                                                     <thead></thead>
-                                                                    <tbody></tbody>
+                                                                    <tbody>
+                                                                        <tr><td></td></tr>
+                                                                    </tbody>
                                                                 </table>  
                                                               </div>
                                                           </div>   
