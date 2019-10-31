@@ -127,6 +127,14 @@ app.post('/sendMessage', (req, res) =>{
 	nmongoGMS.sendMessage(req, res);  
 });
 
+app.get('/getHistory', (req, res) =>{
+	nmongoGMS.getHistory(req, res);  
+});
+
+app.post('/retryAction', (req, res) =>{
+	nmongoGMS.retryAction(req, res);  
+});
+
 
 ////////////////////////////////
 

@@ -69,6 +69,58 @@
                             
             }
 
+            // display with response object
+            function displayHistory(dataFromtheServer) 
+            {
+                // $("#originaldata").html(dataFromtheServer);
+            
+                let data = JSON.parse(dataFromtheServer);
+                let returnValue = new Array();
+                
+                let header_set = false;
+                let h = "";
+                let v = "";    
+ 
+                {
+                    $.each(data, (key, value) => {
+                        v += "<tr>" ;
+
+                        $.each(value, (key2, value2) => {
+                            
+
+                            if (!header_set)
+                                h += "<th>" + key2.toUpperCase() + "</th>";
+                            
+                            v += "<td>" + value2 + "</td>";
+                        });
+                        
+                        if (!header_set) {
+                            h = "<tr>" + h + "</tr>";
+                            header_set = true;
+                        }
+                        v += "</tr>" ;
+                    });                        
+                }
+
+
+                // disiplayig the data
+                {
+                    $("#actionHistory thead > tr").remove();
+                    $("#actionHistory thead").append(h);
+                    $("#actionHistory tbody > tr").remove();
+                    $("#actionHistory tbody").append(v);
+                                        
+                    // returnValue[0] = data[0].country;
+                    // returnValue[1] = data[0].iso2; 
+                    
+                    // $("#population").html("");
+                    // $("#population").html(returnValue[0] + " | " + returnValue[1]);
+                }
+                
+                // return returnValue;
+            }  
+
+
 
             var socket = io();
 
@@ -98,6 +150,15 @@
                 });
             }
 
+            var actionHistory = function(){
+                $.ajax({
+                    url: document.URL.replace("?", "") + 'getHistory',
+                    type: 'GET',
+                    success: displayHistory
+                });                
+            }
+
+
             var successMsg = function(){
                 $('#statusMessage').html("Applied successfully!");
                 $('#alertSuccessMessage').show();
@@ -108,10 +169,11 @@
                 $('#alertFailureMessage').show();
             }
 
-
             $(document).ready(function() {
 
                 displayLCD();
+                actionHistory();
+
                 $('#alertSuccessMessage').hide();
                 $('#alertFailureMessage').hide();
 
@@ -277,7 +339,7 @@
 
     <body>
            
-        <div /*class="container"*/ class="tablet">
+        <div class="tablet">
             <!-- <h3>Panels with Contextual Classes</h3> -->
                 <div class="panel-group">
                         <!-- //  // panel-primary -->
@@ -306,7 +368,7 @@
                             <p>To make the tabs toggleable, add the data-toggle="tab" attribute to each link. Then add a .tab-pane class with a unique ID for every tab and wrap them inside a div element with class .tab-content.</p> -->
                             <ul class="nav nav-tabs">
                                 <li class="active"><a data-toggle="tab" href="#home">Control Devices</a></li>
-                                <li><a data-toggle="tab" href="#menu1">Send Message</a></li>
+                                <li><a data-toggle="tab" href="#menu1">Urgent Message</a></li>
                                 <li><a data-toggle="tab" href="#menu2">Action History</a></li>
                                 <li><a data-toggle="tab" href="#menu3">About</a></li>
                             </ul>
@@ -414,7 +476,7 @@
                                             <div class="panel panel-default">
                                                 <div class="panel-heading">
                                                 <h4 class="panel-title">
-                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">GMS Remote Controller</a>
+                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Message</a>
                                                 </h4>
                                                 </div>
                                                 <div id="collapse1" class="panel-collapse collapse in">
@@ -445,21 +507,7 @@
                                                                     </select>
                                                                 </div>
                                                             </div>
-                <!-- 
-                                                            <form class="form-inline">
-                                                                <div class="form-row">
-                                                                    <div class="col-sm-offset-1 col-sm-6">
-                                                                        
-                                                                    </div>
-                                                                    <label class="control-label col-sm-3" for="duration">Dureation:</label>
-                                                                    <select class="form-control" id="duration" >
-                                                                        <option value="liter">Liter (l)</option>
-                                                                        <option value="time">Time (minute)</option>
-                                                                        <option value="cycle" selected>Cycles (times)</option>
-                                                                    </select>
-                                                                </div>
-                                                            </form> -->
-                
+
                                                             <br>
                 
                                                             <div class="form-group">        
@@ -478,6 +526,30 @@
                                       <!-- <h3>Menu 2</h3> -->
                                       <br>
                                       <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+                                      <br>
+                                      <div class="panel-group" id="accordion">
+                                          <div class="panel panel-default">
+                                              <div class="panel-heading">
+                                              <h4 class="panel-title">
+                                                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Last 10 Actions List</a>
+                                              </h4>
+                                              </div>
+                                              <div id="collapse1" class="panel-collapse collapse in">
+                                                  <div class="panel-body">
+                                                      <form class="form-horizontal">
+                                                          <div class="form-group">
+                                                              <div class="col-sm-12">
+                                                                <table id="actionHistory" class="table table-striped">
+                                                                    <thead></thead>
+                                                                    <tbody></tbody>
+                                                                </table>  
+                                                              </div>
+                                                          </div>   
+                                                      </form>                                         
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </div>                                    
                                     </div>
                                     <div id="menu3" class="tab-pane fade">
 

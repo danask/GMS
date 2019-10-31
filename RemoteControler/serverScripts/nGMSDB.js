@@ -158,12 +158,12 @@ function sendMessage(request, response)
       console.log("request.body.secondLine: " + secondLine);
       var dbo = db.db("gms_data");
 
-      var myquery = {type: "sendMessage"};
+      var myquery = {};
       
       if(firstLine != "" || secondLine != "")
       {
         newvalues = { $set: {firstLine: firstLine, secondLine: secondLine, duration: duration } };     
-        dbo.collection("status").updateOne(myquery, newvalues, function(err, res) {
+        dbo.collection("status").updateMany(myquery, newvalues, function(err, res) {
                       if (err) throw err;
                       console.log("1 document updated");
                       
@@ -177,6 +177,32 @@ function sendMessage(request, response)
       }
   });
 }
+
+
+function getHistory(request, response)
+{
+  mongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
+      if (err) throw err;
+      
+      var dbo = db.db("gms_data");
+      var query = {} ;
+      
+      var collection = dbo.collection("history");
+      
+      collection.find(query, {projection: {_id:0, category:1, type:1, param1:1, param2:1, param3:1, time:1}}).
+                              limit(10).toArray((err, result) => {
+                        if (err) throw err;
+                       
+                        console.log(result);
+                        console.log(result.length);
+                        
+                        response.send(JSON.stringify(result));
+                        
+                        db.close();
+      });
+  });
+}
+
 // function getMovieData(request, response)
 // {
 //   var selectedGenresParam = request.body.param;
@@ -251,7 +277,7 @@ function sendMessage(request, response)
 // }
 
 
-
+exports.getHistory = getHistory;
 exports.getStatus = getStatus;
 exports.getWater = getWater;
 exports.updateMotor = updateMotor;

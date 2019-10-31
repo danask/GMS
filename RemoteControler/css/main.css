@@ -224,3 +224,7 @@ label.radioField:nth-of-type(1){
 #duration{
 	width: 8em;
 }
+
+#actionHistory{
+	font-size: 0.8em;
+}
