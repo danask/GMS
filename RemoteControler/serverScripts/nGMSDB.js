@@ -45,11 +45,11 @@ function getStatus(request, response)
       if (err) throw err;
       
       var dbo = db.db("gms_data");
-      var query = {} ;
+      var myquery = {type: "tempHumid"};
       
       var collection = dbo.collection("status");
       
-      collection.find(query, {projection: {_id:0, firstLine:1,secondLine:1, type:1}}).
+      collection.find(myquery, {projection: {_id:0, firstLine:1,secondLine:1, type:1}}).
                               toArray((err, result) => {
                         if (err) throw err;
                        
@@ -151,17 +151,18 @@ function sendMessage(request, response)
       
       let firstLine = request.body.firstLine;
       let secondLine = request.body.secondLine;
+      let duration = request.body.duration;
       let newvalues;
       
       console.log("request.body.firstLine: " + firstLine);
       console.log("request.body.secondLine: " + secondLine);
       var dbo = db.db("gms_data");
 
-      var myquery = {};
+      var myquery = {type: "sendMessage"};
       
       if(firstLine != "" || secondLine != "")
       {
-        newvalues = { $set: {firstLine: firstLine, secondLine: secondLine } };     
+        newvalues = { $set: {firstLine: firstLine, secondLine: secondLine, duration: duration } };     
         dbo.collection("status").updateOne(myquery, newvalues, function(err, res) {
                       if (err) throw err;
                       console.log("1 document updated");

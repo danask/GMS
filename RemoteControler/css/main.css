@@ -221,3 +221,6 @@ label.radioField:nth-of-type(1){
 #unitType{
 	width: 10em;
 }
+#duration{
+	width: 8em;
+}
