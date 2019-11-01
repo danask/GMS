@@ -41,7 +41,7 @@ export class DashboardComponent implements OnInit {
 
   //weatherInfoEntity: Weather;
   countryUrl = '/assets/img/canada.png';
-  weather = '';
+  weather = "Clouds";
   weatherDescription = '';
   weatherUrl = '/assets/img/sunny.png';
   humidity = '';
@@ -65,24 +65,26 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
     this.getLastSensor();
     this.getLastMotionSensor();
-    this.getCriteria();
     // this.getWeatherData();
+    this.getCriteria();
     this.temp = "23.5";
-    this.weather = "Clear";
+    this.weather = "Clouds";
     this.weatherDescription = "clear sky";
     this.humidity = "30";
     this.pressure = "1022";
     this.wind = "6.2";
 
+    console.log(this.weather);
+
     if(parseInt(this.temp) >= 30)
       this.temperatureUrl = '/assets/img/temperature_hot.png';
 
-    if(this.weather == 'Clear')
+    if(this.weather == 'Clouds' || this.weather == 'clouds')
+      this.weatherUrl = '/assets/img/cloud.png';
+    else if(this.weather == 'Clear')
       this.weatherUrl = '/assets/img/sunny.png';
     else if(this.weather == 'Snow')
       this.weatherUrl = '/assets/img/snowman.png';
-    else if(this.weather == 'Clouds')
-      this.weatherUrl = '/assets/img/cloud.png';
     else
       this.weatherUrl = '/assets/img/umbrella.png';
 
@@ -110,9 +112,11 @@ export class DashboardComponent implements OnInit {
       res => {
         this.criteria = res;
         var criteriaWater = parseFloat(this.criteria.criteriaWater.toString()) / 1000;
+        
+        console.log("temp: " + this.temp);
         // to calculate how long sunshine should be lasted
         this.criteria.criteriaSunshine = 
-              ((parseFloat(this.temp) / 25.0) * 60).toString(); 
+              ((parseFloat(this.temp) / 25.0) * 60).toFixed(2).toString(); 
         this.criteria.criteriaWater = 
               (criteriaWater).toFixed(2).toString();
 
@@ -165,7 +169,7 @@ export class DashboardComponent implements OnInit {
         const weatherInfo = res;
 
         if (weatherInfo != null) {
-          // console.log(res);
+          console.log(res);
           // console.log(res.main.temp);
           // console.log(weatherInfo.main.humidity);
 
@@ -177,6 +181,8 @@ export class DashboardComponent implements OnInit {
           // this.temp_max = weatherInfo.main.temp_max;
           // this.wind = res.wind.speed;
           // this.pressure = weatherInfo.main.pressure;
+
+          console.log(this.weather);
         }
       },
       err => {
@@ -268,8 +274,8 @@ export class DashboardComponent implements OnInit {
     }
 
     var span = document.getElementsByClassName("close")[0] as HTMLImageElement;
-   span.onclick = function(){
-    modal.style.display = "none";
-   } 
+    span.onclick = function(){
+      modal.style.display = "none";
+    } 
   }
 }

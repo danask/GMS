@@ -84,7 +84,5 @@ $.ajax({
             <App wateringFactorList={recommendationList}/>,
                 document.getElementById("recommendation")
         );
-        
-
     }            
 });

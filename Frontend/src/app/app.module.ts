@@ -22,6 +22,7 @@ import { MotionSensorHistoryComponent } from './motion-sensor-history/motion-sen
 import { RoomSensorHistoryComponent } from './room-sensor-history/room-sensor-history.component';
 import { SettingsComponent } from './settings/settings.component';
 import { HomeComponent } from './home/home.component';
+import { RemoteControllerComponent } from './remote-controller/remote-controller.component';
 
 
 
@@ -35,6 +36,11 @@ const appRoutes: Routes = [
     path: 'dashboard',
     component: DashboardComponent
   },
+  {
+    path: 'remoteController',
+    component: RemoteControllerComponent
+  },
+
   {
     path: 'motionSensorHistory',
     component: MotionSensorHistoryComponent
@@ -84,7 +90,8 @@ const appRoutes: Routes = [
     MotionSensorHistoryComponent,
     RoomSensorHistoryComponent,
     SettingsComponent,
-    HomeComponent
+    HomeComponent,
+    RemoteControllerComponent
   ],
   imports: [
     BrowserModule,

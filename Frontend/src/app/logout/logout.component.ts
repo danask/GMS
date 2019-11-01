@@ -32,7 +32,7 @@ export class LogoutComponent implements OnInit {
       res => {
         // location.reload();
         if (res != null) {
-          this.router.navigate(['dashboard']);
+          this.router.navigate(['home']);
         } else {
           alert('Failed to sign in');
         }

@@ -67,7 +67,7 @@
 }
 
 .card-main.roomCard{
-  margin-bottom: 2em;
+  margin-bottom: 5em;
   height: 20em;
 }
 
@@ -127,8 +127,8 @@ table td, th{
 .modal-content {
   margin: auto;
   display: block;
-  width: 80%;
-  max-width: 700px;
+  width: 100%;
+  max-width: 1200px;
 }
 
 /* Caption of Modal Image */

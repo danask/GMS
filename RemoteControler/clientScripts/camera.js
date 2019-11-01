@@ -11,7 +11,7 @@ const config = {
   firebase.initializeApp(config)
   const storage = firebase.storage().ref()
   
-  class CapturedImage extends React.Component {
+  class Camera extends React.Component {
     constructor () {
       super()
       this.state = {
@@ -58,10 +58,8 @@ const config = {
       );
     }
   }
-//   Hello a<br />
-//   <img src={ this.state.watering } alt="flag" />
-//   <br />
+
   ReactDOM.render(
-    <CapturedImage name="img" />,
+    <Camera name="img" />,
         document.getElementById('app')
   )

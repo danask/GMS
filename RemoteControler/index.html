@@ -16,8 +16,9 @@
         <script src="https://www.gstatic.com/firebasejs/3.6.9/firebase.js"></script>
 
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css"> 
-        <!-- <link rel="stylesheet" href="./css/main.css" type="text/css"> -->
-        <script type="text/jsx" src="getScreenshot.js"></script>
+        <link rel="stylesheet" href="./css/main.css" type="text/css">
+        <script type="text/jsx" src="./clientScripts/camera.js"></script>
+        <script type="text/babel" src="./clientScripts/about.js"></script>
 
         <script>
 
@@ -397,19 +398,20 @@
                             console.log(response);
                             
                             // if(response === 'ok')
-                            $('#statusMessage').html("Sent message successfully!");
-                            $('#message').val("");
-                            $('#message').focus();
-                            $('#alertMessage').show();
+                            // $('#statusMessage').html("Sent message successfully!");
+                            $('#firstLine').val("");
+                            $('#secondLine').val("");
+                            $('#firstLine').focus();
+                            // $('#alertMessage').show();
 
-                            console.log("2: "+ document.URL.replace("?", ""));
+                            // console.log("2: "+ document.URL.replace("?", ""));
 
-                            $.ajax({
-                                url: document.URL.replace("?", "")+'getStatus',
-                                type: 'GET',
-                                success: lcdDisplay
+                            // $.ajax({
+                            //     url: document.URL.replace("?", "")+'getStatus',
+                            //     type: 'GET',
+                            //     success: lcdDisplay
                             
-                            });
+                            // });
 
                             successMsg();
                         },
@@ -503,7 +505,7 @@
 
                                     
                                     <!--<div id="motorControl"></div>-->
-                                    <script type="text/babel" src="./getRecommendations.js"></script>                                      
+                                    <script type="text/babel" src="./clientScripts/recommendations.js"></script>                                      
 
                                     <br>
                                     <div class="panel-group" id="accordion">
@@ -647,13 +649,13 @@
                                     <div id="menu2" class="tab-pane fade">
                                       <!-- <h3>Menu 2</h3> -->
                                       <br>
-                                      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+                                      <p>This menu shows the last ten action list. You can retry again them. </p>
                                       <br>
                                       <div class="panel-group" id="accordion">
                                           <div class="panel panel-default">
                                               <div class="panel-heading">
                                               <h4 class="panel-title">
-                                                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Last Action List</a>
+                                                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Action List</a>
                                               </h4>
                                               </div>
                                               <div id="collapse1" class="panel-collapse collapse in">
@@ -683,27 +685,14 @@
                                         <div class="panel panel-default">
                                             <div class="panel-heading">
                                             <h4 class="panel-title">
-                                                <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">GMS Remote Controller</a>
+                                                <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">About GMS Remote Controller</a>
                                             </h4>
                                             </div>
                                             <div id="collapse1" class="panel-collapse collapse in">
                                                 <div class="panel-body">
                                                     <form class="form-horizontal">
                                                         <div class="form-group">
-                                                            <div class="col-sm-12">
-                                                                GMS is a short expression for Gardening Management System. 
-                                                                This is an integrated solution program to provide ease
-                                                                of plant management with the environmental parameters such as temperature, humidity,
-                                                                and daily weather information.User can check the status on their web browser out and the
-                                                                system recommends an appropriate action as the situation. 
-                                                                <br><br> 
-                                                                This application helps people who are interested in the advanced management of gardening to monitor their plant
-                                                                more efficiently and flexibly. Moreover, this will be suitable for implementing and
-                                                                extending various programming language and network knowledge which we have learnt.    
-                                                                <br><br>
-                                                                Copyright Douglas College CSIS4280 © 2019. 
-                                                                All rights reserved.
-                                                            </div>
+                                                            <div id='about'></div>
                                                         </div>   
                                                     </form>                                         
                                                 </div>
