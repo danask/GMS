@@ -212,11 +212,16 @@ class GmsDataCollector():
                         'secondLine': "Motion Detect"
                     }
                     
+                    rfid_update={
+                        'status': "on"
+                    }
+                                    
                     records.update_one({'type':'tempHumid'}, {'$set': status_update})
+                    sensorList.update_one({'key':'rfid'}, {'$set': rfid_update})
                     match_count = 0                    
                     
                     while True:
-                        # RFID (2019/08/25)
+                        # RFID (2019/09/25)
                         GPIO.output(26, True)
                         time.sleep(0.5)
                                         
@@ -248,7 +253,8 @@ class GmsDataCollector():
                                 'secondLine': clearMsg
                             }
                             rfid_update={
-                                'value': "0000"
+                                'value': "0000",
+                                'status': "off"
                             }
                                             
                             records.update_one({'type':'tempHumid'}, {'$set': status_update})
