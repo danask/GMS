@@ -211,13 +211,21 @@ class GmsDataCollector():
                         'firstLine': "[Alert]",
                         'secondLine': "Motion Detect"
                     }
+<<<<<<< Updated upstream
                     
+=======
+
+>>>>>>> Stashed changes
                     rfid_update={
                         'status': "on"
                     }
                                     
                     records.update_one({'type':'tempHumid'}, {'$set': status_update})
                     sensorList.update_one({'key':'rfid'}, {'$set': rfid_update})
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
                     match_count = 0                    
                     
                     while True:
