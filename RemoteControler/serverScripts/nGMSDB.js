@@ -2,6 +2,7 @@
 // var app = express();
 // var http = require('http').createServer(app);
 // var io = require('socket.io')(http);
+var requestForWeather = require('request');
 
 var mongoClient = require('mongodb').MongoClient;
 
@@ -187,13 +188,13 @@ function getHistory(request, response)
       var dbo = db.db("gms_data");
       var query = {} ;
       var mysort = { time: -1 };
-      var collection = dbo.collection("history");
+      var collection = dbo.collection("action_history");
       
-      collection.find(query, {projection: {_id:0, category:1, type:1, param1:1, param2:1, param3:1, time:1}}).
+      collection.find(query, {projection: {_id:0, category:1, type:1, param1:1, param2:1, param3:1, date:1}}).
                       sort(mysort).limit(10).toArray((err, result) => {
                         if (err) throw err;
                        
-                        console.log(result);
+                        // console.log(result);
                         console.log(result.length);
                         
                         response.send(JSON.stringify(result));
@@ -213,7 +214,8 @@ function updateHistory(request, response)
       let param1 = request.body.param1;
       let param2 = request.body.param2;
       let param3 = request.body.param3;
-      let time = new Date().getFullYear()+"-"+ (new Date().getMonth()+1)+"-"+new Date().getDate();
+      let date = new Date().getFullYear()+"-"+ (new Date().getMonth()+1)+"-"+new Date().getDate();
+      let time = new Date().getTime();
 
       let dbo = db.db("gms_data");
 
@@ -222,17 +224,104 @@ function updateHistory(request, response)
                     param1:param1, 
                     param2:param2,
                     param3:param3,
+                    date:date,
                     time:time
                  };
       
-      dbo.collection("history").insertOne(newvalues, function(err, res) {
+      dbo.collection("action_history").insertOne(newvalues, function(err, res) {
                     if (err) throw err;
-                    console.log("1 document updated");
+                    console.log("updateHistory: 1 document updated");
                    
                     db.close();
       });
   });
 }
+
+function getUser(request, response)
+{
+  mongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
+      if (err) throw err;
+      
+      let dbo = db.db("gms_data");
+      let email = request.body.email;
+      let password = request.body.password;
+      
+      console.log(email);
+      let myquery = {email: email, password:password};
+      
+      let collection = dbo.collection("users");
+      
+      collection.find(myquery, {projection: {_id:0, name:1, email:1}}).
+                              toArray((err, result) => {
+                        if (err) throw err;
+                       
+                        console.log(result);
+                        console.log(result.length);
+                        
+                        response.send(JSON.stringify(result));
+                        
+                        db.close();
+      });
+  });
+}
+
+function getWeather(request, response)
+{
+  // let url = "http://api.openweathermap.org/data/2.5/weather?q=Vancouver&units=metric&APPID=1b5fcb8df3906c5092aca2b51707953b";
+  // let result;
+  
+  // requestForWeather(url, function (err, resp, body) {
+  //   if(err){
+  //     console.log('error:', error);
+  //   } else {
+  //     console.log('body:', body);
+  //     response.send(body);
+  //   }
+  // });
+  var result = {"coord":{"lon":-123.12,"lat":49.26},"weather":[{"id":500,"main":"Rain","description":"light rain","icon":"10d"}],"base":"stations","main":{"temp":6.58,"pressure":1011,"humidity":87,"temp_min":6.67,"temp_max":10},"visibility":24140,"wind":{"speed":6.2,"deg":300},"rain":{"1h":0.25},"clouds":{"all":90},"dt":1574188053,"sys":{"type":1,"id":954,"country":"CA","sunrise":1574177344,"sunset":1574209618},"timezone":-28800,"id":6173331,"name":"Vancouver","cod":200};
+  response.send(result);
+}
+
+
+function getAlarmStatus(request, response)
+{
+  mongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
+      if (err) throw err;
+      
+      let dbo = db.db("gms_data");
+	    dbo.collection("sensors").find({key:"rfid"}, {projection: {_id:0, status:1}}).
+				toArray((err, result) => {
+			if (err) throw err;
+		
+			console.log("alaramStatus " + result);
+			console.log(result.length);
+			
+			response.send(JSON.stringify(result));
+			db.close();	
+		});
+  });  
+}
+
+
+function getMotorStatus(request, response)
+{
+  mongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
+      if (err) throw err;
+      
+      let dbo = db.db("gms_data");
+	    dbo.collection("sensors").find({key:"motor"}, {projection: {_id:0, status:1}}).
+				toArray((err, result) => {
+			if (err) throw err;
+		
+			console.log("alaramStatus " + result);
+			console.log(result.length);
+			
+			response.send(JSON.stringify(result));
+			db.close();	
+		});
+  });   
+}
+
 
 
 // function getMovieData(request, response)
@@ -309,6 +398,10 @@ function updateHistory(request, response)
 // }
 
 
+exports.getMotorStatus = getMotorStatus
+exports.getAlarmStatus = getAlarmStatus;
+exports.getWeather = getWeather;
+exports.getUser = getUser;
 exports.getHistory = getHistory;
 exports.getStatus = getStatus;
 exports.getWater = getWater;

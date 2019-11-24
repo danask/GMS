@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/blueLightBackground"
+>
+
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/navigation"
+        android:layout_width="765dp"
+        android:layout_height="53dp"
+        android:layout_alignParentTop="true"
+        android:background="@color/gray"
+        android:layout_alignParentStart="true"
+        app:menu="@menu/navigation" />
+    <!--android:background="?android:attr/windowBackground"-->
+
+
+
+    <FrameLayout
+        android:id="@+id/ChatTabFragment_containter"
+        android:layout_width="match_parent"
+        android:layout_height="505dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginLeft="5sp"
+        android:layout_marginTop="60dp"
+        android:layout_marginRight="5sp"
+        android:layout_marginBottom="5dp">
+
+    </FrameLayout>
+
+
+    <!--<android.support.design.widget.FloatingActionButton-->
+        <!--android:id="@+id/fab"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentEnd="true"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_gravity="bottom|end"-->
+        <!--android:layout_marginEnd="33dp"-->
+        <!--android:layout_marginRight="33dp"-->
+        <!--android:layout_marginBottom="39dp"-->
+        <!--app:srcCompat="@drawable/ic_menu_gallery" />-->
+
+
+</RelativeLayout>

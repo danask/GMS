@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <TextView
+        android:id="@+id/textSprinklerDesc"
+        android:layout_width="397dp"
+        android:layout_height="21dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="160dp"
+        android:layout_marginEnd="8dp"
+        android:textAlignment="textStart"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewRecommendation"
+        android:layout_width="307dp"
+        android:layout_height="21dp"
+        android:layout_marginTop="8dp"
+        android:text="Recommendation by GMS calculation"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textSprinklerDesc" />
+
+    <EditText
+        android:id="@+id/editTextCycle"
+        android:layout_width="266dp"
+        android:layout_height="39dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="50dp"
+        android:ems="10"
+        android:hint="@string/enter_number"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.774"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerCycle" />
+
+    <Spinner
+        android:id="@+id/spinnerCycle"
+        android:layout_width="264dp"
+        android:layout_height="43dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/spinner_border"
+        android:entries="@array/unit"
+        android:spinnerMode="dialog"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewCycles" />
+
+    <Button
+        android:id="@+id/buttonStopWatering"
+        android:layout_width="151dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="40dp"
+        android:background="@color/colorPrimaryButton"
+        android:text="@string/stop_watering"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/buttonSendMessage"
+        app:layout_constraintTop_toBottomOf="@+id/editTextCycle" />
+
+    <Button
+        android:id="@+id/buttonSendMessage"
+        android:layout_width="146dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="28dp"
+        android:height="40dp"
+        android:background="@color/colorPrimaryButton"
+        android:text="@string/start_watering"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextCycle" />
+
+    <include
+        android:id="@+id/lcd_container"
+        layout="@layout/lcd_head"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="#d6d7d7"
+        />
+
+    <TextView
+        android:id="@+id/textViewLiters"
+        android:layout_width="335dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="75dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="8dp"
+        android:text="Amount of water (liters): 1.99"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.407"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewRecommendation" />
+
+    <TextView
+        android:id="@+id/textViewTime"
+        android:layout_width="335dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="75dp"
+        android:layout_marginEnd="8dp"
+        android:text="Watering time (min): 120"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        app:autoSizeTextType="none"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.342"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewLiters" />
+
+    <TextView
+        android:id="@+id/textViewCycles"
+        android:layout_width="335dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="75dp"
+        android:layout_marginEnd="8dp"
+        android:text="Splinker cycles: 720"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.287"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewTime" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

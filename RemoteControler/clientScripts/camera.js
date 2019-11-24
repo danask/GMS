@@ -49,17 +49,70 @@ const config = {
         // Handle any errors
       })
     }
+
+    componentDidMount= function(){
+
+      var modal = document.getElementById("myModal");
+      var modalImg = document.getElementById("img01");
+
+      document.getElementById("capturedImg").onclick = function(){
+        modal.style.display = "block";
+        modalImg.src = this.src;
+      }
+
+      document.getElementsByClassName("close")[0].onclick = function() { 
+        modal.style.display = "none";
+      }
+    }
   
     render() {
       return (
         <div>
-          <img src={ this.state.lastImage } alt="flag" width="200px"height="150px"/>
+          <img id="capturedImg" src={ this.state.lastImage } alt="Captured Image" width="200px"height="150px"/>
+          <div id="myModal" className="modal">
+             <span className="close">&times;</span>
+             <img className="modal-content" id="img01"/>
+          </div>
         </div>
       );
     }
   }
 
+
+
+
   ReactDOM.render(
     <Camera name="img" />,
         document.getElementById('app')
   )
+
+
+
+
+  
+  // var ProductComponent = React.createClass({
+  // componentDidMount: function() {
+  //   this.renderBuyButton();
+  // },
+  // componentDidUpdate: function() {
+  //   this.renderBuyButton();
+  // },
+  // render: function(props) {
+  //   /* we need to keep a ref to the 
+  //   * button-container so we can update it with jQuery
+  //   */
+  //   return (
+  //     <li>
+  //       {this.props.product.name}
+  //       <span className="button-container" 
+  //         ref="buttonContainer"></span>
+  //     </li>
+  //   );
+  // },
+  // renderBuyButton: function() {
+  //   // render the buy button with jQuery
+  //   $(this.refs.buttonContainer).html(
+  //     buyButtonJquery(this.props.product)
+  //   );
+  // }
+  // });

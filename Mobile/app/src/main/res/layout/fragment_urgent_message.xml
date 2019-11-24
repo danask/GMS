@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#eeeeee">
+
+    <include
+        android:id="@+id/lcd_container"
+        layout="@layout/lcd_head"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="#d6d7d7"
+        />
+
+    <LinearLayout
+        android:id="@+id/summaryLayout"
+        android:layout_width="398dp"
+        android:layout_height="350dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="160dp"
+        android:layout_marginEnd="16dp"
+        android:background="#eeeeee"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginTop="10dp"
+
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="238dp"
+                android:layout_height="30dp"
+                android:paddingLeft="20sp"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textViewCurrentUser"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:gravity="right|center"
+                android:paddingRight="20sp"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="238dp"
+                android:layout_height="30dp"
+                android:paddingLeft="20sp"
+                android:text="@string/first_line"
+                android:textColor="@android:color/black"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/textViewWeather"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:gravity="right|center"
+                android:paddingRight="20sp"
+                android:textColor="@android:color/black"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/editTextFirstInput"
+                android:layout_width="329dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50sp"
+                android:hint="@string/enter_message"
+                android:maxLength="15"
+                android:paddingLeft="1sp"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="238dp"
+                android:layout_height="30dp"
+                android:paddingLeft="20sp"
+                android:text="@string/second_line"
+                android:textColor="@android:color/black"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/textViewWateringStatus"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:gravity="right|center"
+                android:paddingRight="20sp"
+                android:textColor="@android:color/black"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/editTextSecondInput"
+                android:layout_width="329dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50sp"
+                android:hint="@string/enter_message"
+                android:maxLength="15"
+                android:paddingLeft="1sp"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="238dp"
+                android:layout_height="30dp"
+                android:paddingLeft="20sp"
+                android:text="@string/duration"
+                android:textColor="@android:color/black"
+                android:textSize="18sp" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Spinner
+                android:id="@+id/spinnerDuration"
+                android:layout_width="264dp"
+                android:layout_height="43dp"
+                android:layout_marginLeft="50sp"
+                android:layout_marginTop="2dp"
+                android:background="@drawable/spinner_border"
+                android:entries="@array/duration_type"
+                android:spinnerMode="dialog"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.503"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewCycles" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal">
+
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/buttonSendMessage"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="27dp"
+            android:height="40dp"
+            android:background="@color/colorPrimaryButton"
+            android:text="@string/send_message"
+            android:textColor="@color/white"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextCycle" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

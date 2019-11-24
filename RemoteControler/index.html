@@ -17,9 +17,14 @@
 
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css"> 
         <link rel="stylesheet" href="./css/main.css" type="text/css">
+        <link rel="stylesheet" href="./css/chat.css" type="text/css">
+        <link rel="stylesheet" href="./css/capturedImage.css" type="text/css">
+        
         <script type="text/jsx" src="./clientScripts/camera.js"></script>
         <script type="text/babel" src="./clientScripts/about.js"></script>
-
+        <script type="text/babel" src="./clientScripts/recommendations.js"></script>                                      
+        <script type="text/javascript" src="./clientScripts/localStorage.js" defer></script>
+        
         <script>
 
             function lcdDisplay(dataFromtheServer) 
@@ -94,22 +99,12 @@
 
                     $.each(value, (key2, value2) => {
                         if(!header_set)
-                            h += "<th>" + key2.toUpperCase() + "</th>";
-                        
-                        // if(!check_set)
-                        // {
-                        //     var checkInput = $(document.createElement('input')).attr({
-                        //                     id:    value2,
-                        //                     name:  value2,
-                        //                     value: value2,
-                        //                     type:  'checkbox'
-                        //     });
-
-                        //     checkboxObject[count] = checkInput;
-                        //     }
-                            
-                        // // v[rowCount][colCount++] = value2+"";//"<td>" + value2 + "</td>";
-                        // check_set = true;
+                        {
+                            if(key2 == 'category')
+                                h += "<th>" + "" + "</th>";
+                            else
+                                h += "<th>" + key2.toUpperCase() + "</th>";
+                        }
                     });
                     
                     if (!header_set) {
@@ -132,8 +127,13 @@
 
                     $.each(value, (key2, value2) => {
                         // console.log(data[key]['category']+":"+data[key]['param1'] + ":" + key2);
-
-                        if(value['category'] == 'Alarm' && key2 == 'param1')
+                        if(value['category'] == 'Alarm' && key2 == 'category')
+                            tr.append($("<td />", { html: '<img src="./resources/images/img_alarm_active.png" width="25px" height="25px"/>' }));
+                        else if(value['category'] == 'Sprinkler' && key2 == 'category')
+                            tr.append($("<td />", { html: '<img src="./resources/images/img_sprinkler_active.png" width="25px" height="25px"/>' }));
+                        else if(value['category'] == 'Message' && key2 == 'category')
+                            tr.append($("<td />", { html: '<img src="./resources/images/img_lcd_active.png" width="25px" height="25px"/>' }));
+                        else if(value['category'] == 'Alarm' && key2 == 'param1')
                             tr.append($("<td />", { html: '<span style="color:WhiteSmoke;background-color:WhiteSmoke;">'+value2+'</span>' }));
                         else
                             tr.append($("<td />", { html: value2 }));
@@ -234,12 +234,50 @@
             //     $("#e1").html(data);
             //     console.log(data);
             // });
-            socket.on('message', function(data){
+            socket.on('lcdMessage', function(data){
                 data = JSON.stringify(data);
                 console.log(data);
                 lcdDisplay(data);
                 console.log("display");
             }); 
+
+            socket.on('alarmStatus', function(data){
+                console.log(data);
+                let values = new Array();
+                data = JSON.parse(JSON.stringify(data));
+                values = data;
+                
+                if(data[0].status == "on")
+                {
+                    // $("#alarmTab a").css({'color': 'red', 'font-weight':'bold'}); 
+                    if(!$("#alarmTab a").hasClass("exclamation"))
+                    {
+                        $("#alarmTab a").append("<b id='alarmEx'> ! </b>");
+                        $("#alarmTab a").addClass("exclamation");
+                        $("#alarmEx").css({'color': 'red', 'font-size':'1.1em'});  
+                    }                    
+                }
+                else
+                {
+                    // $("#alarmTab a").css({'color': 'black', 'font-weight':'normal'}); 
+                    if($("#alarmTab a").hasClass("exclamation"))
+                    {
+                        $("#alarmTab a").find("#alarmEx").remove();
+                        $("#alarmTab a").removeClass("exclamation");
+                    }                      
+                }
+
+            });   
+            // $('#messageSend').click(function(){
+            //     socket.emit('message', $('#m').val());
+            //     $('#m').val('');
+            //     return false;
+            // });
+            
+            // socket.on('message', function(msg){
+            //     $('#messages').append($('<li>').text(msg));
+            //     // window.scrollTo(0, document.body.scrollHeight);
+            // });
 
             // var dataInterval = setInterval(getData, 3000);
 
@@ -455,9 +493,133 @@
             //         setTimeout(function(){ div.style.display = "none"; }, 600);
             //     }
             // }            
-               
 
+      $(document).ready(function(){
+         $("#sendMessageButton").click(()=>{
+             // always admin
+             let tag = "Admin";//$("#txtName").val();//$("#txt").val();
+             let msg = $("#msg").val();
+             let to = $("#txtId").val();  // selectable
+             // args are sent in order to acknowledgement function
+             socket.emit('rmsg', tag, msg, to, function (data) { 
+               console.log(data); 
+             });
 
+            $("#chatBox").html($("#chatBox").html() + "<div class='outgoing_msg'>" +
+                "<div class='sent_msg' >" +
+                    "<p id='my_msg'>" + msg + "</p>" +
+                    "<span class='time_date'>"+ new Date().getHours() + ":" +
+                        new Date().getMinutes() + " | " +
+                        new Date().getMonth() + "-" +
+                        new Date().getDate() +"</span>"+ 
+                "</div>"+
+            "</div>"
+            );       
+            
+            $("#chatBox").animate({ scrollTop: 20000000 }, "slow");
+            
+            // $("#helpDeskTab a").css({'color': 'black', 'font-weight':'normal'}); 
+
+            if($("#helpDeskTab a").hasClass("exclamation"))
+            {
+                $("#helpDeskTab a").find("#helpDeskEx").remove();
+                $("#helpDeskTab a").removeClass("exclamation");
+            }            
+         });
+         
+         $("#accountButton").click(()=>{
+             let name = $("#txtName").val();
+             // args are sent in order to acknowledgement function
+             socket.emit('init', name, ()=>{});
+         });
+
+        // only Admin due to help desk
+        let name = "Admin";//$("#txtName").val();
+             // args are sent in order to acknowledgement function
+        
+        let mykey = socket.emit('init', name, ()=>{});
+        console.log("chat: " + mykey);
+        
+      
+        $("#helpDeskTab").click(()=>{
+        //   $("#helpDeskTab a").css({'color': 'black', 'font-weight':'normal'});
+            if($("#helpDeskTab a").hasClass("exclamation"))
+            {
+                $("#helpDeskTab a").find("#helpDeskEx").remove();
+                $("#helpDeskTab a").removeClass("exclamation");
+            }          
+        });
+        
+        $("li:nth-of-type(1), li:nth-of-type(2), li:nth-of-type(3), li:nth-of-type(5)").click(()=>{
+          $("#helpDeskTab a").css({'color': '#337ab7', 'font-weight':'normal'});
+        });
+        
+        $("#alarmTab").click(()=>{
+        //   $("#alarmTab a").css({'color': 'black', 'font-weight':'normal'});
+            if($("#alarmTab a").hasClass("exclamation"))
+            {
+                $("#alarmTab a").find("#alarmEx").remove();
+                $("#alarmTab a").removeClass("exclamation");
+            }          
+        });
+
+        $("li:nth-of-type(4), li:nth-of-type(2), li:nth-of-type(3), li:nth-of-type(5)").click(()=>{
+          $("#alarmTab a").css({'color': '#337ab7', 'font-weight':'normal'});
+        });
+        
+        
+      });
+
+      socket.on('message', function(data){
+         $("#m1").html(data);
+         console.log(data);
+      });
+      
+      socket.on('e1', function(data){
+         console.log(data);
+          $("#e1").html(data['description1']);
+      });
+      
+      socket.on('e2', function(data){
+          $("#e2").html(data['description2']);
+      });
+      
+      socket.on('e3', function(data){
+          $("#e3").html(data['mytime']);
+      });
+      
+      // for received message
+      socket.on('rmsg', function(data){
+        //   let s = $("#their_msg").html() + "<br>" + data['m'];
+        //   $("#their_msg").html(s);
+
+            console.log(data);
+
+            $("#chatBox").html($("#chatBox").html() + "<div class='incoming_msg'>" +
+                "<div><em>"+ data['tag'] + "</em></div>" +
+                "<div class='received_msg' ><div class='received_withd_msg'>" +
+                    "<p id='their_msg'>" + data['m'] + "</p>" +
+                    "<span class='time_date'>"+ new Date().getHours() + ":" +
+                        new Date().getMinutes() + " | " +
+                        new Date().getMonth() + "-" +
+                        new Date().getDate() +"</span>"+ 
+                "</div></div>"+
+            "</div>"
+            );  
+            $("#chatBox").animate({ scrollTop: 20000000 }, "slow");
+
+            // if(!$("li:eq(3)").hasClass('active'))
+            //     $("#helpDeskTab a").css({'color': 'red', 'font-weight':'bold'}); 
+
+            if(!$("#helpDeskTab a").hasClass("exclamation"))
+            {
+                $("#helpDeskTab a").append("<b id='helpDeskEx'> ! </b>");
+                $("#helpDeskTab a").addClass("exclamation");
+                $("#helpDeskEx").css({'color': 'red', 'font-size':'1.1em'});  
+            }
+      });
+    
+      
         </script>
     </head>
 
@@ -491,21 +653,21 @@
                             <!-- <h2>Control Menu</h2>
                             <p>To make the tabs toggleable, add the data-toggle="tab" attribute to each link. Then add a .tab-pane class with a unique ID for every tab and wrap them inside a div element with class .tab-content.</p> -->
                             <ul class="nav nav-tabs">
-                                <li class="active"><a data-toggle="tab" href="#home">Control Devices</a></li>
+                                <li id='alarmTab' class="active"><a data-toggle="tab" href="#home">Control Devices</a></li>
                                 <li><a data-toggle="tab" href="#menu1">Urgent Message</a></li>
-                                <li><a data-toggle="tab" href="#menu2">Action History</a></li>
-                                <li><a data-toggle="tab" href="#menu3">About</a></li>
+                                <li><a data-toggle="tab" href="#menu2">Action List</a></li>
+                                <li id='helpDeskTab'><a data-toggle="tab" href="#menu3">Help Desk</a></li>
+                                <li><a data-toggle="tab" href="#menu4">About</a></li>
+
                             </ul>
 
                             <div class="tab-content">
+                                
                                 <div id="home" class="tab-pane fade in active">
                                     <!-- <h3>HOME</h3> -->
                                     <br>
                                     <p>This menu provides the options to configure and control the device manually. First of all, you can refer the recommendation numbers derived from GMS machine learning.</p>
 
-                                    
-                                    <!--<div id="motorControl"></div>-->
-                                    <script type="text/babel" src="./clientScripts/recommendations.js"></script>                                      
 
                                     <br>
                                     <div class="panel-group" id="accordion">
@@ -554,7 +716,7 @@
                                         </div>
                                         <div class="panel panel-default">
                                             <div class="panel-heading">
-                                            <h4 class="panel-title">
+                                            <h4 id="alarmTitle" class="panel-title">
                                                 <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">Alarm</a>
                                             </h4>
                                             </div>
@@ -562,11 +724,11 @@
                                                 <div class="panel-body">
                                                     <form class="form-horizontal">
                                                         <div class="form-group">
-                                                                <label class="control-label col-sm-3" for="capturedImage">Captured image</label>
-                                                                <div class="col-sm-8">
-                                                                    <!-- <span><img src="./resources/images/watering/b1.png" height="35" width="35" alt="Image of a watering." /></span> -->
-                                                                    <div id="app"></div>
-                                                                </div>
+                                                            <label class="control-label col-sm-3" for="capturedImage">Captured image</label>
+                                                            <div class="col-sm-8">
+                                                                <!-- <span><img src="./resources/images/watering/b1.png" height="35" width="35" alt="Image of a watering." /></span> -->
+                                                                <div id="app"></div>
+                                                            </div>
                                                         </div>
                                                         <div class="form-group">
                                                             <label class="control-label col-sm-3" for="passcode">Passcode</label>
@@ -590,109 +752,168 @@
                                         </div>
                                     </div>
 
-                                    </div>
-                                    <div id="menu1" class="tab-pane fade">
-                                      <!-- <h3>Menu 1</h3> -->
-                                        <br>
-                                        <p>You can send an urgent message to the LCD panel of GMS device. Each line can have 20 characters as the maximum length. </p>
-                                        <br>
-                                        <div class="panel-group" id="accordion">
-                                            <div class="panel panel-default">
-                                                <div class="panel-heading">
-                                                <h4 class="panel-title">
-                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Message</a>
-                                                </h4>
-                                                </div>
-                                                <div id="collapse1" class="panel-collapse collapse in">
-                                                    <div class="panel-body">
-                                                        <form class="form-horizontal">
-                                                            <div class="form-group">
-                                                                <label class="control-label col-sm-3" for="firstLine">First Line:</label>
-                                                                <div class="col-sm-8">
-                                                                    <input type="text" class="form-control" id="firstLine" maxlength=20 placeholder="Enter your message">
-                                                                </div>
+                                </div>
+                                <div id="menu1" class="tab-pane fade">
+                                  <!-- <h3>Menu 1</h3> -->
+                                    <br>
+                                    <p>You can send an urgent message to the LCD panel of GMS device. Each line can have 20 characters as the maximum length. </p>
+                                    <br>
+                                    <div class="panel-group" id="accordion">
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                            <h4 class="panel-title">
+                                                <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Message</a>
+                                            </h4>
+                                            </div>
+                                            <div id="collapse1" class="panel-collapse collapse in">
+                                                <div class="panel-body">
+                                                    <div class="form-horizontal">
+                                                        <div class="form-group">
+                                                            <label class="control-label col-sm-3" for="firstLine">First Line:</label>
+                                                            <div class="col-sm-8">
+                                                                <input type="text" class="form-control" id="firstLine" maxlength=15 placeholder="Enter your message">
                                                             </div>
-                                                            <div class="form-group">
-                                                                <label class="control-label col-sm-3" for="secondLine">Second Line:</label>
-                                                                <div class="col-sm-8">          
-                                                                    <input type="text" class="form-control" id="secondLine" maxlength=20 placeholder="Enter your message">
-                                                                </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="control-label col-sm-3" for="secondLine">Second Line:</label>
+                                                            <div class="col-sm-8">          
+                                                                <input type="text" class="form-control" id="secondLine" maxlength=15 placeholder="Enter your message">
                                                             </div>
-                
-                                                            <div class="form-group">
-                                                                <label class="control-label col-sm-3" for="duration">Dureation:</label>
-                                                                <div class="col-sm-8">          
-                                                                    <select class="form-control" id="duration" >
-                                                                        <option value="1">1 second</option>
-                                                                        <option value="2" selected>2 seconds</option>
-                                                                        <option value="3">3 seconds</option>
-                                                                        <option value="4">4 seconds</option>
-                                                                        <option value="5">5 seconds</option>
-                                                                    </select>
-                                                                </div>
+                                                        </div>
+            
+                                                        <div class="form-group">
+                                                            <label class="control-label col-sm-3" for="duration">Dureation:</label>
+                                                            <div class="col-sm-8">          
+                                                                <select class="form-control" id="duration" >
+                                                                    <option value="1" selected>1 second</option>
+                                                                    <option value="2">2 seconds</option>
+                                                                    <option value="3">3 seconds</option>
+                                                                    <option value="4">4 seconds</option>
+                                                                    <option value="5">5 seconds</option>
+                                                                </select>
                                                             </div>
+                                                        </div>
 
-                                                            <br>
-                
-                                                            <div class="form-group">        
-                                                                <div class="col-sm-offset-3 col-sm-8">
-                                                                    <button type="submit" class="btn btn-primary" id="sendMessage">Send Message</button>
-                                                                </div>
+                                                        <br>
+            
+                                                        <div class="form-group">        
+                                                            <div class="col-sm-offset-3 col-sm-8">
+                                                                <button type="submit" class="btn btn-primary" id="sendMessage">Send Message</button>
                                                             </div>
-                                                        </form>                   
-                                                    </div>
+                                                        </div>
+                                                    </div>                   
                                                 </div>
                                             </div>
-                                        </div>                                                                               
-                                    </div>
+                                        </div>
+                                    </div>                                                                               
+                                </div>
 
-                                    <div id="menu2" class="tab-pane fade">
-                                      <!-- <h3>Menu 2</h3> -->
-                                      <br>
-                                      <p>This menu shows the last ten action list. You can retry again them. </p>
-                                      <br>
-                                      <div class="panel-group" id="accordion">
-                                          <div class="panel panel-default">
-                                              <div class="panel-heading">
-                                              <h4 class="panel-title">
-                                                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Action List</a>
-                                              </h4>
-                                              </div>
-                                              <div id="collapse1" class="panel-collapse collapse in">
-                                                  <div class="panel-body">
-                                                      <form class="form-horizontal">
-                                                          <div class="form-group">
-                                                              <div class="col-sm-12">
-                                                                <table id="actionHistory" class="table table-striped">
-                                                                    <thead></thead>
-                                                                    <tbody>
-                                                                    </tbody>
-                                                                </table>  
-                                                              </div>
-                                                          </div>   
-                                                      </form>                                         
-                                                  </div>
+                                <div id="menu2" class="tab-pane fade">
+                                  <!-- <h3>Menu 2</h3> -->
+                                  <br>
+                                  <p>This menu shows the last ten action list. You can retry again them. </p>
+                                  <br>
+                                  <div class="panel-group" id="accordion">
+                                      <div class="panel panel-default">
+                                          <div class="panel-heading">
+                                          <h4 class="panel-title">
+                                              <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Action List</a>
+                                          </h4>
+                                          </div>
+                                          <div id="collapse1" class="panel-collapse collapse in">
+                                              <div class="panel-body">
+                                                  <form class="form-horizontal">
+                                                      <div class="form-group">
+                                                          <div class="col-sm-12">
+                                                            <table id="actionHistory" class="table table-striped">
+                                                                <thead></thead>
+                                                                <tbody>
+                                                                </tbody>
+                                                            </table>  
+                                                          </div>
+                                                      </div>   
+                                                  </form>                                         
                                               </div>
                                           </div>
-                                      </div>                                    
+                                      </div>
+                                  </div>                                    
+                                </div>
+                               
+                                
+                                <div id="menu3" class="tab-pane fade">
+                                    <br>
+                                    <p>This is the conversation menu between admin and mobile user. </p>
+                                    <br>
+                                    <div class="panel-group" id="accordion">
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                            <h4 class="panel-title">
+                                                <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Help Desk (Admin)</a>
+                                            </h4>
+                                            </div>
+                                                
+                                            <div id="collapse1" class="panel-collapse collapse in">
+                                                <div class="panel-body">
+                                                    <div class="form-horizontal">
+                                                        <div class="form-group">
+                                                
+                                                              <!-- Socket template -->
+                                                              <!--Name <input type=text id="txtName" ><br>-->
+                                                              <!--<button id="accountButton">Create Account</button><br>-->
+                                                              
+                                                              <!--To <input type=text id="txtId"><br>-->
+                                                              <!--Tag <input type=text id="txt"> <br>-->
+                                                              <!-- Message <input type=text id="msg"><br> -->
+                                                              <!-- <button id="sendMessageButton"> Send </button> -->
+                                                              <!-- <div id="m1"></div> -->
+                                                              <!-- <hr>
+                                                              <div id="e1"></div>
+                                                              <hr>
+                                                              <div id="e2"></div>
+                                                              <hr>
+                                                              <div id="e3"></div> -->
+                                                              <!--<hr>-->
+                                                              <!-- <div id="e4"></div>   -->
+                                                              
+                                                              
+                                                            <div class="mesgs">
+                                                                <div class="msg_history" id="chatBox">
+                                                                    
+                                                                </div>
+                                                                <div class="type_msg">
+                                                                    <div class="input_msg_write">
+                                                                      <input type="text" class="write_msg" placeholder="Type a message" id="msg"/>
+                                                                      <button class="msg_send_btn" type="button" id="sendMessageButton">
+                                                                          <i class="fa fa-paper-plane-o" aria-hidden="true"></i>></button>
+                                                                    </div>
+                                                                </div>                                                       
+                                                            </div>
+                                                        </div>   
+                                                    </div>                                         
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div id="menu3" class="tab-pane fade">
+                                </div>
 
+
+                                <div id="menu4" class="tab-pane fade">
                                     <br>
                                     <p>This is the definition about GMS remote controller for GMS. </p>
                                     <br>
                                     <div class="panel-group" id="accordion">
                                         <div class="panel panel-default">
                                             <div class="panel-heading">
-                                            <h4 class="panel-title">
-                                                <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">About GMS Remote Controller</a>
-                                            </h4>
+                                                <h4 class="panel-title">
+                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">About GMS</a>
+                                                </h4>
                                             </div>
                                             <div id="collapse1" class="panel-collapse collapse in">
                                                 <div class="panel-body">
                                                     <form class="form-horizontal">
                                                         <div class="form-group">
-                                                            <div id='about'></div>
+                                                            <div id='about'>
+                                                            </div>
                                                         </div>   
                                                     </form>                                         
                                                 </div>
@@ -700,9 +921,8 @@
                                         </div>
                                     </div>
                                 </div>
+                            
                             </div>
-
-
                             <!-- <script>
                                 var sprinklerArr = new Array(3);
                                 var curSprinkler = 0; // holds the images being shown

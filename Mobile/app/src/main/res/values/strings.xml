@@ -1,0 +1,85 @@
+<resources>
+    <string name="app_name">GMS Mobile Controller</string>
+    <string name="title_activity_dashboard">DashboardActivity</string>
+    <string name="title_home">Sprinkler</string>
+    <string name="title_dashboard">Alarm Dismissal</string>
+    <string name="title_notifications">Urgent Message</string>
+
+    <!-- Splash-->
+    <string name="logo_name">mobile Money Manager</string>
+    <string name="version">Ver 01.00.01</string>
+    <string name="splash_copyright">COPYRIGHT 2019 CSIS4280, ALL RIGHTS RESERVED</string>
+
+    <!-- Sign in -->
+    <string name="sign_up">Sign up</string>
+    <string name="login_title">Enter your information to register.</string>
+    <string name="login_edit_title">Enter your information to edit.</string>
+    <string name="login_necessity"> * is required.</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password (optional)</string>
+    <string name="action_sign_in">Sign in        > </string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="email">Enter your email address</string>
+    <string name="password">Enter your password</string>
+
+    <!-- main-->
+    <string name="current_user">Current User</string>
+    <string name="current_weather">Current Weather</string>
+    <string name="alarm_status">Alarm Status</string>
+    <string name="chat_status">Chat Status</string>
+    <string name="watering_status">Watering Status</string>
+    <string name="on">on</string>
+    <string name="off">off</string>
+    <string name="no_new">nothing new</string>
+    <string name="new_msg">new message</string>
+
+    <!-- Dashboard-->
+    <string name="temperature">Temperature</string>
+    <string name="humidity">Humidity</string>
+
+    <string name='sprinkler_desc'>This menu provides the options to configure and control the device manually. First of all, you can refer the recommendation numbers derived from GMS machine learning.</string>
+
+    <string-array name="unit">
+        <item>Cycles (times)</item>
+        <item>Time (minutes)</item>
+        <item>Liters (liters)</item>
+    </string-array>
+
+    <string name="start_watering">Start Watering</string>
+    <string name="stop_watering">Stop Watering</string>
+
+    <string name="unit_type">Unit</string>
+    <string name="value">Value</string>
+
+    <string name="enter_number">Enter your number</string>
+
+    <string name="first_line">First Line</string>
+    <string name="second_line">Second Line</string>
+    <string name="duration">Duration</string>
+    <string name="send_message">Send Message</string>
+    <string name="enter_message">Enter your message</string>
+
+    <string-array name="duration_type">
+        <item>1 second</item>
+        <item>2 seconds</item>
+        <item>3 seconds</item>
+        <item>4 seconds</item>
+        <item>5 seconds</item>
+    </string-array>
+
+    <string name="alarm_dismissal">Dismiss Alarm</string>
+    <string name="passcode">Passcode</string>
+    <string name="captured_image">Captured Image</string>
+    <string name="enter_code">Enter your code</string>
+
+    <!-- About-->
+    <string name="paragraph1">GMS stands for Gardening Management System.</string>
+    <string name="paragraph2">This is an integrated solution program to provide ease of plant management with the environmental parameters such as temperature, humidity, watering control, etc. User can check the current status and the system recommends an appropriate action.</string>
+    <string name="paragraph3">This application helps people who are interested in the advanced management of gardening to monitor their plant more efficiently and flexibly.</string>
+    <string name="paragraph4">Copyright CSIS4280 Project © 2019. \nAll rights reserved.</string>
+
+
+</resources>

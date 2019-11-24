@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "840201077359",
+    "firebase_url": "https://gms-rasp.firebaseio.com",
+    "project_id": "gms-rasp",
+    "storage_bucket": "gms-rasp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:840201077359:android:d575c744a549d9108f039a",
+        "android_client_info": {
+          "package_name": "com.gms.controller"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "840201077359-vsi8rbtq5tli14dgq7sr8g7p8uoqtiid.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.gms.controller",
+            "certificate_hash": "2d5ddf282534d3c2ca007d315b7ab8dea3817230"
+          }
+        },
+        {
+          "client_id": "840201077359-06d44o6l3agskd8pquitqlago24qu26f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAqUl5Xy-uMbpmWRyxL6o2l3rwA1Au3sFs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "840201077359-06d44o6l3agskd8pquitqlago24qu26f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

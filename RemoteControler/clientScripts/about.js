@@ -13,7 +13,7 @@ class About extends React.Component {
         
         <p>
         <br/>
-          GMS is the short form of Gardening Management System. 
+          GMS stands for Gardening Management System. 
         </p>
         <p>
           This is an integrated solution program to provide ease

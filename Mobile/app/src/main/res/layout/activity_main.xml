@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+<!--    tools:showIn="@layout/app_bar_main">-->
+
+    <LinearLayout
+        android:id="@+id/add_info_layout_one"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/summaryLayout"
+            android:layout_width="match_parent"
+            android:layout_height="145dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/border"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginTop="10dp"
+
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="218dp"
+                    android:layout_height="30dp"
+                    android:paddingLeft="20sp"
+                    android:text="@string/current_user"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp" />
+
+
+                <TextView
+                    android:layout_width="238dp"
+                    android:layout_height="30dp"
+                    android:paddingLeft="20sp"
+                    android:text="@string/current_weather"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textViewCurrentUser"
+                    android:layout_width="163dp"
+                    android:layout_height="30dp"
+                    android:gravity="right|center"
+                    android:paddingLeft="25sp"
+                    android:text="Daniel Ahn"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="16sp" />
+
+                <ImageView
+                    android:id="@+id/imageViewWeather"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingLeft="40pt"
+                    app:srcCompat="@drawable/sunny" />
+
+                <!--                <TextView-->
+                <!--                    android:id="@+id/textViewWeather"-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="30dp"-->
+                <!--                    android:gravity="right|center"-->
+                <!--                    android:paddingRight="20sp"-->
+                <!--                    android:text=""-->
+                <!--                    android:textColor="@android:color/black"-->
+                <!--                    android:textSize="18sp" />-->
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:orientation="horizontal">
+
+                <!--                <TextView-->
+                <!--                    android:layout_width="238dp"-->
+                <!--                    android:layout_height="30dp"-->
+                <!--                    android:paddingLeft="40sp"-->
+                <!--                    android:text="@string/temperature"-->
+                <!--                    android:textColor="@android:color/black"-->
+                <!--                    android:textSize="18sp" />-->
+
+                <TextView
+                    android:id="@+id/textViewCurrentUserEmail"
+                    android:layout_width="200dp"
+                    android:layout_height="30dp"
+                    android:gravity="right|center"
+                    android:paddingLeft="25sp"
+                    android:text="dan@dc.com"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="16sp" />
+
+                <ImageView
+                    android:id="@+id/imageView3"
+                    android:layout_width="208dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingLeft="30pt"
+                    app:srcCompat="@drawable/temperature" />
+
+                <TextView
+                    android:id="@+id/textViewTemperature"
+                    android:layout_width="80dp"
+                    android:layout_height="30dp"
+                    android:gravity="right|center"
+                    android:paddingRight="20sp"
+                    android:text=""
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="16sp" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:orientation="horizontal">
+
+                <!--                <TextView-->
+                <!--                    android:layout_width="238dp"-->
+                <!--                    android:layout_height="30dp"-->
+                <!--                    android:paddingLeft="40sp"-->
+                <!--                    android:text="@string/humidity"-->
+                <!--                    android:textColor="@android:color/black"-->
+                <!--                    android:textSize="18sp" />-->
+
+                <ImageView
+                    android:id="@+id/imageView4"
+                    android:layout_width="251dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingLeft="120pt"
+                    app:srcCompat="@drawable/humidity2" />
+
+                <TextView
+                    android:id="@+id/textViewHumidity"
+                    android:layout_width="80dp"
+                    android:layout_height="30dp"
+                    android:gravity="right|center"
+                    android:paddingRight="20sp"
+                    android:text=""
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="16sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+            ///////////////////////////////////////
+
+        <LinearLayout
+            android:id="@+id/summaryLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="102dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/border"
+            android:orientation="vertical"
+            android:paddingTop="2pt"
+            android:paddingBottom="2pt">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textViewWatering"
+                    android:layout_width="238dp"
+                    android:layout_height="30dp"
+                    android:paddingLeft="20sp"
+                    android:text="@string/watering_status"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/textViewWateringStatus"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:gravity="right|center"
+                    android:paddingRight="20sp"
+                    android:text="@string/off"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textViewAlarm"
+                    android:layout_width="238dp"
+                    android:layout_height="30dp"
+                    android:paddingLeft="20sp"
+                    android:text="@string/alarm_status"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/textViewAlarmStatus"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:gravity="right|center"
+                    android:paddingRight="20sp"
+                    android:text="@string/off"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginBottom="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textViewChat"
+                    android:layout_width="238dp"
+                    android:layout_height="30dp"
+                    android:paddingLeft="20sp"
+                    android:text="@string/chat_status"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/textViewChatStatus"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:gravity="right|center"
+                    android:paddingRight="20sp"
+                    android:text="@string/no_new"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <GridView
+            android:id="@+id/gridViewMenu"
+            android:layout_width="wrap_content"
+            android:layout_height="296dp"
+            android:layout_margin="10dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/border"
+            android:columnWidth="190dp"
+            android:fadingEdge="horizontal|vertical"
+            android:gravity="center"
+            android:horizontalSpacing="5dp"
+            android:numColumns="2"
+            android:paddingLeft="15dp"
+            android:paddingTop="40dp"
+            android:paddingBottom="40dp"
+            android:verticalSpacing="20dp" />
+
+
+    </LinearLayout>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+<!--<?xml version="1.0" encoding="utf-8"?>-->
+<!--<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--    xmlns:tools="http://schemas.android.com/tools"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="match_parent"-->
+<!--    tools:context=".MainActivity">-->
+
+<!--    <TextView-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Hello World!"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintLeft_toLeftOf="parent"-->
+<!--        app:layout_constraintRight_toRightOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--</androidx.constraintlayout.widget.ConstraintLayout>-->

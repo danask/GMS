@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--<item-->
+        <!--android:id="@+id/navigation_image"-->
+        <!--android:icon="@drawable/ic_menu_gallery"-->
+        <!--android:title="Send Image"/>-->
+    <item
+        android:id="@+id/navigation_profile"
+        android:icon="@drawable/user2"
+        android:title="User Profile"/>
+    <item
+        android:id="@+id/navigation_leave"
+        android:icon="@drawable/sign_out"
+        android:title="Leave"/>
+
+</menu>
