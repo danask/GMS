@@ -96,8 +96,8 @@ public class MainActivity extends AppCompatActivity implements OnEventListener<S
 //                                .show();
                         if(object[0].equals("on"))
                         {
-                            textViewAlarm.setTextColor(Color.parseColor("#337AB7"));
-                            textViewAlarmStatus.setTextColor(Color.parseColor("#337AB7"));
+                            textViewAlarm.setTextColor(Color.parseColor("#D81B60"));
+                            textViewAlarmStatus.setTextColor(Color.parseColor("#D81B60"));
                         }
                         else{
                             textViewAlarm.setTextColor(Color.BLACK);
@@ -129,8 +129,8 @@ public class MainActivity extends AppCompatActivity implements OnEventListener<S
 
                         if(object[0].equals("on"))
                         {
-                            textViewWatering.setTextColor(Color.parseColor("#D81B60"));
-                            textViewWateringStatus.setTextColor(Color.parseColor("#D81B60"));
+                            textViewWatering.setTextColor(Color.parseColor("#337AB7"));
+                            textViewWateringStatus.setTextColor(Color.parseColor("#337AB7"));
                         }
                         else{
                             textViewWatering.setTextColor(Color.BLACK);
@@ -164,24 +164,14 @@ public class MainActivity extends AppCompatActivity implements OnEventListener<S
                             String message = data.getString("m");
 
                             Log.d("[=====CHAT=====]", "REC: "+ partener + ", "+ message);
-                            databaseHelper.addChatLog(partener, "", message, "", "HelpDesk", "","");
+//                            databaseHelper.addChatLog(partener, "", message, "", "HelpDesk", "","");
 
                             TextView textViewChatStatus = (TextView)findViewById(R.id.textViewChatStatus);
                             TextView textViewChat = (TextView)findViewById(R.id.textViewChat);
-                            textViewChatStatus.setText("new messages");
+                            textViewChatStatus.setText("chatting");
 
                             textViewChat.setTextColor(Color.parseColor("#D81B60"));
                             textViewChatStatus.setTextColor(Color.parseColor("#D81B60"));
-
-//                            if(object[0].equals("on"))
-//                            {
-//                                textViewWatering.setTextColor(Color.parseColor("#D81B60"));
-//                                textViewWateringStatus.setTextColor(Color.parseColor("#D81B60"));
-//                            }
-//                            else{
-//                                textViewWatering.setTextColor(Color.BLACK);
-//                                textViewWateringStatus.setTextColor(Color.BLACK);
-//                            }
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -292,11 +282,12 @@ public class MainActivity extends AppCompatActivity implements OnEventListener<S
 
                 if(returnStr[0].equals("on"))
                 {
-                    textViewAlarm.setTextColor(Color.parseColor("#337AB7"));
-                    textViewAlarmStatus.setTextColor(Color.parseColor("#337AB7"));
+                    textViewAlarm.setTextColor(Color.parseColor("#D81B60"));
+                    textViewAlarmStatus.setTextColor(Color.parseColor("#D81B60"));
                 }
             }
 
+            // watering
             if (type.equals("O")) {
                 String[] columns = {"status"};
                 result = result.substring(1);
@@ -308,8 +299,8 @@ public class MainActivity extends AppCompatActivity implements OnEventListener<S
 
                 if(returnStr[0].equals("on"))
                 {
-                    textViewWatering.setTextColor(Color.parseColor("#D81B60"));
-                    textViewWateringStatus.setTextColor(Color.parseColor("#D81B60"));
+                    textViewWatering.setTextColor(Color.parseColor("#337AB7"));
+                    textViewWateringStatus.setTextColor(Color.parseColor("#337AB7"));
                 }
             }
         }

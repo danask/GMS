@@ -230,6 +230,7 @@ public class SignInActivity extends AppCompatActivity  implements OnEventListene
                             .setActionTextColor(getResources().getColor(R.color.info))
                             .show();
 
+                    databaseHelper.setCount(0);
                     startActivity(new Intent(getApplicationContext(), MainActivity.class));
                 }
             }

@@ -86,30 +86,31 @@ public class SprinklerFragment extends Fragment implements OnEventListener<Strin
         socket.on("lcdMessage", new Emitter.Listener() {
             @Override
             public void call(final Object... args) {
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
+                if(getActivity() != null)
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
 
-                        String[] columns = {"type","firstLine", "secondLine"};
-                        JSONDataExtractor lCDDataExtractor = new JSONDataExtractor();
+                            String[] columns = {"type","firstLine", "secondLine"};
+                            JSONDataExtractor lCDDataExtractor = new JSONDataExtractor();
 
-                        Log.d("[Socket] ", args[0].toString());
+                            Log.d("[Socket] ", args[0].toString());
 
-                        String returnStr = lCDDataExtractor.extract(getActivity(), args[0].toString(), columns);
-                        String[] object = returnStr.split("-");
+                            String returnStr = lCDDataExtractor.extract(getActivity(), args[0].toString(), columns);
+                            String[] object = returnStr.split("-");
 
-                        if(object != null)
-                        {
-                            textViewFirstLine.setText(object[1]);
-                            textViewSecondLine.setText(object[2]);
+                            if(object != null)
+                            {
+                                textViewFirstLine.setText(object[1]);
+                                textViewSecondLine.setText(object[2]);
 
-//                            double liter = Double.parseDouble(object[3]);
-//                            textViewLiters.setText("Amount of water (liters): " + object[3]);
-//                            textViewTime.setText("Watering time (min): " + String.valueOf(((int)liter)*6));
-//                            textViewCycles.setText("Splinker cycles:" + String.valueOf(((int)liter)*6*60));
+    //                            double liter = Double.parseDouble(object[3]);
+    //                            textViewLiters.setText("Amount of water (liters): " + object[3]);
+    //                            textViewTime.setText("Watering time (min): " + String.valueOf(((int)liter)*6));
+    //                            textViewCycles.setText("Splinker cycles:" + String.valueOf(((int)liter)*6*60));
+                            }
                         }
-                    }
-                });
+                    });
             }
         });
 
@@ -127,7 +128,11 @@ public class SprinklerFragment extends Fragment implements OnEventListener<Strin
 
                 String fields[] = {"category", "type", "cycle", "status", "param1", "param2", "retry"};
 
-                String unit = spinnerUnit.getSelectedItem().toString();
+                String unit = "cycle";
+
+                if(spinnerUnit != null)
+                    spinnerUnit.getSelectedItem().toString();
+
                 double number = Math.ceil(Double.parseDouble(editTextCycle.getText().toString()));
 
                 if(unit.equalsIgnoreCase("Liters (liters)")) {
@@ -138,16 +143,20 @@ public class SprinklerFragment extends Fragment implements OnEventListener<Strin
                     number = number * 6;
                     unit = "time";
                 }
-                else
-                {
-                    unit = "cycle";
-                }
 
                 String cycle = String.valueOf((int)Math.ceil(number));
                 String params = JSONHandler.putParamTogether(fields, "Sprinkler", "Start Watering", cycle, "on", unit, cycle, "no");
 
                 new ServerAsyncRequester(SprinklerFragment.this).execute(SITE, "M", params);  // Motor control
-//                Toast.makeText(getContext(), "Test", Toast.LENGTH_SHORT).show();
+                Snackbar.make(getActivity().findViewById(android.R.id.content), "Your action applied successfully", Snackbar.LENGTH_LONG)
+                        .setAction("CLOSE", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+
+                            }
+                        })
+                        .setActionTextColor(getResources().getColor(R.color.info ))
+                        .show();
             }
         });
 
@@ -214,10 +223,10 @@ public class SprinklerFragment extends Fragment implements OnEventListener<Strin
             }
 
             if(object != null && type.equalsIgnoreCase("W")) {
-                double liter = Math.ceil(Double.parseDouble(object[1]));
-                textViewLiters.setText("Amount of water (liters): " + object[1]);
-                textViewTime.setText("Watering time (min): " + String.valueOf(((int) liter) * 60));
-                textViewCycles.setText("Sprinkler cycles: " + String.valueOf(((int) liter) * 6 * 60));
+                double liter = Double.parseDouble(object[1]);
+                textViewLiters.setText("Amount of water (liters): " + object[1].substring(0,4));
+                textViewTime.setText("Watering time (min): " + String.valueOf((liter) * 60).substring(0,6));
+                textViewCycles.setText("Sprinkler cycles: " + String.valueOf((liter) * 6 * 60).substring(0,6));
             }
 
             if(type.equalsIgnoreCase("M"))

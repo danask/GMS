@@ -78,30 +78,31 @@ public class UrgentMessageFragment extends Fragment implements OnEventListener<S
         socket.on("lcdMessage", new Emitter.Listener() {
             @Override
             public void call(final Object... args) {
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
+                if(getActivity() != null)
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
 
-                        String[] columns = {"type","firstLine", "secondLine"};
-                        JSONDataExtractor lCDDataExtractor = new JSONDataExtractor();
+                            String[] columns = {"type","firstLine", "secondLine"};
+                            JSONDataExtractor lCDDataExtractor = new JSONDataExtractor();
 
-                        Log.d("[Socket] ", args[0].toString());
+                            Log.d("[Socket] ", args[0].toString());
 
-                        String returnStr = lCDDataExtractor.extract(getActivity(), args[0].toString(), columns);
-                        String[] object = returnStr.split("-");
+                            String returnStr = lCDDataExtractor.extract(getActivity(), args[0].toString(), columns);
+                            String[] object = returnStr.split("-");
 
-                        if(object != null)
-                        {
-                            textViewFirstLine.setText(object[1]);
-                            textViewSecondLine.setText(object[2]);
+                            if(object != null)
+                            {
+                                textViewFirstLine.setText(object[1]);
+                                textViewSecondLine.setText(object[2]);
 
-//                            double liter = Double.parseDouble(object[3]);
-//                            textViewLiters.setText("Amount of water (liters): " + object[3]);
-//                            textViewTime.setText("Watering time (min): " + String.valueOf(((int)liter)*6));
-//                            textViewCycles.setText("Splinker cycles:" + String.valueOf(((int)liter)*6*60));
+    //                            double liter = Double.parseDouble(object[3]);
+    //                            textViewLiters.setText("Amount of water (liters): " + object[3]);
+    //                            textViewTime.setText("Watering time (min): " + String.valueOf(((int)liter)*6));
+    //                            textViewCycles.setText("Splinker cycles:" + String.valueOf(((int)liter)*6*60));
+                            }
                         }
-                    }
-                });
+                    });
             }
         });
 
