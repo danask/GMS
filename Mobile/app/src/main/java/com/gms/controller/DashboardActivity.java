@@ -25,18 +25,8 @@ public class DashboardActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
 
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//        getSupportActionBar().setHomeButtonEnabled(true);
-//        getSupportActionBar().setTitle("Control");
-//        getSupportActionBar().setSubtitle("Control Devices");
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         this.setTitle(Html.fromHtml("<font color='#ffc107'>"+"Control Devices"+"</font>"));
-
-        //Listen for changes in the back stack
-//        getSupportFragmentManager().addOnBackStackChangedListener(this);
-        //Handle when activity is recreated like on orientation Change
-//        shouldDisplayHomeUp();
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
@@ -47,36 +37,6 @@ public class DashboardActivity extends AppCompatActivity
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
 //        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
-
-
-
-
-//        TextView textViewFirstLine = (TextView) findViewById(R.id.textViewFirstLine);
-//        TextView textViewSecondLine = (TextView) findViewById(R.id.textViewSecondLine);
-//        Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/Square-Dot-Matrix.ttf");
-//        textViewFirstLine.setTypeface(typeface);
-//        textViewSecondLine.setTypeface(typeface);
-
-//        Button buttonStartWatering = (Button) findViewById(R.id.buttonStartWatering);
-//
-//        buttonStartWatering.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//                final EditText editTextCycle = (EditText) findViewById(R.id.editTextCycle);
-//                final Spinner spinnerUnit = (Spinner) findViewById(R.id.spinnerUnit);
-//
-//                String site = SITE;
-//                String fields[] = {"userId", "password"};
-//
-//                // to make data[1]: userId='a'&password='abc'
-//                String params = putParamTogether(fields, editTextCycle.getText().toString(),
-//                                                        spinnerUnit.getSelectedItem().toString());
-//
-//                // connect to server for auth. : param1 (site), param2 (array)
-//                new ServerAsyncRequester(DashboardActivity.this).execute(site, params);
-//            }
-//        });
     }
 
     @Override

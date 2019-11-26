@@ -47,7 +47,6 @@ public class SignInActivity extends AppCompatActivity  implements OnEventListene
 
         final EditText editTextEmailSignIn = (EditText)findViewById(R.id.editTextEmailSignIn);
         final EditText editTextPwdSignIn = (EditText)findViewById(R.id.editTextPwdSignIn);
-        final Button textViewSignIn = (Button) findViewById(R.id.buttonSignIn);
 
         formattedDate = new SimpleDateFormat("MM/dd/yyyy", Locale.getDefault()).format(new Date());
 
@@ -76,105 +75,7 @@ public class SignInActivity extends AppCompatActivity  implements OnEventListene
             }
         });
 
-
         buttonSignIn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                // DB check whether it exists
-//                String userEmail = editTextEmailSignIn.getText().toString();
-//
-//                if(!userEmail.isEmpty() && !editTextPwdSignIn.getText().toString().isEmpty())
-//                {
-//                    Cursor cursorUser = databaseHelper.getUserProfileByEmail(userEmail);  //////////////////////////////////////////////
-//                    String currentUserAmountMonth = sharedPref.getString("currentUser", null);
-//                    String currentMonth = formattedDate.substring(0, 2);
-//
-//                    if(cursorUser.getCount() > 0 )
-//                    {
-//                        while(cursorUser.moveToNext())
-//                        {
-//                            String userFName = cursorUser.getString(cursorUser.getColumnIndex("firstName"));
-//                            String userLName = cursorUser.getString(cursorUser.getColumnIndex("lastName"));
-//                            String userMonthlyIncome = cursorUser.getString(cursorUser.getColumnIndex("monthlyIncome"));
-//
-//
-//                            SharedPreferences.Editor editor = sharedPref.edit();
-//
-//                            editor.putString("currentUser", userEmail);
-//                            editor.putString("currentUserName", userFName + " " + userLName);
-//                            editor.putString("currentUserAmount", userMonthlyIncome);
-//
-////                            if(currentUserAmountMonth.equalsIgnoreCase(null) ||
-////                                    !currentUserAmountMonth.substring(0,2).equalsIgnoreCase(currentMonth))
-////                                editor.putString("currentUserAmountMonth", currentMonth+userMonthlyIncome);
-//
-//                            editor.commit();
-//                        }
-//
-//                        new CustomProgressWheel().execute();
-//                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
-//                    }
-//                    else
-//                    {
-////                        AlertDialog.Builder builder = new AlertDialog.Builder(SignInActivity.this);
-////                        builder.setMessage("Invalid input. Do you want to create an account?");
-////                        builder.setCancelable(true);
-////                        builder.setTitle("Error");
-////
-////                        builder.setPositiveButton(
-////                                "Yes",
-////                                new DialogInterface.OnClickListener() {
-////                                    public void onClick(DialogInterface dialog, int id) {
-////
-////                                        startActivity(new Intent(getApplicationContext(), UserRegistrationActivity.class));
-////                                    }
-////                                });
-////
-////                        builder.setNegativeButton(
-////                                "No",
-////                                new DialogInterface.OnClickListener() {
-////                                    public void onClick(DialogInterface dialog, int id) {
-////                                        dialog.cancel();
-////                                    }
-////                                });
-////
-////                        AlertDialog alert11 = builder.create();
-////                        alert11.show();
-//                    }
-//
-//                }
-//                else
-//                {
-////                    AlertDialog.Builder builder = new AlertDialog.Builder(SignInActivity.this);
-////                    builder.setMessage("Invalid input. Do you want to create an account?");
-////                    builder.setCancelable(true);
-////                    builder.setTitle("Error");
-////
-////                    builder.setPositiveButton(
-////                            "Yes",
-////                            new DialogInterface.OnClickListener() {
-////                                public void onClick(DialogInterface dialog, int id) {
-////
-////                                    startActivity(new Intent(getApplicationContext(), UserRegistrationActivity.class));
-////                                }
-////                            });
-////
-////                    builder.setNegativeButton(
-////                            "No",
-////                            new DialogInterface.OnClickListener() {
-////                                public void onClick(DialogInterface dialog, int id) {
-////                                    dialog.cancel();
-////                                }
-////                            });
-////
-////                    AlertDialog alert = builder.create();
-////                    alert.show();
-//                }
-            }
-        });
-
-        textViewSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 

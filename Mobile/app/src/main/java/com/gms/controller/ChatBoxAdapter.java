@@ -41,13 +41,7 @@ public class ChatBoxAdapter extends RecyclerView.Adapter<ChatBoxAdapter.MyViewHo
     @Override
     public void onBindViewHolder(final ChatBoxAdapter.MyViewHolder holder, final int position) {
         final ChatMessage message = MessageList.get(position);
-//        holder.nickname.setText(message.getNickname());
-//        holder.mMessageViewTheir.setText(message.getMessage() );
-//        holder.mMessageViewMe.setText(message.getMessage() );
-
         holder.setMessage(message.getNickname(), message.getMessage());
-//        holder.setImage(message.getImage());
-
     }
 
 
@@ -63,8 +57,6 @@ public class ChatBoxAdapter extends RecyclerView.Adapter<ChatBoxAdapter.MyViewHo
             super(view);
 
             nickname = (TextView) view.findViewById(R.id.editTextNickname);
-//            message = (TextView) view.findViewById(R.id.message); // deleted
-
             mMessageViewTheir = (TextView) itemView.findViewById(R.id.textViewMessageTheir);
             mMessageViewMe = (TextView) itemView.findViewById(R.id.textViewMessageMe);
         }
@@ -74,7 +66,6 @@ public class ChatBoxAdapter extends RecyclerView.Adapter<ChatBoxAdapter.MyViewHo
             if (mMessageViewTheir == null) return;
             if (mMessageViewMe == null) return;
 
-//            Drawable image= (Drawable) getResources().getDrawable(R.drawable.my_message);
             String formattedDate = new SimpleDateFormat("mm:ss:a", Locale.getDefault()).format(new Date());
 
             if(message.substring(0,1).equals("S")) {
@@ -83,21 +74,18 @@ public class ChatBoxAdapter extends RecyclerView.Adapter<ChatBoxAdapter.MyViewHo
                 if(message.equals("")) return;
                 mMessageViewMe.setVisibility(View.VISIBLE);
                 mMessageViewMe.setText("" + message);
-//                mMessageViewTheir.getLayoutParams().width = 800 - message.length()*20;
                 mMessageViewTheir.setVisibility(View.GONE);
                 nickname.setVisibility(View.GONE);
 
             }
             else
             {
-//                message = message.substring(1);
                 if(message.equals("")) return;
 
                 nickname.setText(nick);
                 mMessageViewTheir.setVisibility(View.VISIBLE);
                 mMessageViewTheir.setText("" + message);
                 mMessageViewMe.setVisibility(View.GONE);
-//                mMessageViewTheir.getLayoutParams().width = ViewGroup.LayoutParams.WRAP_CONTENT;
             }
         }
 

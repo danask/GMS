@@ -12,7 +12,6 @@
             crossorigin="anonymous">
         </script>     
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-        <!-- <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-app.js"></script> -->
         <script src="https://www.gstatic.com/firebasejs/3.6.9/firebase.js"></script>
 
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css"> 
@@ -41,8 +40,7 @@
 
                 $.each(data, (key, theRow) => {
                     console.log(key + " , " + theRow); 
-                    //let number = Math.floor((Math.random() * 2) + 0);
-                    
+
                     if(key == 0)
                     {
                         $.each(theRow, (theKeyInTheRow, theValueInTheRow) => {
@@ -78,8 +76,6 @@
             // display with response object
             function displayHistory(dataFromtheServer) 
             {
-                // $("#originaldata").html(dataFromtheServer);
-            
                 let data = JSON.parse(dataFromtheServer);
                 let returnValue = new Array();
                 
@@ -92,10 +88,6 @@
                 let count = 0;
 
                 $.each(data, (key, value) => {
-
-                    // v[count] += "<tr>" ;
-                    // let check_set = false;
-                    // let colCount = 0;
 
                     $.each(value, (key2, value2) => {
                         if(!header_set)
@@ -112,10 +104,6 @@
                         h = "<tr>" + h + "</tr>";
                         header_set = true;
                     }
-                    // v[count] += "</tr>" ;
-                    // console.log(v[rowCount]);
-
-                    // rowCount++;
                 });                        
 
                 $("#actionHistory thead > tr").remove();
@@ -228,12 +216,10 @@
                 })
             }  
 
+
+            // socket events
             var socket = io();
 
-            // socket.on('message', function(data){
-            //     $("#e1").html(data);
-            //     console.log(data);
-            // });
             socket.on('lcdMessage', function(data){
                 data = JSON.stringify(data);
                 console.log(data);
@@ -274,7 +260,6 @@
                 
                 if(data[0].status == "on")
                 {
-                    // $("#alarmTab a").css({'color': 'red', 'font-weight':'bold'}); 
                     if(!$("#alarmTab a").hasClass("exclamation"))
                     {
                         $("#alarmTab a").append("<b id='alarmEx'> ! </b>");
@@ -291,7 +276,6 @@
                 }
                 else
                 {
-                    // $("#alarmTab a").css({'color': 'black', 'font-weight':'normal'}); 
                     if($("#alarmTab a").hasClass("exclamation"))
                     {
                         $("#alarmTab a").find("#alarmEx").remove();
@@ -306,23 +290,55 @@
                 }
 
             });   
-            // $('#messageSend').click(function(){
-            //     socket.emit('message', $('#m').val());
-            //     $('#m').val('');
-            //     return false;
-            // });
+
+
+            socket.on('message', function(data){
+             $("#m1").html(data);
+             console.log(data);
+            });
             
-            // socket.on('message', function(msg){
-            //     $('#messages').append($('<li>').text(msg));
-            //     // window.scrollTo(0, document.body.scrollHeight);
-            // });
+            socket.on('e1', function(data){
+             console.log(data);
+              $("#e1").html(data['description1']);
+            });
+            
+            socket.on('e2', function(data){
+              $("#e2").html(data['description2']);
+            });
+            
+            socket.on('e3', function(data){
+              $("#e3").html(data['mytime']);
+            });
+            
+            // for received message
+            socket.on('rmsg', function(data){
 
-            // var dataInterval = setInterval(getData, 3000);
+                console.log(data);
+            
+                $("#chatBox").html($("#chatBox").html() + "<div class='incoming_msg'>" +
+                    "<div><em>"+ data['tag'] + "</em></div>" +
+                    "<div class='received_msg' ><div class='received_withd_msg'>" +
+                        "<p id='their_msg'>" + data['m'] + "</p>" +
+                        "<span class='time_date'>"+ new Date().getHours() + ":" +
+                            new Date().getMinutes() + " | " +
+                            new Date().getMonth() + "-" +
+                            new Date().getDate() +"</span>"+ 
+                    "</div></div>"+
+                "</div>"
+                );  
 
-            // $('#clearGetData').click(()=>{
-            //     clearInterval(dataInterval);
-            // })     
+                $("#chatBox").animate({ scrollTop: 20000000 }, "slow");
+            
+                if(!$("#helpDeskTab a").hasClass("exclamation"))
+                {
+                    $("#helpDeskTab a").append("<b id='helpDeskEx'> ! </b>");
+                    $("#helpDeskTab a").addClass("exclamation");
+                    $("#helpDeskEx").css({'color': 'red', 'font-size':'1.1em'});  
+                }
+            });
 
+
+            // normal functions
             var displayLCD = function(){
                 $.ajax({
                     url: document.URL.replace("?", "") + 'getStatus',
@@ -413,7 +429,6 @@
                 });                
             }
 
-
             var successMsg = function(){
                 $('#statusMessage').html("Applied successfully!");
                 $('#alertSuccessMessage').show();
@@ -424,6 +439,9 @@
                 $('#alertFailureMessage').show();
             }
 
+
+
+            // ready
             $(document).ready(function() {
 
                 displayLCD();
@@ -548,22 +566,10 @@
                         type: 'POST',
                         success: function(response){
                             console.log(response);
-                            
-                            // if(response === 'ok')
-                            // $('#statusMessage').html("Sent message successfully!");
+
                             $('#firstLine').val("");
                             $('#secondLine').val("");
                             $('#firstLine').focus();
-                            // $('#alertMessage').show();
-
-                            // console.log("2: "+ document.URL.replace("?", ""));
-
-                            // $.ajax({
-                            //     url: document.URL.replace("?", "")+'getStatus',
-                            //     type: 'GET',
-                            //     success: lcdDisplay
-                            
-                            // });
 
                             successMsg();
                             actionHistory();
@@ -583,174 +589,95 @@
 
                 });
 
+                $("#sendMessageButton").click(()=>{
+                     // always admin
+                     let tag = "Admin";
+                     let msg = $("#msg").val();
+                     let to = $("#txtId").val();  // selectable
+                     // args are sent in order to acknowledgement function
+                     socket.emit('rmsg', tag, msg, to, function (data) { 
+                       console.log(data); 
+                     });
+        
+                    $("#chatBox").html($("#chatBox").html() + "<div class='outgoing_msg'>" +
+                        "<div class='sent_msg' >" +
+                            "<p id='my_msg'>" + msg + "</p>" +
+                            "<span class='time_date'>"+ new Date().getHours() + ":" +
+                                new Date().getMinutes() + " | " +
+                                new Date().getMonth() + "-" +
+                                new Date().getDate() +"</span>"+ 
+                        "</div>"+
+                    "</div>"
+                    );       
+                    
+                    $("#chatBox").animate({ scrollTop: 20000000 }, "slow");
+        
+                    if($("#helpDeskTab a").hasClass("exclamation"))
+                    {
+                        $("#helpDeskTab a").find("#helpDeskEx").remove();
+                        $("#helpDeskTab a").removeClass("exclamation");
+                    }
+                    
+                    $('#msg').val("");
+                 });
+                 
+                 $("#accountButton").click(()=>{
+                     let name = $("#txtName").val();
+                     // args are sent in order to acknowledgement function
+                     socket.emit('init', name, ()=>{});
+                 });
+        
+                // only Admin due to help desk
+                let name = "Admin";
+                let mykey = socket.emit('init', name, ()=>{});
+                console.log("chat: " + mykey);
+                
+              
+                $("#helpDeskTab").click(()=>{
+                    if($("#helpDeskTab a").hasClass("exclamation"))
+                    {
+                        $("#helpDeskTab a").find("#helpDeskEx").remove();
+                        $("#helpDeskTab a").removeClass("exclamation");
+                    }          
+                });
+                
+                $("li:nth-of-type(1), li:nth-of-type(2), li:nth-of-type(3), li:nth-of-type(5)").click(()=>{
+                  $("#helpDeskTab a").css({'color': '#337ab7', 'font-weight':'normal'});
+                });
+                
+                $("#alarmTab").click(()=>{
+                    if($("#alarmTab a").hasClass("exclamation"))
+                    {
+                        $("#alarmTab a").find("#alarmEx").remove();
+                        $("#alarmTab a").removeClass("exclamation");
+                    }          
+                });
+        
+                $("li:nth-of-type(4), li:nth-of-type(2), li:nth-of-type(3), li:nth-of-type(5)").click(()=>{
+                  $("#alarmTab a").css({'color': '#337ab7', 'font-weight':'normal'});
+                });
 
                 $("#successMessage").click(()=>{
-                    // var div = this.parentElement;
-                    // div.style.opacity = "0";
-                    // setTimeout(function(){ div.style.display = "none"; }, 600);
                     $('#alertSuccessMessage').hide();
                 });
                 $("#failureMessage").click(()=>{
-                    // var div = this.parentElement;
-                    // div.style.opacity = "0";
-                    // setTimeout(function(){ div.style.display = "none"; }, 600);
                     $('#alertFailureMessage').hide();
                 });
+
             });
 
-            // var close = document.getElementsByClassName("closebtn");
-            // var i;
-
-            // for (i = 0; i < close.length; i++) {
-            //     close[i].onclick = function(){
-            //         var div = this.parentElement;
-            //         div.style.opacity = "0";
-            //         setTimeout(function(){ div.style.display = "none"; }, 600);
-            //     }
-            // }            
-
-      $(document).ready(function(){
-         $("#sendMessageButton").click(()=>{
-             // always admin
-             let tag = "Admin";//$("#txtName").val();//$("#txt").val();
-             let msg = $("#msg").val();
-             let to = $("#txtId").val();  // selectable
-             // args are sent in order to acknowledgement function
-             socket.emit('rmsg', tag, msg, to, function (data) { 
-               console.log(data); 
-             });
-
-            $("#chatBox").html($("#chatBox").html() + "<div class='outgoing_msg'>" +
-                "<div class='sent_msg' >" +
-                    "<p id='my_msg'>" + msg + "</p>" +
-                    "<span class='time_date'>"+ new Date().getHours() + ":" +
-                        new Date().getMinutes() + " | " +
-                        new Date().getMonth() + "-" +
-                        new Date().getDate() +"</span>"+ 
-                "</div>"+
-            "</div>"
-            );       
-            
-            $("#chatBox").animate({ scrollTop: 20000000 }, "slow");
-            
-            // $("#helpDeskTab a").css({'color': 'black', 'font-weight':'normal'}); 
-
-            if($("#helpDeskTab a").hasClass("exclamation"))
-            {
-                $("#helpDeskTab a").find("#helpDeskEx").remove();
-                $("#helpDeskTab a").removeClass("exclamation");
-            }
-            
-            $('#msg').val("");
-         });
-         
-         $("#accountButton").click(()=>{
-             let name = $("#txtName").val();
-             // args are sent in order to acknowledgement function
-             socket.emit('init', name, ()=>{});
-         });
-
-        // only Admin due to help desk
-        let name = "Admin";//$("#txtName").val();
-             // args are sent in order to acknowledgement function
-        
-        let mykey = socket.emit('init', name, ()=>{});
-        console.log("chat: " + mykey);
-        
-      
-        $("#helpDeskTab").click(()=>{
-        //   $("#helpDeskTab a").css({'color': 'black', 'font-weight':'normal'});
-            if($("#helpDeskTab a").hasClass("exclamation"))
-            {
-                $("#helpDeskTab a").find("#helpDeskEx").remove();
-                $("#helpDeskTab a").removeClass("exclamation");
-            }          
-        });
-        
-        $("li:nth-of-type(1), li:nth-of-type(2), li:nth-of-type(3), li:nth-of-type(5)").click(()=>{
-          $("#helpDeskTab a").css({'color': '#337ab7', 'font-weight':'normal'});
-        });
-        
-        $("#alarmTab").click(()=>{
-        //   $("#alarmTab a").css({'color': 'black', 'font-weight':'normal'});
-            if($("#alarmTab a").hasClass("exclamation"))
-            {
-                $("#alarmTab a").find("#alarmEx").remove();
-                $("#alarmTab a").removeClass("exclamation");
-            }          
-        });
-
-        $("li:nth-of-type(4), li:nth-of-type(2), li:nth-of-type(3), li:nth-of-type(5)").click(()=>{
-          $("#alarmTab a").css({'color': '#337ab7', 'font-weight':'normal'});
-        });
-        
-        
-      });
-
-      socket.on('message', function(data){
-         $("#m1").html(data);
-         console.log(data);
-      });
-      
-      socket.on('e1', function(data){
-         console.log(data);
-          $("#e1").html(data['description1']);
-      });
-      
-      socket.on('e2', function(data){
-          $("#e2").html(data['description2']);
-      });
-      
-      socket.on('e3', function(data){
-          $("#e3").html(data['mytime']);
-      });
-      
-      // for received message
-      socket.on('rmsg', function(data){
-        //   let s = $("#their_msg").html() + "<br>" + data['m'];
-        //   $("#their_msg").html(s);
-
-            console.log(data);
-
-            $("#chatBox").html($("#chatBox").html() + "<div class='incoming_msg'>" +
-                "<div><em>"+ data['tag'] + "</em></div>" +
-                "<div class='received_msg' ><div class='received_withd_msg'>" +
-                    "<p id='their_msg'>" + data['m'] + "</p>" +
-                    "<span class='time_date'>"+ new Date().getHours() + ":" +
-                        new Date().getMinutes() + " | " +
-                        new Date().getMonth() + "-" +
-                        new Date().getDate() +"</span>"+ 
-                "</div></div>"+
-            "</div>"
-            );  
-            $("#chatBox").animate({ scrollTop: 20000000 }, "slow");
-
-            // if(!$("li:eq(3)").hasClass('active'))
-            //     $("#helpDeskTab a").css({'color': 'red', 'font-weight':'bold'}); 
-
-            if(!$("#helpDeskTab a").hasClass("exclamation"))
-            {
-                $("#helpDeskTab a").append("<b id='helpDeskEx'> ! </b>");
-                $("#helpDeskTab a").addClass("exclamation");
-                $("#helpDeskEx").css({'color': 'red', 'font-size':'1.1em'});  
-            }
-      });
     
       
         </script>
     </head>
 
     <body>
-           
         <div class="tablet">
-            <!-- <h3>Panels with Contextual Classes</h3> -->
                 <div class="panel-group">
-                        <!-- //  // panel-primary -->
                     <div class="panel first-panel"> 
                         <div class="first-panel-heading">GMS Remote Controller</div>
                         <div class="panel-body">
                             <div id = 'lcd' align="center">
-                                <!-- <p id = 'firstLine'>Ticker 0123<p> -->
                                 <table id="result">
                                     <thead></thead>
                                     <tbody></tbody>
@@ -758,7 +685,6 @@
                             </div>    
 
                             <fieldset id="customer">
-                                <!-- <legend>Device Status</legend> -->
                                 <div class="formRow">
                                     <div align="right">
                                         
@@ -767,8 +693,6 @@
                                 </div>
                             </fieldset>                               
 
-                            <!-- <h2>Control Menu</h2>
-                            <p>To make the tabs toggleable, add the data-toggle="tab" attribute to each link. Then add a .tab-pane class with a unique ID for every tab and wrap them inside a div element with class .tab-content.</p> -->
                             <ul class="nav nav-tabs">
                                 <li id='alarmTab' class="active"><a data-toggle="tab" href="#home">Control Devices</a></li>
                                 <li><a data-toggle="tab" href="#menu1">Urgent Message</a></li>
@@ -781,11 +705,8 @@
                             <div class="tab-content">
                                 
                                 <div id="home" class="tab-pane fade in active">
-                                    <!-- <h3>HOME</h3> -->
                                     <br>
                                     <p>This menu provides the options to configure and control the device manually. First of all, you can refer the recommendation numbers derived from GMS machine learning.</p>
-
-
                                     <br>
                                     <div class="panel-group" id="accordion">
                                         <div class="panel panel-default">
@@ -973,26 +894,6 @@
                                                 <div class="panel-body">
                                                     <div class="form-horizontal">
                                                         <div class="form-group">
-                                                
-                                                              <!-- Socket template -->
-                                                              <!--Name <input type=text id="txtName" ><br>-->
-                                                              <!--<button id="accountButton">Create Account</button><br>-->
-                                                              
-                                                              <!--To <input type=text id="txtId"><br>-->
-                                                              <!--Tag <input type=text id="txt"> <br>-->
-                                                              <!-- Message <input type=text id="msg"><br> -->
-                                                              <!-- <button id="sendMessageButton"> Send </button> -->
-                                                              <!-- <div id="m1"></div> -->
-                                                              <!-- <hr>
-                                                              <div id="e1"></div>
-                                                              <hr>
-                                                              <div id="e2"></div>
-                                                              <hr>
-                                                              <div id="e3"></div> -->
-                                                              <!--<hr>-->
-                                                              <!-- <div id="e4"></div>   -->
-                                                              
-                                                              
                                                             <div class="mesgs">
                                                                 <div class="msg_history" id="chatBox">
                                                                     
@@ -1040,52 +941,7 @@
                                 </div>
                             
                             </div>
-                            <!-- <script>
-                                var sprinklerArr = new Array(3);
-                                var curSprinkler = 0; // holds the images being shown
-                    
-                                // preload the image to the array
-                                for(let i = 0; i < sprinklerArr.length; i++)
-                                {
-                                    sprinklerArr[i] = "./resources/images/watering/b" + i + ".png";
-                                }
-                    
-                                function runningSprinkler()
-                                {
-                                    var dispImage = document.getElementsByTagName("img");
-                    
-                                    curSprinkler = curSprinkler % sprinklerArr.length;
-                                    dispImage[0].src = sprinklerArr[curSprinkler];
-                                    curSprinkler++;
-                                }
-                    
-                                // setInterval
-                                setInterval(runningSprinkler, 1000);
-                            </script> -->
-
-                            <!-- <fieldset id="customer">
-                            
-                                <legend>Control Menu</legend>
-                            
-
-                                <hr>
-                                
-
-                                </div>
-
-                            </fieldset>          
-
-                            
-                            <hr>
-                            <div id="originaldata"></div>
-                            
-                            <div id="JSONParsedata"></div-->
-                            
-
- 
                         </div> 
-
-
                     </div>
 
                     <div id = "alertSuccessMessage" class="alert success">

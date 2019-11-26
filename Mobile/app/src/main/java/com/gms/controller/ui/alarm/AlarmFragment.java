@@ -50,15 +50,6 @@ public class AlarmFragment extends Fragment implements OnEventListener<String> {
         alarmViewModel = ViewModelProviders.of(this).get(AlarmViewModel.class);
         final View root = inflater.inflate(R.layout.fragment_alarm, container, false);
 
-//        final TextView textView = root.findViewById(R.id.text_dashboard);
-//
-//        alarmViewModel.getText().observe(this, new Observer<String>() {
-//            @Override
-//            public void onChanged(@Nullable String s) {
-//                textView.setText(s);
-//            }
-//        });
-
         textViewFirstLine = root.findViewById(R.id.textViewFirstLine);
         textViewSecondLine = root.findViewById(R.id.textViewSecondLine);
 
@@ -96,11 +87,6 @@ public class AlarmFragment extends Fragment implements OnEventListener<String> {
                             if (object != null) {
                                 textViewFirstLine.setText(object[1]);
                                 textViewSecondLine.setText(object[2]);
-
-    //                            double liter = Double.parseDouble(object[3]);
-    //                            textViewLiters.setText("Amount of water (liters): " + object[3]);
-    //                            textViewTime.setText("Watering time (min): " + String.valueOf(((int)liter)*6));
-    //                            textViewCycles.setText("Splinker cycles:" + String.valueOf(((int)liter)*6*60));
                             }
                         }
                     });
@@ -108,21 +94,6 @@ public class AlarmFragment extends Fragment implements OnEventListener<String> {
         });
 
         StorageReference storageReference = FirebaseStorage.getInstance().getReference();//.child("LastImage/lastImage.jpg");
-
-
-
-
-
-//        // Create a storage reference from our app
-//        StorageReference storageRef = storage.getReference();
-//
-//        // Or Create a reference to a file from a Google Cloud Storage URI
-//        StorageReference gsReference =
-//                storage.getReferenceFromUrl("gs://bucket/images/stars.jpg");
-
-
-        /*In this case we'll use this kind of reference*/
-        //Download file in Memory
         StorageReference imgRef = storageReference.child("LastImage/lastImage.jpg");
 
         final long ONE_MEGABYTE = 1024 * 1024;
@@ -130,13 +101,8 @@ public class AlarmFragment extends Fragment implements OnEventListener<String> {
             ImageView imageViewCapture = root.findViewById(R.id.imageViewCapture);
             @Override
             public void onSuccess(byte[] bytes) {
-              // Data for "images/island.jpg" is returns, use this as needed
                 Bitmap bm = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
                 DisplayMetrics dm = new DisplayMetrics();
-//                getWindowManager().getDefaultDisplay().getMetrics(dm);
-
-//                imageViewCapture.setMinimumHeight(dm.heightPixels);
-//                imageViewCapture.setMinimumWidth(dm.widthPixels);
                 imageViewCapture.setImageBitmap(bm);
 
             }

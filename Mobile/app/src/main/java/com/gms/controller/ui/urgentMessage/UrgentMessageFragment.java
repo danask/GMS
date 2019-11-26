@@ -46,13 +46,6 @@ public class UrgentMessageFragment extends Fragment implements OnEventListener<S
         urgentMessageViewModel =
                 ViewModelProviders.of(this).get(UrgentMessageViewModel.class);
         final View root = inflater.inflate(R.layout.fragment_urgent_message, container, false);
-//        final TextView textView = root.findViewById(R.id.text_notifications);
-//        urgentMessageViewModel.getText().observe(this, new Observer<String>() {
-//            @Override
-//            public void onChanged(@Nullable String s) {
-//                textView.setText(s);
-//            }
-//        });
 
         textViewFirstLine = root.findViewById(R.id.textViewFirstLine);
         textViewSecondLine = root.findViewById(R.id.textViewSecondLine);
@@ -95,11 +88,6 @@ public class UrgentMessageFragment extends Fragment implements OnEventListener<S
                             {
                                 textViewFirstLine.setText(object[1]);
                                 textViewSecondLine.setText(object[2]);
-
-    //                            double liter = Double.parseDouble(object[3]);
-    //                            textViewLiters.setText("Amount of water (liters): " + object[3]);
-    //                            textViewTime.setText("Watering time (min): " + String.valueOf(((int)liter)*6));
-    //                            textViewCycles.setText("Splinker cycles:" + String.valueOf(((int)liter)*6*60));
                             }
                         }
                     });

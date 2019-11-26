@@ -30,16 +30,6 @@ public class DatabaseHelper extends SQLiteOpenHelper
     @Override
     public void onCreate(SQLiteDatabase db)
     {
-//        String queryUser = "CREATE TABLE " + USER_TBL + "("
-//                + ID + " INTEGER PRIMARY KEY,"   // auto increment?
-//                + FNAME + " TEXT,"
-//                + LNAME + " TEXT,"
-//                + PASSWORD + " TEXT,"
-//                + PHONE_NUMBER + " TEXT,"
-//                + EMAIL_ADDRESS + " TEXT,"
-//                + INCOME + " REAL,"
-//                + UPDATED_DATE + " TEXT)";
-
         String queryChat = "CREATE TABLE " + CHAT_LOG_TBL + "("
                 + ID + " INTEGER PRIMARY KEY,"
                 + PARTNER_A + " TEXT,"
@@ -51,7 +41,6 @@ public class DatabaseHelper extends SQLiteOpenHelper
                 + MONTH + " TEXT)";
 
         try {
-//            db.execSQL(queryUser);
             db.execSQL(queryChat);
         }
         catch (Exception e)

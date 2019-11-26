@@ -84,16 +84,6 @@ public class MainActivity extends AppCompatActivity implements OnEventListener<S
                         TextView textViewAlarm = (TextView)findViewById(R.id.textViewAlarm);
                         textViewAlarmStatus.setText(object[0]);
 
-//                        View parentLayout = findViewById(android.R.id.content);
-//                        Snackbar.make(parentLayout, "[Alarm] " + object[0], Snackbar.LENGTH_LONG)
-//                                .setAction("CLOSE", new View.OnClickListener() {
-//                                    @Override
-//                                    public void onClick(View view) {
-//
-//                                    }
-//                                })
-//                                .setActionTextColor(getResources().getColor(R.color.info))
-//                                .show();
                         if(object[0].equals("on"))
                         {
                             textViewAlarm.setTextColor(Color.parseColor("#D81B60"));
@@ -136,17 +126,6 @@ public class MainActivity extends AppCompatActivity implements OnEventListener<S
                             textViewWatering.setTextColor(Color.BLACK);
                             textViewWateringStatus.setTextColor(Color.BLACK);
                         }
-
-//                        View parentLayout = findViewById(android.R.id.content);
-//                        Snackbar.make(parentLayout, "[Watering] " +args[0].toString(), Snackbar.LENGTH_LONG)
-//                                .setAction("CLOSE", new View.OnClickListener() {
-//                                    @Override
-//                                    public void onClick(View view) {
-//
-//                                    }
-//                                })
-//                                .setActionTextColor(getResources().getColor(R.color.info))
-//                                .show();
                     }
                 });
             }

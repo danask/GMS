@@ -48,18 +48,6 @@ public class SprinklerFragment extends Fragment implements OnEventListener<Strin
                 ViewModelProviders.of(this).get(SprinklerViewModel.class);
         final View root = inflater.inflate(R.layout.fragment_sprinkler, container, false);
 
-//        getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
-//        getActivity().getActionBar().setHomeButtonEnabled(true);
-
-//        final TextView textView = root.findViewById(R.id.textSprinklerDesc);
-//
-//        sprinklerViewModel.getText().observe(this, new Observer<String>() {
-//            @Override
-//            public void onChanged(@Nullable String s) {
-//                textView.setText(s);
-//            }
-//        });
-
         textViewFirstLine = root.findViewById(R.id.textViewFirstLine);
         textViewSecondLine = root.findViewById(R.id.textViewSecondLine);
         textViewLiters = root.findViewById(R.id.textViewLiters);
@@ -103,11 +91,6 @@ public class SprinklerFragment extends Fragment implements OnEventListener<Strin
                             {
                                 textViewFirstLine.setText(object[1]);
                                 textViewSecondLine.setText(object[2]);
-
-    //                            double liter = Double.parseDouble(object[3]);
-    //                            textViewLiters.setText("Amount of water (liters): " + object[3]);
-    //                            textViewTime.setText("Watering time (min): " + String.valueOf(((int)liter)*6));
-    //                            textViewCycles.setText("Splinker cycles:" + String.valueOf(((int)liter)*6*60));
                             }
                         }
                     });

@@ -12,12 +12,6 @@ public class AboutActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
-
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//        getSupportActionBar().setHomeButtonEnabled(true);
-//        getSupportActionBar().setTitle("About");
-//        getSupportActionBar().setSubtitle("Description");
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         this.setTitle(Html.fromHtml("<font color='#ffc107'>"+"About GMS"+"</font>"));
     }
