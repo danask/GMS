@@ -137,6 +137,9 @@ public class UrgentMessageFragment extends Fragment implements OnEventListener<S
                         })
                         .setActionTextColor(getResources().getColor(R.color.info ))
                         .show();
+
+                editTextFirstInput.setText("");
+                editTextSecondInput.setText("");
             }
         });
 

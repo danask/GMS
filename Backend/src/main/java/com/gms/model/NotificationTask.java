@@ -19,11 +19,11 @@ import java.util.Properties;
 
 public class NotificationTask {
 	private static final String SMTP_SERVER = "smtp.gmail.com";
-    private static final String USERNAME = "";
-    private static final String PASSWORD = "";
+    private static final String USERNAME = "danielahndev";
+    private static final String PASSWORD = "!admin1010";
 
-    private static final String EMAIL_FROM = "@gmail.com";
-    private static final String EMAIL_TO = "@gmail.com";
+    private static final String EMAIL_FROM = "danielahndev@gmail.com";
+    private static final String EMAIL_TO = "danielahndev@gmail.com";
     private static final String EMAIL_TO_CC = "";
 
     private static final String EMAIL_SUBJECT = "[GMS] Alert message comming from GMS ";

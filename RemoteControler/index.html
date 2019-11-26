@@ -224,7 +224,7 @@
                         });
                     }
 
-                    location.reload();
+                    // location.reload();
                 })
             }  
 
@@ -241,6 +241,31 @@
                 console.log("display");
             }); 
 
+            socket.on('motorStatus', function(data){
+                console.log(data);
+                let values = new Array();
+                data = JSON.parse(JSON.stringify(data));
+                values = data;
+                
+                if(data[0].status == "on")
+                {
+                    if(!$("#sprinklerTitle a").hasClass("on"))
+                    {
+                        $("#sprinklerTitle a").append("<b id='sprinkerOn'> ON </b>");
+                        $("#sprinklerTitle a").addClass("on");
+                        $("#sprinkerOn").css({'color': '#337ab7', 'font-size':'1.0em'});  
+                    }  
+                }
+                else{
+                    if($("#sprinklerTitle a").hasClass("on"))
+                    {
+                        $("#sprinklerTitle a").find("#sprinkerOn").remove();
+                        $("#sprinklerTitle a").removeClass("on");
+                    }                     
+                }
+
+            });   
+
             socket.on('alarmStatus', function(data){
                 console.log(data);
                 let values = new Array();
@@ -255,7 +280,14 @@
                         $("#alarmTab a").append("<b id='alarmEx'> ! </b>");
                         $("#alarmTab a").addClass("exclamation");
                         $("#alarmEx").css({'color': 'red', 'font-size':'1.1em'});  
-                    }                    
+                    }     
+                    
+                    if(!$("#alarmTitle a").hasClass("on"))
+                    {
+                        $("#alarmTitle a").append("<b id='alarmOn'> ON </b>");
+                        $("#alarmTitle a").addClass("on");
+                        $("#alarmOn").css({'color': 'red', 'font-size':'1.0em'});  
+                    }                      
                 }
                 else
                 {
@@ -264,6 +296,12 @@
                     {
                         $("#alarmTab a").find("#alarmEx").remove();
                         $("#alarmTab a").removeClass("exclamation");
+                    }
+                    
+                    if($("#alarmTitle a").hasClass("on"))
+                    {
+                        $("#alarmTitle a").find("#alarmOn").remove();
+                        $("#alarmTitle a").removeClass("on");
                     }                      
                 }
 
@@ -293,6 +331,80 @@
                 });
             }
 
+            var displaySprinkler = function(){
+                $.ajax({
+                    url: document.URL.replace("?", "") + 'getMotorStatus',
+                    type: 'GET',
+                    success: function(response){
+                        console.log(response);
+                        let data = JSON.parse((response));
+                        console.log(data);
+                        
+                        if(data[0].status == "on")
+                        {
+                            if(!$("#sprinklerTitle a").hasClass("on"))
+                            {
+                                $("#sprinklerTitle a").append("<b id='sprinkerOn'> ON </b>");
+                                $("#sprinklerTitle a").addClass("on");
+                                $("#sprinkerOn").css({'color': '#337ab7', 'font-size':'1.0em'});  
+                            }  
+                        }
+                        else{
+                            if($("#sprinklerTitle a").hasClass("on"))
+                            {
+                                $("#sprinklerTitle a").find("#sprinkerOn").remove();
+                                $("#sprinklerTitle a").removeClass("on");
+                            }                     
+                        }
+                    }
+                }); 
+            }
+            
+            var displayAlarm = function(){           
+                $.ajax({
+                    url: document.URL.replace("?", "") + 'getAlarmStatus',
+                    type: 'GET',
+                    success: function(response){
+                        console.log(response);
+                        let data = JSON.parse((response));
+                        console.log(data);
+                        
+                        if(data[0].status == "on")
+                        {
+                            // $("#alarmTab a").css({'color': 'red', 'font-weight':'bold'}); 
+                            if(!$("#alarmTab a").hasClass("exclamation"))
+                            {
+                                $("#alarmTab a").append("<b id='alarmEx'> ! </b>");
+                                $("#alarmTab a").addClass("exclamation");
+                                $("#alarmEx").css({'color': 'red', 'font-size':'1.1em'});  
+                            }     
+                            
+                            if(!$("#alarmTitle a").hasClass("on"))
+                            {
+                                $("#alarmTitle a").append("<b id='alarmOn'> ON </b>");
+                                $("#alarmTitle a").addClass("on");
+                                $("#alarmOn").css({'color': 'red', 'font-size':'1.0em'});  
+                            }                      
+                        }
+                        else
+                        {
+                            // $("#alarmTab a").css({'color': 'black', 'font-weight':'normal'}); 
+                            if($("#alarmTab a").hasClass("exclamation"))
+                            {
+                                $("#alarmTab a").find("#alarmEx").remove();
+                                $("#alarmTab a").removeClass("exclamation");
+                            }
+                            
+                            if($("#alarmTitle a").hasClass("on"))
+                            {
+                                $("#alarmTitle a").find("#alarmOn").remove();
+                                $("#alarmTitle a").removeClass("on");
+                            }                      
+                        }                        
+                    }
+                });  
+            }
+            
             var actionHistory = function(){
                 $.ajax({
                     url: document.URL.replace("?", "") + 'getHistory',
@@ -316,7 +428,9 @@
 
                 displayLCD();
                 actionHistory();
-
+                displaySprinkler();
+                displayAlarm();
+                
                 $('#alertSuccessMessage').hide();
                 $('#alertFailureMessage').hide();
 
@@ -452,6 +566,7 @@
                             // });
 
                             successMsg();
+                            actionHistory();
                         },
                         data:{
                             category: "Message",
@@ -524,7 +639,9 @@
             {
                 $("#helpDeskTab a").find("#helpDeskEx").remove();
                 $("#helpDeskTab a").removeClass("exclamation");
-            }            
+            }
+            
+            $('#msg').val("");
          });
          
          $("#accountButton").click(()=>{
@@ -673,7 +790,7 @@
                                     <div class="panel-group" id="accordion">
                                         <div class="panel panel-default">
                                             <div class="panel-heading">
-                                            <h4 class="panel-title">
+                                            <h4 class="panel-title"  id="sprinklerTitle">
                                                 <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Sprinkler</a>
                                             </h4>
                                             </div>
@@ -716,7 +833,7 @@
                                         </div>
                                         <div class="panel panel-default">
                                             <div class="panel-heading">
-                                            <h4 id="alarmTitle" class="panel-title">
+                                            <h4 class="panel-title" id="alarmTitle">
                                                 <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">Alarm</a>
                                             </h4>
                                             </div>

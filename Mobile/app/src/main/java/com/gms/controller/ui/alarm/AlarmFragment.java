@@ -173,6 +173,8 @@ public class AlarmFragment extends Fragment implements OnEventListener<String> {
                         })
                         .setActionTextColor(getResources().getColor(R.color.info ))
                         .show();
+
+                editTextPasscode.setText("");
             }
         });
         return root;

@@ -157,6 +157,7 @@ public class SprinklerFragment extends Fragment implements OnEventListener<Strin
                         })
                         .setActionTextColor(getResources().getColor(R.color.info ))
                         .show();
+                editTextCycle.setText("");
             }
         });
 
@@ -178,6 +179,7 @@ public class SprinklerFragment extends Fragment implements OnEventListener<Strin
                         })
                         .setActionTextColor(getResources().getColor(R.color.info ))
                         .show();
+                editTextCycle.setText("");
             }
         });
 

@@ -121,6 +121,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="50sp"
                 android:hint="@string/enter_code"
+                android:inputType="numberPassword"
                 android:paddingLeft="1sp"
                 android:textSize="18sp" />
         </LinearLayout>

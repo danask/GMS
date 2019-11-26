@@ -146,6 +146,7 @@ public class MotionSensorTask
   			    
   				Timestamp timestamp = new Timestamp(System.currentTimeMillis());
   				String dateTime = sdf.format(timestamp);
+  				motionSensor.setAlert("Motion Detect");
   				motionSensor.setTimestamp(timestamp.getTime());
   				motionSensor.setDateTime(dateTime);
   				motionSensor.setDescription("demo");

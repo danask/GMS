@@ -267,19 +267,19 @@ function getUser(request, response)
 
 function getWeather(request, response)
 {
-  // let url = "http://api.openweathermap.org/data/2.5/weather?q=Vancouver&units=metric&APPID=1b5fcb8df3906c5092aca2b51707953b";
-  // let result;
+  let url = "http://api.openweathermap.org/data/2.5/weather?q=Vancouver&units=metric&APPID=1b5fcb8df3906c5092aca2b51707953b";
+  let result;
   
-  // requestForWeather(url, function (err, resp, body) {
-  //   if(err){
-  //     console.log('error:', error);
-  //   } else {
-  //     console.log('body:', body);
-  //     response.send(body);
-  //   }
-  // });
-  var result = {"coord":{"lon":-123.12,"lat":49.26},"weather":[{"id":500,"main":"Rain","description":"light rain","icon":"10d"}],"base":"stations","main":{"temp":6.58,"pressure":1011,"humidity":87,"temp_min":6.67,"temp_max":10},"visibility":24140,"wind":{"speed":6.2,"deg":300},"rain":{"1h":0.25},"clouds":{"all":90},"dt":1574188053,"sys":{"type":1,"id":954,"country":"CA","sunrise":1574177344,"sunset":1574209618},"timezone":-28800,"id":6173331,"name":"Vancouver","cod":200};
-  response.send(result);
+  requestForWeather(url, function (err, resp, body) {
+    if(err){
+      console.log('error:', error);
+    } else {
+      console.log('body:', body);
+      response.send(body);
+    }
+  });
+  // var result = {"coord":{"lon":-123.12,"lat":49.26},"weather":[{"id":500,"main":"Rain","description":"light rain","icon":"10d"}],"base":"stations","main":{"temp":6.58,"pressure":1011,"humidity":87,"temp_min":6.67,"temp_max":10},"visibility":24140,"wind":{"speed":6.2,"deg":300},"rain":{"1h":0.25},"clouds":{"all":90},"dt":1574188053,"sys":{"type":1,"id":954,"country":"CA","sunrise":1574177344,"sunset":1574209618},"timezone":-28800,"id":6173331,"name":"Vancouver","cod":200};
+  // response.send(result);
 }
 
 

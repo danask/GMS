@@ -260,6 +260,14 @@ app.post('/getWeather', (req, res) =>{
 	nmongoGMS.getWeather(req, res);  
 });
 
+app.get('/getAlarmStatus', (req, res) =>{
+	nmongoGMS.getAlarmStatus(req, res);  
+});
+
+app.get('/getMotorStatus', (req, res) =>{
+	nmongoGMS.getMotorStatus(req, res);  
+});
+
 app.post('/getAlarmStatus', (req, res) =>{
 	nmongoGMS.getAlarmStatus(req, res);  
 });

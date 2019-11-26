@@ -67,9 +67,9 @@ $.ajax({
         let data = JSON.parse(response);
 
         const recommendationList = [
-            {id: 1, name: "Amount of water (liters)", value: data[0].liters}, 
-            {id: 2, name: "Watering time (min)", value: (Math.ceil(data[0].liters))*60}, 
-            {id: 3, name: "Sprinkler cycles", value: Math.ceil(data[0].liters)*360}
+            {id: 1, name: "Amount of water (liters)", value: (data[0].liters*1).toFixed(2)}, 
+            {id: 2, name: "Watering time (min)", value: (((data[0].liters))*60).toFixed(2)}, 
+            {id: 3, name: "Sprinkler cycles", value: ((data[0].liters)*360).toFixed(2)}
         ];
         
         const App = ({wateringFactorList}) => (

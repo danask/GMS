@@ -92,11 +92,12 @@ while True:
             print(result)
 
             sql = "UPDATE sensor SET description = '" + str(result[0]) + "' WHERE description = 'demo' or description = ''"
-            #print (sql)
+            print (sql)
             mycursor.execute(sql)
             mydb.commit()
             print(mycursor.rowcount, "record(s) affected")
 
+            # date: OCT/25/2019
             status_update ={
                 'liters': str(result[0])
             }

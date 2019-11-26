@@ -186,6 +186,9 @@ public class ChatBoxActivity extends AppCompatActivity implements OnEventListene
         chatBoxAdapter = new ChatBoxAdapter(MessageList);
         chatBoxAdapter.notifyDataSetChanged();
         myRecylerView.setAdapter(chatBoxAdapter);
+
+        // scrollToPosition
+        myRecylerView.smoothScrollToPosition(chatBoxAdapter.getItemCount()-1);
     }
 
     public static void hideKeyboard(Activity activity) {

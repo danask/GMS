@@ -13,12 +13,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <View
-            android:layout_marginTop="1dp"
-            android:id="@+id/separator"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@android:color/darker_gray"/>
+<!--        <View-->
+<!--            android:layout_marginTop="1dp"-->
+<!--            android:id="@+id/separator"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="1dp"-->
+<!--            android:background="@android:color/darker_gray"/>-->
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/messagelist"
@@ -26,6 +26,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="3"
             android:clipToPadding="false"
+            android:transcriptMode="alwaysScroll"
+            android:stackFromBottom="true"
             android:scrollbars="vertical" />
 
         <LinearLayout

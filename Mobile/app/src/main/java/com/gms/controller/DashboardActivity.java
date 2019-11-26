@@ -1,5 +1,6 @@
 package com.gms.controller;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.MenuItem;
@@ -90,7 +91,8 @@ public class DashboardActivity extends AppCompatActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        onBackPressed();
+//        super.onBackPressed();
+        startActivity(new Intent(getApplicationContext(), MainActivity.class));
         return true;
     }
 
