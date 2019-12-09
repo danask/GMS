@@ -67,12 +67,14 @@ export class DashboardComponent implements OnInit {
     this.getLastMotionSensor();
     this.getWeatherData();
     this.getCriteria();
-    this.temp = "23.5";
+    this.temp = "6.44";
+    this.temp_min = "4.44";
+    this.temp_max = "8.33";
     this.weather = "Clouds";
-    this.weatherDescription = "clear sky";
-    this.humidity = "30";
+    this.weatherDescription = "broken clouds";
+    this.humidity = "87";
     this.pressure = "1022";
-    this.wind = "6.2";
+    this.wind = "1.5";
 
     console.log(this.weather);
 
@@ -173,14 +175,14 @@ export class DashboardComponent implements OnInit {
           // console.log(res.main.temp);
           // console.log(weatherInfo.main.humidity);
 
-          this.weather = res.weather[0].main;
-          this.humidity = weatherInfo.main.humidity;
-          this.temp = weatherInfo.main.temp;
-          this.weatherDescription = res.weather[0].description;
-          this.temp_min = weatherInfo.main.temp_min;
-          this.temp_max = weatherInfo.main.temp_max;
-          this.wind = res.wind.speed;
-          this.pressure = weatherInfo.main.pressure;
+          // this.weather = res.weather[0].main;
+          // this.humidity = weatherInfo.main.humidity;
+          // this.temp = weatherInfo.main.temp;
+          // this.weatherDescription = res.weather[0].description;
+          // this.temp_min = weatherInfo.main.temp_min;
+          // this.temp_max = weatherInfo.main.temp_max;
+          // this.wind = res.wind.speed;
+          // this.pressure = weatherInfo.main.pressure;
 
           console.log(this.weather);
         }

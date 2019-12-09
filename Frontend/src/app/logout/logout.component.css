@@ -6,3 +6,21 @@ button{
   margin-top: 10em;
   margin-bottom: 100em;
 }
+
+img{
+  width: 100px;
+  height: 100px;
+  margin-bottom: 20px;
+}
+
+.input-fields{
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+#title{
+  color: 
+  #343a40;/*#e6af08;#ffc107;*/
+}
