@@ -189,9 +189,9 @@ class GmsDataCollector():
                     lcd.lcd_display_string(humidStr, 2)
                     
                     # send them to firebase
-                    ##self.msg.set(currentTime)
-                    ##self.temp.set(result.temperature)
-                    ##self.humid.set(result.humidity)
+                    self.msg.set(currentTime)
+                    self.temp.set(tempHumid.temperature)
+                    self.humid.set(tempHumid.humidity)
             
 
                 # Alarm check: motion detect
@@ -211,21 +211,14 @@ class GmsDataCollector():
                         'firstLine': "[Alert]",
                         'secondLine': "Motion Detect"
                     }
-<<<<<<< Updated upstream
-                    
-=======
 
->>>>>>> Stashed changes
                     rfid_update={
                         'status': "on"
                     }
                                     
                     records.update_one({'type':'tempHumid'}, {'$set': status_update})
                     sensorList.update_one({'key':'rfid'}, {'$set': rfid_update})
-<<<<<<< Updated upstream
-=======
 
->>>>>>> Stashed changes
                     match_count = 0                    
                     
                     while True:
@@ -242,7 +235,7 @@ class GmsDataCollector():
                         id = 0
                         text = "ADMIN"
 
-                        if match_count == 20:
+                        if match_count == 10:
                             id, text = reader.read()
                             print("ID: XXXXXXXXXXX\nText: %s" % text)
             
@@ -287,8 +280,8 @@ class GmsDataCollector():
                     
                     # update the record to firebase database
                     detectTime = str(datetime.datetime.now())
-                    ##self.time.set(detectTime)
-                    ##self.alert.set("Motion Detect")
+                    self.time.set(detectTime)
+                    self.alert.set("Motion Detect")
 
                     # store the image in local space temporarily
                     camera.capture('/home/pi/GMS/Pics/imagetest.jpg')
@@ -311,8 +304,8 @@ class GmsDataCollector():
 
                     # update this to check
                     #print(blob.generate_signed_url(datetime.timedelta(seconds=300), method='GET')) 
-                    ##self.id.set(blob.generate_signed_url(datetime.timedelta(seconds=300), method='GET'))
-                    time.sleep(2) # to avoid multiple detections                
+                    self.id.set(blob.generate_signed_url(datetime.timedelta(seconds=300), method='GET'))
+                    time.sleep(1) # to avoid multiple detections                
                         
                 time.sleep(2) # loop delay, should be less than detection delay
                 
