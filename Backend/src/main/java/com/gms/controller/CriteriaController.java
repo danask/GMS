@@ -20,7 +20,10 @@ import com.gms.model.User;
 import com.gms.service.CriteriaService;
 import com.gms.service.SensorService;
 
+import io.swagger.annotations.Api;
+
 @RestController
+@Api(value="swag-rest-controller")
 @RequestMapping("/Criteria")
 public class CriteriaController {
 	private static final Logger logger = Logger.getLogger(CriteriaController.class);

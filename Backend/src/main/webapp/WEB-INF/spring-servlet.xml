@@ -28,6 +28,19 @@
 		<property name="suffix" value=".jsp" />
 	</bean>
 
+	<!-- Swagger -->
+	<bean id="swagger2Config"
+		class="springfox.documentation.swagger2.configuration.Swagger2DocumentationConfiguration">
+	</bean>
+	
+	<mvc:resources order="1" location="/resources/"
+							mapping="/resources/**" />
+	<mvc:resources mapping="swagger-ui.html"
+							location="classpath:/META-INF/resources/" />
+	<mvc:resources mapping="/webjars/**"
+							location="classpath:/META-INF/resources/webjars/" />
+	<mvc:default-servlet-handler />
+
 	<!-- DataSource -->
 	<bean class="org.springframework.jdbc.datasource.DriverManagerDataSource"
 		id="dataSource">
@@ -92,6 +105,6 @@
                 <ref bean="cronTrigger"/>
             </list>
         </property>
-    </bean>   
-	
+    </bean>
+
 </beans>

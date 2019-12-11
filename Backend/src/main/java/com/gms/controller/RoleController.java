@@ -18,7 +18,11 @@ import org.springframework.web.servlet.ModelAndView;
 import com.gms.model.*;
 import com.gms.service.*;
 
+import io.swagger.annotations.Api;
+
 @Controller
+@Api(value="swag-rest-controller")
+@RequestMapping("/Role")
 @SessionAttributes("User")
 public class RoleController {
 

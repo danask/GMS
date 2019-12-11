@@ -21,7 +21,10 @@ import org.springframework.web.servlet.ModelAndView;
 import com.gms.model.*;
 import com.gms.service.*;
 
+import io.swagger.annotations.Api;
+
 @RestController
+@Api(value="swag-rest-controller")
 @RequestMapping("/User")
 @SessionAttributes("User")
 public class UserController {
