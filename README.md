@@ -1,6 +1,9 @@
 # Gardening Management System with Remote Controllers
 
-### Goal: useful application for life, integration technology as much as possible, full stack development ###
+### Requirement:###
+ - Useful application for our life
+ - Integration technology as much as possible
+ - Full stack development
 
 ### 1. Raspberry PI to collect the data (Python, IoT devices)
 Collects data  from sensors and interact with user command 
