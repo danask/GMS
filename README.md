@@ -20,7 +20,7 @@ Collects data  from sensors and interact with user command
 **Features**
 - Login/out
 - Dashboard: current info (weather information, recent data from sensors)
-- Remote Controller: plug-in
+- Remote Controller: virtual controller as plug-in
 - History: motion/room sensor, monitor images, alert, recommendation action
 - User Management
 - Settings: email notification
@@ -40,7 +40,7 @@ NoSQL database and file storage in the cloud
 - Watering control with recommendation
 - Alarm dismiss
 - Urgent message
-- Action history
+- Action replay
 - Chat
 
 ### 5. Recommdendation module (Python, Tensorflow for machine learning)
