@@ -1,6 +1,6 @@
 # Gardening Management System with Remote Controllers
 
-### Requirement:###
+### Requirement ###
  - Useful application for our life
  - Integration technology as much as possible
  - Full stack development
