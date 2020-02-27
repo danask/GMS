@@ -32,7 +32,7 @@ Collects data  from sensors and interact with user command
 ### 3. Persistent storage and database (MongoDB, Firebase Database and Storage)
 NoSQL database and file storage in the cloud
 
-### 4. Remote Controller (web: MERN stack in AWS, mobile: Android app)
+### 4. Remote Controller (web: MERN stack, AWS, mobile: Android app)
 - Client1 (admin): Control panel working in real-time using React, NodeJS, Socket.io, etc.
 - Client2 (user): Android App
 
