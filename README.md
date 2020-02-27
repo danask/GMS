@@ -1,4 +1,7 @@
 # Gardening Management System (GMS) and Remote Controllers (Web/Mobile)
+
+**Goal: useful application for life, integration technology as much as possible, full stack development**
+
 ### 1. Raspberry PI to collect the data (Python)
 Collects data  from sensors and interact with user command 
 - DHT
@@ -9,11 +12,8 @@ Collects data  from sensors and interact with user command
 - 2Line-LCD
 - RFID
 
-### 2. MongoDB, Firebase Database and Storage for storing the data
-NoSQL database and file storage in the cloud
-
-### 3. GMS Web Server for managing the whole system
-**back-end (Spring MVC) to front-end (Angular)**
+### 2. GMS Web Server for managing the whole system
+**(Spring MVC, Quartz, Angular6)**
 
 **Features**
 - Login/out
@@ -27,9 +27,13 @@ NoSQL database and file storage in the cloud
 - User
 - Administrator
 
+### 3. Persistent storage and database 
+**(MongoDB, Firebase Database and Storage)**
+NoSQL database and file storage in the cloud
+
 ### 4. Remote Controller (MERN stack, Android app, Socket.io)
-- Control panel working in real-time using React, NodeJS, WebSocket, etc. (MERN stack)
-- Android App
+- Client1 (admin): Control panel working in real-time using React, NodeJS, WebSocket, etc.
+- Client2 (user): Android App
 
 **Features**
 - Watering control with recommendation
@@ -39,8 +43,8 @@ NoSQL database and file storage in the cloud
 - Chat
 
 ### 5. Recommdendation module (Python, Tensorflow for machine learning)
-Analyzes the data sources using Tensorflow and machine learning
-
+- Analyzes the data sources using Tensorflow and linear regression
+- How much water do we need?
 
 
 ### Layout
