@@ -40,3 +40,6 @@ Communication between back-end (Spring MVC) to front-end (Angular) via API calls
 Analyzes the data sources using Tensorflow and machine learning
 
 
+### Layout
+![](https://github.com/danask/GMS/blob/master/Frontend/src/assets/img/gms_architecture_v2.PNG)
+
