@@ -2,7 +2,7 @@
 
 ### Goal: useful application for life, integration technology as much as possible, full stack development ###
 
-### 1. Raspberry PI to collect the data (Python)
+### 1. Raspberry PI to collect the data (Python, IoT devices)
 Collects data  from sensors and interact with user command 
 - DHT
 - PIR (motion sensor)
@@ -12,8 +12,7 @@ Collects data  from sensors and interact with user command
 - 2Line-LCD
 - RFID
 
-### 2. GMS Web Server for managing the whole system
-**(Spring MVC, Quartz, Angular6)**
+### 2. GMS Web Server for managing the whole system (Spring MVC, Quartz, Angular6)
 
 **Features**
 - Login/out
