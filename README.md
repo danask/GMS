@@ -1,6 +1,6 @@
 # Gardening Management System (GMS) and Remote Controllers (Web/Mobile)
 
-###Goal: useful application for life, integration technology as much as possible, full stack development###
+### Goal: useful application for life, integration technology as much as possible, full stack development ###
 
 ### 1. Raspberry PI to collect the data (Python)
 Collects data  from sensors and interact with user command 
