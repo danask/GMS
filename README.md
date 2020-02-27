@@ -26,8 +26,7 @@ Collects data  from sensors and interact with user command
 - User
 - Administrator
 
-### 3. Persistent storage and database 
-**(MongoDB, Firebase Database and Storage)**
+### 3. Persistent storage and database (MongoDB, Firebase Database and Storage)
 NoSQL database and file storage in the cloud
 
 ### 4. Remote Controller (MERN stack, Android app, Socket.io)
