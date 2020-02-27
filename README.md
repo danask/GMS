@@ -13,7 +13,7 @@ Collects data  from sensors and interact with user command
 NoSQL database and file storage in the cloud
 
 ### 3. GMS Web Server for managing the whole system
-back-end (Spring MVC) to front-end (Angular)
+**back-end (Spring MVC) to front-end (Angular)**
 
 **Features**
 - Login/out
