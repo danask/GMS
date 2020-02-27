@@ -1,4 +1,4 @@
-# Gardening Management System (GMS) and Remote Controllers (Web/Mobile)
+# Gardening Management System with Remote Controllers
 
 ### Goal: useful application for life, integration technology as much as possible, full stack development ###
 
